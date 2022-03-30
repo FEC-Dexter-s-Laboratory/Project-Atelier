@@ -1,11 +1,11 @@
 const express = require('express');
 const path = require('path');
-const router = require('./routes.js');
+const router = require('./routes');
 
 const app = express();
 
 // serve static files
-app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // JSON middleware
 app.use(express.json());
