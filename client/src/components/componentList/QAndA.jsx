@@ -7,7 +7,7 @@ const DivContainer = styled.div`
   display: grid;
 `
 
-const Overview = (props) => {
+const QAndA = (props) => {
   // function handlers, state, hooks, general javascript all goes here
 
   const [isClicked, setIsClicked] = useState(false);
@@ -21,4 +21,4 @@ const Overview = (props) => {
   )
 }
 
-export default Overview;
+export default QAndA;

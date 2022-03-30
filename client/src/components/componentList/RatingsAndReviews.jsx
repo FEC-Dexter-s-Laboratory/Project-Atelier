@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import styled from 'styled-components';
 
 const DivContainer = styled.div`
@@ -7,7 +7,7 @@ const DivContainer = styled.div`
   display: grid;
 `
 
-const Overview = (props) => {
+const RatingsAndReviews = (props) => {
   // function handlers, state, hooks, general javascript all goes here
 
   const [isClicked, setIsClicked] = useState(false);
@@ -21,4 +21,4 @@ const Overview = (props) => {
   )
 }
 
-export default Overview;
+export default RatingsAndReviews;
