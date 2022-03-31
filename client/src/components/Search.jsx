@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
+// styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const DivContainer = styled.div`
   width: 100%;
   position: fixed;
@@ -10,12 +11,14 @@ const DivContainer = styled.div`
   display: flex;
 `;
 
+// styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const SearchInput = styled.input`
   justify-content: flex-end;
   border: 1px solid blue;
   border-radius: 12px;
 `;
 
+// styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const SearchButton = styled.button`
   background-image: url(https://st.depositphotos.com/1630589/4799/v/950/depositphotos_47996391-stock-illustration-magnifying-glass-icon.jpg);
   background-size: cover;

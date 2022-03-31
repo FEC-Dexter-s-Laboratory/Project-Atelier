@@ -16,7 +16,11 @@ const App = () => {
 
   return (
     <React.Fragment>
+      {/* <Search /> */}
       <Overview />
+      <RelatedItems />
+      <QAndA />
+      <RatingsAndReviews />
     </React.Fragment>
   )
 }
