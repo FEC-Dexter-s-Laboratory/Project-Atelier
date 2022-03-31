@@ -1,11 +1,11 @@
 const path = require("path");
 
 module.exports = {
-  mode: "development"
-  entry: path.join(__dirname, "./client/src/index.js",
+  mode: "development",
+  entry: path.join(__dirname, "./client/src/index.jsx"),
   output: {
-    path: path.join(__dirname, "client/dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
+    path: path.join(__dirname, "client/dist")
   },
   module: {
     rules: [
@@ -15,6 +15,6 @@ module.exports = {
         loader: "babel-loader"
       }
     ]
-  }
-  dev-tool: "source-map"
+  },
+  devtool: "source-map"
 }
