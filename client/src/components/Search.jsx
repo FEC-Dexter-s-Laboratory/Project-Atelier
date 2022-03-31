@@ -5,7 +5,6 @@ import axios from 'axios';
 // styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const DivContainer = styled.div`
   width: 100%;
-  position: fixed;
   height: 5%;
   background-image: linear-gradient(to right, deepskyblue, cyan);
   display: flex;
@@ -13,7 +12,7 @@ const DivContainer = styled.div`
 
 // styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const SearchInput = styled.input`
-  justify-content: flex-end;
+  justify-content: end;
   border: 1px solid blue;
   border-radius: 12px;
 `;
@@ -25,10 +24,10 @@ const SearchButton = styled.button`
   background-position: center;
   width: 5%;
   height: 3%;
-  justify-content: flex-end;
-`
+  justify-content: end;
+`;
 
-const Search = (props) => {
+function Search(props) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const submitSearch = (query) => {
@@ -36,23 +35,24 @@ const Search = (props) => {
       url: 'tbd',
       method: 'POST',
       data: {
-        query: query
-      }
+        query,
+      },
     })
-      .then(res => console.log('Successful Search POST -> ', res))
-      .catch(err => console.error('Submit Search Error -> ', err));
+      .then((res) => console.log('Successful Search POST -> ', res))
+      .catch((err) => console.error('Submit Search Error -> ', err));
   };
 
-  useEffect(() => {
-    submitSearch(searchTerm);
-  }, [searchTerm]);
+  const handleInput = (e) => {
+    console.log('Setting SearchTerm state!');
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <DivContainer>
-      <SearchInput type='text' value={searchTerm} placeHolder='search here...' />
-      <SearchButton onClick={submitSearch} ></SearchButton>
+      <SearchInput onChange={handleInput} type="text" value={searchTerm} placeHolder="search here..." />
+      {/* <SearchButton onClick={submitSearch} ></SearchButton> */}
     </DivContainer>
-  )
+  );
 }
 
 export default Search;

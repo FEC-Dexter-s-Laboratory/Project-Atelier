@@ -5,7 +5,7 @@ import RelatedItems from './RelatedItems.jsx';
 import Search from './Search.jsx';
 import QAndA from './QAndA.jsx';
 
-const App = () => {
+function App() {
   // function handlers, state, hooks, general javascript all goes here
 
   const [isHovering, setIsHovering] = useState(false);
@@ -15,14 +15,14 @@ const App = () => {
   }, []);
 
   return (
-    <React.Fragment>
-      {/* <Search /> */}
+    <>
+      <Search />
       <Overview />
       <RelatedItems />
       <QAndA />
       <RatingsAndReviews />
-    </React.Fragment>
-  )
+    </>
+  );
 }
 
 export default App;

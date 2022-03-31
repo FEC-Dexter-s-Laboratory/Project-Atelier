@@ -5,9 +5,9 @@ const DivContainer = styled.div`
   border: 6px ridge darkblue;
   background-image: linear-gradient(to bottom right, cyan, deepskyblue);
   display: grid;
-`
+`;
 
-const QAndA = (props) => {
+function QAndA(props) {
   // function handlers, state, hooks, general javascript all goes here
 
   const [isClicked, setIsClicked] = useState(false);
@@ -18,7 +18,7 @@ const QAndA = (props) => {
 
   return (
     <DivContainer></DivContainer>
-  )
+  );
 }
 
 export default QAndA;

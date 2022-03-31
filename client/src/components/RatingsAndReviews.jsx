@@ -1,13 +1,13 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const DivContainer = styled.div`
   border: 6px ridge darkblue;
   background-image: linear-gradient(to bottom right, cyan, deepskyblue);
   display: grid;
-`
+`;
 
-const RatingsAndReviews = (props) => {
+function RatingsAndReviews(props) {
   // function handlers, state, hooks, general javascript all goes here
 
   const [isClicked, setIsClicked] = useState(false);
@@ -18,7 +18,7 @@ const RatingsAndReviews = (props) => {
 
   return (
     <DivContainer></DivContainer>
-  )
+  );
 }
 
 export default RatingsAndReviews;
