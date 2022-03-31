@@ -17,7 +17,7 @@ const App = () => {
   return (
     <React.Fragment>
       <Overview />
-      <RelatedItems />
+      <RelatedItems currentId={65631} />
     </React.Fragment>
   )
 }

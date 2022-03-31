@@ -60,12 +60,14 @@ const RelatedItems = function(props) {
             ));
         }
       });
+    console.log(relatedProducts);
+    setState(relatedProducts);
   }, [state]);
 
   return (
     <DivContainer>
-      {testData.map(product =>
-        <RelatedCard product={product}  key={testData.name} />
+      {state.map(product =>
+        <RelatedCard product={product}  key={product.name} />
       )}
     </DivContainer>
   )
