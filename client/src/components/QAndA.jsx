@@ -1,24 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
-const DivContainer = styled.div`
+const QnAContainer = styled.div`
   border: 6px ridge darkblue;
-  background-image: linear-gradient(to bottom right, cyan, deepskyblue);
   display: grid;
+`;
+
+const QnAHeader = styled.h1`
+  font-size: 20px;
+  font-weight: lighter;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
 `
 
-const QAndA = (props) => {
-  // function handlers, state, hooks, general javascript all goes here
-
-  const [isClicked, setIsClicked] = useState(false);
-
-  useEffect(() => {
-    // implement desired hook effects here
-  }, [isClicked]);
+function QAndA(props) {
+  const searchRef = useRef(null);
+  const [searchInp, setSearchInp] = useState("");
 
   return (
-    <DivContainer></DivContainer>
-  )
+    <div className="QNA-Container">
+      <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
+      <SearchInput type="search" placeholder="Have a question? Search for answers…" ref={searchRef} />
+    </div>
+  );
 }
 
 export default QAndA;

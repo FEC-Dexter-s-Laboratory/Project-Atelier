@@ -17,7 +17,11 @@ const App = () => {
   return (
     <React.Fragment>
       <Overview />
+<<<<<<< HEAD
       <RelatedItems currentId={65631} />
+=======
+      <QAndA />
+>>>>>>> 458f059 (added QnA search field and title)
     </React.Fragment>
   )
 }
