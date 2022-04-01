@@ -4,92 +4,10 @@ require('dotenv').config();
 
 const router = express.Router();
 
-// configure router file
+configure router file
 
-// example route for /products
-// router.get('/products', (req, res) => {
-//   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products', {
-//     headers: {
-//       Authorization: process.env.AUTH_TOKEN,
-//     },
-//   })
-//     .then(({ data }) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.sendStatus(404);
-//     });
-// });
-
-// // other routes here
-// // route to get related products
-// router.get('/products/:product_id/related', (req, res) => {
-//   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products/${req.params.product_id}/related`, {
-//     headers: {
-//       Authorization: process.env.AUTH_TOKEN,
-//     },
-//   })
-//     .then(({ data }) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.sendStatus(404);
-//     });
-// });
-
-// // route to get product info by id
-// router.get('/products/:product_id', (req, res) => {
-//   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products/${req.params.product_id}`, {
-//     headers: {
-//       Authorization: process.env.AUTH_TOKEN,
-//     },
-//   })
-//     .then(({ data }) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.sendStatus(404);
-//     });
-// });
-
-// // route to get styles by product id
-// router.get('/products/:product_id/styles', (req, res) => {
-//   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products/${req.params.product_id}/styles`, {
-//     headers: {
-//       Authorization: process.env.AUTH_TOKEN,
-//     },
-//   })
-//     .then(({ data }) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.sendStatus(404);
-//     });
-// });
-router.get('/questions', (req, res) => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/questions', {
-    headers: {
-      Authorization: process.env.AUTH_TOKEN,
-    },
-    params: {
-      product_id: 65631,
-      page: 1,
-      count: 5,
-    }
-  })
-    .then(({ data }) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(404);
-    });
-});
-router.get('/answers', (req, res) => {
+example route for /products
+router.get('/products', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products', {
     headers: {
       Authorization: process.env.AUTH_TOKEN,
@@ -100,6 +18,55 @@ router.get('/answers', (req, res) => {
     })
     .catch((err) => {
       console.error(err);
+      res.sendStatus(404);
+    });
+});
+
+// other routes here
+// route to get related products
+router.get('/products/:product_id/related', (req, res) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products/${req.params.product_id}/related`, {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN,
+    },
+  })
+    .then(({ data }) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(404);
+    });
+});
+
+// route to get product info by id
+router.get('/products/:product_id', (req, res) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products/${req.params.product_id}`, {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN,
+    },
+  })
+    .then(({ data }) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(404);
+    });
+});
+
+// route to get styles by product id
+router.get('/products/:product_id/styles', (req, res) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products/${req.params.product_id}/styles`, {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN,
+    },
+  })
+    .then(({ data }) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
       res.sendStatus(404);
     });
 });

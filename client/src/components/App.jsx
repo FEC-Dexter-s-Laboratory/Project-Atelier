@@ -4,7 +4,6 @@ import RatingsAndReviews from './RatingsAndReviews.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx'; // changed to accomodate new folder
 import Search from './Search.jsx';
 import QAndA from './QAndA.jsx';
-import questions from './QnA_subComponents/HardCodedData';
 
 const App = () => {
   // function handlers, state, hooks, general javascript all goes here
@@ -18,7 +17,7 @@ const App = () => {
   return (
     <React.Fragment>
       <Overview />
-      <QAndA />
+      <QAndA product_ID={65631}/>
       {/* <RelatedItems currentId={65631} /> */}
     </React.Fragment>
   )
