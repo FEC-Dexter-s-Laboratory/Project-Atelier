@@ -29,40 +29,40 @@ const RelatedItems = function(props) {
   // ]
   const [state, setState] = useState([]);
 
-  useEffect(() => {
-    let relatedProducts = [];
-    // GET related ids
-    axios.get(`/products/${props.currentId}/related`)
-      .then((relatedIds) => {
-        // for each id, GET product details AND product style details for price
-        for (let i = 0; i < relatedIds.length; i++) {
-          let product = {};
-          axios.get(`/products/${relatedIds[i]}`)
-            .then((productDetails) => {
-              product.id = productDetails.id;
-              product.name = productDetails.name;
-              product.category = productDetails.category;
-            })
-            .catch((err) => {
-              console.log(err);
-            })
-            .then((
-              axios.get(`/products/${relatedIds[i]}/styles`)
-                .then((styles) => {
-                  product.original_price = styles[0].original_price;
-                  product.sale_price = styles[0].sale_price;
-                  product.photos = styles[0].photos;
-                  product.push(relatedProducts);
-                })
-                .catch((err) => {
-                  console.log(err);
-                })
-            ));
-        }
-      });
-    console.log(relatedProducts);
-    setState(relatedProducts);
-  }, [state]);
+  // useEffect(() => {
+  //   let relatedProducts = [];
+  //   // GET related ids
+  //   axios.get(`/products/${props.currentId}/related`)
+  //     .then((relatedIds) => {
+  //       // for each id, GET product details AND product style details for price
+  //       for (let i = 0; i < relatedIds.length; i++) {
+  //         let product = {};
+  //         axios.get(`/products/${relatedIds[i]}`)
+  //           .then((productDetails) => {
+  //             product.id = productDetails.id;
+  //             product.name = productDetails.name;
+  //             product.category = productDetails.category;
+  //           })
+  //           .catch((err) => {
+  //             console.log(err);
+  //           })
+  //           .then((
+  //             axios.get(`/products/${relatedIds[i]}/styles`)
+  //               .then((styles) => {
+  //                 product.original_price = styles[0].original_price;
+  //                 product.sale_price = styles[0].sale_price;
+  //                 product.photos = styles[0].photos;
+  //                 product.push(relatedProducts);
+  //               })
+  //               .catch((err) => {
+  //                 console.log(err);
+  //               })
+  //           ));
+  //       }
+  //     });
+  //   console.log(relatedProducts);
+  //   setState(relatedProducts);
+  // }, [state]);
 
   return (
     <DivContainer>
