@@ -3,28 +3,46 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 // styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
-const DivContainer = styled.div`
+const NavContainer = styled.nav`
   width: 100%;
-  height: 5%;
   background-image: linear-gradient(to right, deepskyblue, cyan);
   display: flex;
+  justify-content: space-between;
+`;
+
+const Logo = styled.h1`
+  font-family: 'Lobster Two', cursive;
+  font-weight: 700;
+  font-size: 3rem;
+  color: white;
+  margin-left: 4%;
+`;
+
+const SearchDiv = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-right: 2%;
 `;
 
 // styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const SearchInput = styled.input`
-  justify-content: end;
   border: 1px solid blue;
   border-radius: 12px;
+  background-image: url(https://cdn2.hubspot.net/hubfs/4004166/bioticresearch_website_assets/images/search_icon.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
+  height: fit-content;
+  width: fit-content;
 `;
 
 // styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const SearchButton = styled.button`
-  background-image: url(https://st.depositphotos.com/1630589/4799/v/950/depositphotos_47996391-stock-illustration-magnifying-glass-icon.jpg);
-  background-size: cover;
-  background-position: center;
-  width: 5%;
-  height: 3%;
-  justify-content: end;
+  border: 1px solid blue;
+  border-radius: 12px;
+  height: fit-content;
+  width: fit-content;
 `;
 
 function Search(props) {
@@ -48,10 +66,13 @@ function Search(props) {
   };
 
   return (
-    <DivContainer>
-      <SearchInput onChange={handleInput} type="text" value={searchTerm} placeHolder="search here..." />
-      {/* <SearchButton onClick={submitSearch} ></SearchButton> */}
-    </DivContainer>
+    <NavContainer>
+      <Logo><b>Project Atelier</b></Logo>
+      <SearchDiv>
+        <SearchInput onChange={handleInput} type="text" value={searchTerm} placeHolder="search here..." />
+        <SearchButton onClick={submitSearch}>Search</SearchButton>
+      </SearchDiv>
+    </NavContainer>
   );
 }
 

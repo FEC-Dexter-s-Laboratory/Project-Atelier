@@ -5,7 +5,6 @@ const DivContainer = styled.div`
   border: 6px ridge darkblue;
   background-image: linear-gradient(to bottom right, cyan, deepskyblue);
   display: grid;
-  width: 100vw;
 `;
 
 const MainImage = styled.img`
@@ -14,15 +13,31 @@ const MainImage = styled.img`
   height: 80vh;
 `;
 
+const TestDiv = styled.div`
+  background-color: black;
+  color: white;
+  height: 60vh;
+  width: 15vw;
+  overflow-wrap: break-word;
+  z-index: 10;
+`;
+
 const SelectStyleDiv = styled.div`
   grid-column: 2;
-  width: 35vw;
+  width: 30vw;
   height: 80vh;
 `;
 
+const ProductCategory = styled.h3`
+  color: white;
+`;
+
 const ProductTitle = styled.h1`
-  justify-content: center;
-  text-align: center;
+  color: white;
+`;
+
+const Price = styled.h4`
+  color: white;
 `;
 
 function Overview(props) {
@@ -36,9 +51,12 @@ function Overview(props) {
 
   return (
     <DivContainer>
+      <TestDiv>This is a test...</TestDiv>
       <MainImage src="https://media.gq.com/photos/61ae8b790d615a23f08b5a25/master/w_2000,h_1333,c_limit/Jordan-11-Retro-sneakers.jpg" />
       <SelectStyleDiv>
+        <ProductCategory>Product Category Goes Here</ProductCategory>
         <ProductTitle><b>Product Title Goes Here</b></ProductTitle>
+        <Price>$369</Price>
       </SelectStyleDiv>
     </DivContainer>
   );
