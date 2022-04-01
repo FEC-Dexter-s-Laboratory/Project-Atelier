@@ -17,7 +17,8 @@ const App = () => {
   return (
     <React.Fragment>
       <Overview />
-      <RelatedItems currentId={65631} />
+      <QAndA product_ID={65631}/>
+      {/* <RelatedItems currentId={65631} /> */}
     </React.Fragment>
   )
 }
