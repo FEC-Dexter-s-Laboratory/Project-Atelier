@@ -18,9 +18,9 @@ function App() {
     <>
       <Search />
       <Overview />
-      <RelatedItems />
+      {/* <RelatedItems />
       <QAndA />
-      <RatingsAndReviews />
+      <RatingsAndReviews /> */}
     </>
   );
 }
