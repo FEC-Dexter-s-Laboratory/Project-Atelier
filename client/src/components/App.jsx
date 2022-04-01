@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Overview from './Overview.jsx';
 import RatingsAndReviews from './RatingsAndReviews.jsx';
-import RelatedItems from './RelatedItems/RelatedList.jsx'; // changed to accomodate new folder
+import RelatedList from './RelatedItems/RelatedList.jsx'; // changed to accomodate new folder
 import Search from './Search.jsx';
 import QAndA from './QAndA.jsx';
 
@@ -17,10 +17,10 @@ function App() {
   return (
     <>
       <Search />
-      <Overview />
-      <RelatedItems />
-      <QAndA />
-      <RatingsAndReviews />
+      {/* <Overview /> */}
+      <RelatedList currentId={65637}/>
+      {/* <QAndA />
+      <RatingsAndReviews /> */}
     </>
   );
 }
