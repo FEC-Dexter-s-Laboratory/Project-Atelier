@@ -11,11 +11,11 @@ const RelatedCard = ({ product }) => {
     // change price div
   return (
     <CardStyle>
-      <img src={product.photos[0].thumbnail_url} width="140" height="200" alt="" />
-      <div>{product.category}</div>
-      <div>{product.name}</div>
+      <img src={props.product.thumbnail} width="200"/>
+      {props.product.category}
+      {props.product.name}
     </CardStyle>
-  )
+  );
 };
 
 export default RelatedCard;
