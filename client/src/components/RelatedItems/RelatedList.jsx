@@ -7,8 +7,7 @@ const axios = require('axios');
 const DivContainer = styled.div`
   border: 6px ridge darkblue;
   background-image: linear-gradient(to bottom right, cyan, deepskyblue);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
 `;
 
 var testData = [
