@@ -32,15 +32,11 @@ function QAndA(props) {
   });
 
   return (
-<<<<<<< HEAD
-    <DivContainer></DivContainer>
-=======
     <QnAContainer>
       <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
       <SearchInput type="search" placeholder="Have a question? Search for answers…" ref={searchRef} />
       <SingleQuestion data={questData} />
     </QnAContainer>
->>>>>>> fddc85ee02c4bd1c2c1f5b6ee718e48eebc5f3ef
   );
 }
 
