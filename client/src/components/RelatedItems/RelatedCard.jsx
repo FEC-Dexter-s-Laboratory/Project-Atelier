@@ -9,7 +9,7 @@ const CardStyle = styled.div`
 const RelatedCard = (props) => {
   return (
     <CardStyle>
-      <img src={props.product.thumbnail} width="200"/>
+      <img src={props.product.thumbnail} width=200/>
       {props.product.category}
       {props.product.name}
     </CardStyle>
