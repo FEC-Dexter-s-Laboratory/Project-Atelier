@@ -13,7 +13,7 @@ const RelatedCard = (props) => {
       {props.product.category}
       {props.product.name}
     </CardStyle>
-  )
+  );
 };
 
 export default RelatedCard;
