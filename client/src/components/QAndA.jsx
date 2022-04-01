@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import questions from './QnA_subComponents/HardCodedData';
+import SingleQuestion from './QnA_subComponents/IndiviualQuestion.jsx';
 
 const QnAContainer = styled.div`
   margin-left: 20%;
@@ -23,12 +25,17 @@ const SearchInput = styled.input`
 
 function QAndA(props) {
   const searchRef = useRef(null);
-  const [searchInp, setSearchInp] = useState("");
+  const [questData, setQuestData] = useState("");
+
+  useEffect(() => {
+    setQuestData(questions);
+  });
 
   return (
     <QnAContainer>
       <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
       <SearchInput type="search" placeholder="Have a question? Search for answers…" ref={searchRef} />
+      <SingleQuestion data={questData} />
     </QnAContainer>
   );
 }

@@ -1,3 +1,4 @@
+const questions =
 {
   "product_id": "65631",
   "results": [
@@ -154,3 +155,4 @@
       }
   ]
 }
+export default questions;
