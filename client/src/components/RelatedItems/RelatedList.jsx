@@ -224,13 +224,17 @@ var testData = [
 const RelatedItems = function({ currentId }) {
   // function handlers, state, hooks, general javascript all goes here
   const [related, setRelated] = useState([]);
+  const [gotData, setData] = useState(false);
   // use testId in place of props for testing
   let testId = 65631;
   let relatedProducts = [];
 
   useEffect(() => {
-    function handleRelatedChange(products) {
+    var handleRelatedChange = function(products) {
       setRelated(products);
+    };
+    var handleDataChange = function() {
+      setData(true);
     }
     // GET related ids (currently using testId, change later!)
     axios.get(`/products/${testId}/related`)
@@ -282,8 +286,9 @@ const RelatedItems = function({ currentId }) {
       })
       .then(() => {
         handleRelatedChange(relatedProducts);
+        handleDataChange();
       });
-  }, []);
+  }, [gotData]);
 
   return (
     <DivContainer>
@@ -293,7 +298,7 @@ const RelatedItems = function({ currentId }) {
         )}
       </Carousel>
     </DivContainer>
-  )
-}
+  );
+};
 
 export default RelatedItems;
