@@ -4,16 +4,9 @@ require('dotenv').config();
 
 const router = express.Router();
 
-<<<<<<< HEAD
-//configure router file
-
-//example route for /products
-
-=======
 // configure router file
 
 // example route for /products
->>>>>>> main
 router.get('/products', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products', {
     headers: {

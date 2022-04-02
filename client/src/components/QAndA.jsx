@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import questions from './QnA_subComponents/HardCodedData.js';
-import SingleQuestion from './QnA_subComponents/IndiviualQuestion.jsx';
+import IndividualQuestion from './QnA_subComponents/IndiviualQuestion.jsx';
 
 const QnAContainer = styled.div`
   margin-left: 20%;
@@ -23,7 +23,7 @@ const SearchInput = styled.input`
   background-position: right center;
 `;
 
-function QAndA(props) {
+const QAndA = (props) => {
   const searchRef = useRef(null);
   const [questData, setQuestData] = useState("");
 
@@ -35,9 +35,9 @@ function QAndA(props) {
     <QnAContainer>
       <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
       <SearchInput type="search" placeholder="Have a question? Search for answers…" ref={searchRef} />
-      <SingleQuestion data={questions} />
+      <IndividualQuestion data={questions} />
     </QnAContainer>
   );
-}
+};
 
 export default QAndA;

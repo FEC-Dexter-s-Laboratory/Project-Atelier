@@ -18,13 +18,8 @@ function App() {
     <>
       <Search />
       <Overview />
-<<<<<<< HEAD
-      {/* <RelatedItems /> */}
-      <QAndA />
-=======
       <RelatedItems />
-      {/* <QAndA /> */}
->>>>>>> 758b1d3e67987ca6216cf333a909fa43bfab7f90
+      <QAndA />
       <RatingsAndReviews />
     </>
   );
