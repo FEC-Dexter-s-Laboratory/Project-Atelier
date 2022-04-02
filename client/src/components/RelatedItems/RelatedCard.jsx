@@ -2,18 +2,32 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CardStyle = styled.div`
-  width: 200px;
-  height: 300px;
+  width: auto;
 `;
 
 const RelatedCard = ({ product }) => {
-  // if sale price is not null
-    // change price div
+  let image;
+  let price;
+  if (product.photos[0].thumbnail_url === null) {
+    image = <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" width="200"/>;
+  } else {
+    image = <img src={product.photos[0].thumbnail_url} width="200"/>;
+  }
+  if (product.sale_price === null) {
+    price = <div>{product.original_price}</div>;
+  } else {
+    price =
+    <div>
+      <span style={{textDecoration: 'line-through'}}>{product.original_price}</span>{' '}
+      <span style={{color: 'red'}}><b>{product.sale_price}</b></span>
+    </div>;
+  }
   return (
     <CardStyle>
-      <img src={props.product.thumbnail} width="200"/>
-      {props.product.category}
-      {props.product.name}
+      {image}
+      <div>{product.category}</div>
+      {product.name}
+      {price}
     </CardStyle>
   );
 };

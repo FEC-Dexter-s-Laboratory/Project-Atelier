@@ -18,7 +18,7 @@ function App() {
     <>
       <Search />
       <Overview />
-      <RelatedItems />
+      <RelatedList />
       {/* <QAndA /> */}
       <RatingsAndReviews />
     </>

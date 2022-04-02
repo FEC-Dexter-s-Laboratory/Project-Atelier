@@ -6,8 +6,9 @@ const axios = require('axios');
 
 const DivContainer = styled.div`
   border: 6px ridge darkblue;
-  background-image: linear-gradient(to bottom right, cyan, deepskyblue);
+  background-image: linear-gradient(to bottom right, black, deepskyblue);
   display: flex;
+  height: 400px;
 `;
 
 var testData = [
@@ -223,15 +224,16 @@ var testData = [
 const RelatedItems = function({ currentId }) {
   // function handlers, state, hooks, general javascript all goes here
   const [related, setRelated] = useState([]);
-
+  // use testId in place of props for testing
+  let testId = 65631;
   let relatedProducts = [];
 
   useEffect(() => {
     function handleRelatedChange(products) {
       setRelated(products);
     }
-    // GET related ids
-    axios.get(`/products/${currentId}/related`)
+    // GET related ids (currently using testId, change later!)
+    axios.get(`/products/${testId}/related`)
       .then(({ data }) => {
         // for each id, GET product details
         let relatedIds = data;
