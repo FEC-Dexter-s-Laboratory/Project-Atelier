@@ -221,23 +221,21 @@ var testData = [
 // GET /products/:product_id/styles for item where "default"?"
 // is true and extract the original and sale price, and the photo/thumbnail url
 
-const RelatedItems = function({ currentId }) {
-  // function handlers, state, hooks, general javascript all goes here
-  const [related, setRelated] = useState([]);
-  const [gotData, setData] = useState(false);
-  // use testId in place of props for testing
-  let testId = 65631;
-  let relatedProducts = [];
-
-  useEffect(() => {
-    var handleRelatedChange = function(products) {
-      setRelated(products);
-    };
-    var handleDataChange = function() {
-      setData(true);
+class RelatedItems extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      relatedList: [],
+      currentId: 65632
     }
+  }
+  // function handlers, state, hooks, general javascript all goes here
+  // use testId in place of props for testing
+
+  componentDidMount() {
+    let relatedProducts = [];
     // GET related ids (currently using testId, change later!)
-    axios.get(`/products/${testId}/related`)
+    axios.get(`/products/${this.state.currentId}/related`)
       .then(({ data }) => {
         // for each id, GET product details
         let relatedIds = data;
@@ -274,6 +272,10 @@ const RelatedItems = function({ currentId }) {
                     product.photos = styles[0].photos;
                   }
                   relatedProducts.push(product);
+                  console.log(this.state.relatedList);
+                  this.setState({
+                    relatedList: relatedProducts
+                  });
                 })
                 .catch((err) => {
                   console.log(err);
@@ -283,22 +285,20 @@ const RelatedItems = function({ currentId }) {
       })
       .catch((err) => {
         console.log(err);
-      })
-      .then(() => {
-        handleRelatedChange(relatedProducts);
-        handleDataChange();
       });
-  }, [gotData]);
+  }
 
-  return (
-    <DivContainer>
-      <Carousel>
-        {testData.map(product =>
-          <RelatedCard product={product} key={product.name} />
-        )}
-      </Carousel>
-    </DivContainer>
-  );
-};
+  render() {
+    return (
+      <DivContainer>
+        <Carousel>
+          {this.state.relatedList.map(product =>
+            <RelatedCard product={product} key={product.name} />
+          )}
+        </Carousel>
+      </DivContainer>
+    );
+  }
+}
 
 export default RelatedItems;

@@ -28,18 +28,44 @@ const ContentStyle = styled.div`
   flex-grow: 1;
 `;
 
+const ArrowLeft = styled.button`
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: white;
+  border: 1px solid #ddd;
+  left: 24px;
+`
+
+const ArrowRight = styled.button`
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: white;
+  border: 1px solid #ddd;
+  right: 24px;
+`
+
 const Carousel = (props) => {
   const { children } = props;
   return (
     <CaroContainer>
       <CaroWrapper>
-        <button> &lt; </button>
+        <ArrowLeft> &lt; </ArrowLeft>
         <ContentWrapper>
           <ContentStyle>
             {children}
           </ContentStyle>
         </ContentWrapper>
-        <button> &gt; </button>
+        <ArrowRight> &gt; </ArrowRight>
       </CaroWrapper>
     </CaroContainer>
   )
