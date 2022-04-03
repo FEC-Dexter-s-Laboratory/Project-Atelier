@@ -2,14 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CardStyle = styled.div`
-  width: auto;
+  padding: 8;
 `;
+const Image = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+`
 
 const RelatedCard = ({ product }) => {
   let image;
   let price;
   if (product.photos[0].thumbnail_url === null) {
-    image = <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" width="200"/>;
+    image = <img style={{display: 'block', width: '40%'}}src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" />;
   } else {
     image = <img src={product.photos[0].thumbnail_url} width="200"/>;
   }
@@ -24,7 +30,7 @@ const RelatedCard = ({ product }) => {
   }
   return (
     <CardStyle>
-      {image}
+      <Image>{image}</Image>
       <div>{product.category}</div>
       {product.name}
       {price}
