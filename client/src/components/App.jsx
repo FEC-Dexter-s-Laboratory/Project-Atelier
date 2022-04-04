@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Overview from './Overview.jsx';
 import RatingsAndReviews from './RatingsAndReviews.jsx';
-import RelatedItems from './RelatedItems/RelatedItems.jsx'; // changed to accomodate new folder
+import RelatedList from './RelatedItems/RelatedList.jsx';
+import OutfitList from './RelatedItems/OutfitList.jsx';
 import Search from './Search.jsx';
 import QAndA from './QAndA.jsx';
 import axios from 'axios';
