@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from './Carousel.jsx';
 import styled from 'styled-components';
-const axios = require('axios');
+import axios from 'axios';
 
 const DivContainer = styled.div`
   margin: auto;

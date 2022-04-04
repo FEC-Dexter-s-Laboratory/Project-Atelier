@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import RelatedCard from './RelatedCard.jsx';
 import Carousel from './Carousel.jsx';
-const axios = require('axios');
+import axios from 'axios';
 
 const DivContainer = styled.div`
   margin: auto;
