@@ -29,6 +29,53 @@ const RelatedItems = function(props) {
   // ]
   const [state, setState] = useState([]);
 
+<<<<<<< HEAD
+  useEffect(() => {
+    let relatedProducts = [];
+    // GET related ids
+    axios.get(`/products/${props.currentId}/related`)
+      .then(({ data }) => {
+        // for each id, GET product details AND product style details for price
+        let relatedIds = data;
+        for (let i = 0; i < relatedIds.length; i++) {
+          let product = {};
+          axios.get(`/products/${relatedIds[i]}`)
+            .then(({ data }) => {
+              product.id = data.id;
+              product.name = data.name;
+              product.category = data.category;
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+            .then((
+              axios.get(`/products/${relatedIds[i]}/styles`)
+                .then(({ data }) => {
+                  let styles = data.results;
+                  // iterate over styles
+                  for (let j = 0; j < styles.length; j++) {
+                    // if object at "default?" === true
+                    if (styles[i]['default?'] === true) {
+                      // get prices, photos
+                      product.original_price = styles[i].original_price;
+                      product.sale_price = styles[i].sale_price;
+                      product.photos = styles[i].photos;
+                    }
+                  }
+                  relatedProducts.push(product);
+                })
+                .catch((err) => {
+                  console.log(err);
+                })
+            ));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // setState(relatedProducts);
+  }, []);
+=======
   // useEffect(() => {
   //   let relatedProducts = [];
   //   // GET related ids
@@ -63,6 +110,7 @@ const RelatedItems = function(props) {
   //   console.log(relatedProducts);
   //   setState(relatedProducts);
   // }, [state]);
+>>>>>>> main
 
   return (
     <DivContainer>
