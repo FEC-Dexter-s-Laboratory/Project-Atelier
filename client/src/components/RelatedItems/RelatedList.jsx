@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import RelatedCard from './RelatedCard.jsx';
 import Carousel from './Carousel.jsx';
+import Comparison from './Comparison.jsx';
 import axios from 'axios';
 
 const DivContainer = styled.div`
@@ -17,6 +18,12 @@ class RelatedItems extends React.Component {
       // change current id to be the prop passed from app
       currentId: this.props.currentId
     };
+  }
+
+  // handle action button click - should open comparison modal
+  handleActionClick(currentId, clickedId, event) {
+    event.preventDefault();
+
   }
 
   componentDidMount() {
@@ -79,6 +86,7 @@ class RelatedItems extends React.Component {
       <DivContainer>
         <h3>Related Items</h3>
         <Carousel products={this.state.relatedList} />
+        <Comparison currentId={65632} comparedId={6563} />
       </DivContainer>
     );
   }
