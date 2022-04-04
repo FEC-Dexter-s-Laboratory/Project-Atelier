@@ -14,7 +14,8 @@ class RelatedItems extends React.Component {
     super(props);
     this.state = {
       relatedList: [],
-      currentId: 65632
+      // change current id to be the prop passed from app
+      currentId: this.props.currentId
     };
   }
 
@@ -46,9 +47,9 @@ class RelatedItems extends React.Component {
                   let foundDefault = false;
                   for (let j = 0; j < styles.length; j++) {
                     if (styles[j]['default?'] === true) {
-                      product.original_price = styles[i].original_price;
-                      product.sale_price = styles[i].sale_price;
-                      product.photos = styles[i].photos;
+                      product.original_price = styles[j].original_price;
+                      product.sale_price = styles[j].sale_price;
+                      product.photos = styles[j].photos;
                       foundDefault = true;
                     }
                   }
@@ -76,11 +77,8 @@ class RelatedItems extends React.Component {
   render() {
     return (
       <DivContainer>
-        <Carousel products={this.state.relatedList}>
-          {/* {this.state.relatedList.map(product =>
-            <RelatedCard product={product} key={product.name} />
-          )} */}
-        </Carousel>
+        <h3>Related Items</h3>
+        <Carousel products={this.state.relatedList} />
       </DivContainer>
     );
   }

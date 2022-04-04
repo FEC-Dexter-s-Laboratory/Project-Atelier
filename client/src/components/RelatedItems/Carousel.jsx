@@ -28,6 +28,8 @@ const ContentStyle = styled.div`
   width: 50%;
   flex-shrink: 0;
   flex-grow: 1;
+  justify-content: left;
+  align-items: center;
 `;
 
 const Arrow = styled.button`
@@ -42,56 +44,12 @@ const Arrow = styled.button`
   border: 1px solid #ddd;
 `;
 
-// class Carousel extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       children: [],
-//       currentIndex: 0
-//     }
-//     this.nextButton = this.nextButton.bind(this);
-//     this.backButton = this.backButton.bind(this);
-//   }
-//   nextButton() {
-//     if (this.state.currentIndex < (this.state.children.length - 1)) {
-//       this.setState({
-//         currentIndex: this.state.currentIndex + 1
-//       });
-//     }
-//   };
-//   backButton() {
-//     if (this.state.currentIndex > 0) {
-//       this.setState({
-//         currentIndex: this.state.currentIndex - 1
-//       });
-//     }
-//   };
-//   componentWillReceiveProps(nextProps) {
-//     this.setState({
-//       children: nextProps.children
-//     })
-//   }
-//   render() {
-//     return (
-//       <CaroContainer>
-//         <CaroWrapper>
-//           <Arrow style={{left: '24px'}} onClick={this.backButton}> &lt; </Arrow>
-//           <ContentWrapper>
-//             <ContentStyle style={{transform: `translateX(-${this.state.currentIndex * 100}%)`}}>
-//               {this.state.children}
-//             </ContentStyle>
-//           </ContentWrapper>
-//           <Arrow style={{right: '24px'}} onClick={this.nextButton}> &gt; </Arrow>
-//         </CaroWrapper>
-//       </CaroContainer>
-//     );
-//   }
-// }
 const Carousel = (props) => {
   const { products } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const nextButton = () => {
-    if (currentIndex < (products.length - 2)) {
+    if (currentIndex < (products.length - 1)) {
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -100,18 +58,23 @@ const Carousel = (props) => {
       setCurrentIndex(currentIndex - 1);
     }
   };
+
   return (
     <CaroContainer>
       <CaroWrapper>
-        <Arrow style={{left: '24px'}} onClick={backButton}> &lt; </Arrow>
+        {currentIndex > 0 &&
+        <Arrow style={{left: '-70px'}} onClick={backButton}> &lt; </Arrow>
+        }
         <ContentWrapper>
           {products.map(product =>
             <ContentStyle style={{transform: `translateX(-${currentIndex * (100)}%)`}}>
-              <RelatedCard product={product} key={product.id} />
+              <RelatedCard product={product} key={product.id} handleDefaultClick={props.handleDefaultClick} />
             </ContentStyle>
           )}
         </ContentWrapper>
+        {currentIndex < (products.length - 2) &&
         <Arrow style={{right: '24px'}} onClick={nextButton}> &gt; </Arrow>
+        }
       </CaroWrapper>
     </CaroContainer>
   );
