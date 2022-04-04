@@ -45,23 +45,25 @@ const SearchButton = styled.button`
   width: fit-content;
 `;
 
-function Search(props) {
+const Search = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const submitSearch = (query) => {
-    axios({
-      url: 'tbd',
-      method: 'POST',
-      data: {
-        query,
-      },
-    })
-      .then((res) => console.log('Successful Search POST -> ', res))
-      .catch((err) => console.error('Submit Search Error -> ', err));
+    // axios({
+    //   url: 'tbd',
+    //   method: 'POST',
+    //   data: {
+    //     query,
+    //   },
+    // })
+    //   .then((res) => console.log('Successful Search POST -> ', res))
+    //   .catch((err) => console.error('Submit Search Error -> ', err));
+
+    window.open('http://google.com/search?q=' + searchTerm, 'searchTermwindow');
+    setSearchTerm('');
   };
 
   const handleInput = (e) => {
-    console.log('Setting SearchTerm state!');
     setSearchTerm(e.target.value);
   };
 
@@ -74,6 +76,6 @@ function Search(props) {
       </SearchDiv>
     </NavContainer>
   );
-}
+};
 
 export default Search;
