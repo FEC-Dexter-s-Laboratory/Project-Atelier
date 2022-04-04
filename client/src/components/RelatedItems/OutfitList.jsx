@@ -62,11 +62,8 @@ class OutfitList extends React.Component {
             this.setState({
               outfits: newOutfits
             });
-            // need to make an axios post request to retain list when item is added (retain list that can be used to make cards)
-            // axios.post('/product/outfit', this.state.outfits)
-            //   .catch((err) => {
-            //     console.log(err);
-            //   });
+            // store updated outfit list to local storage
+            localStorage.setItem('outfits', JSON.stringify(newOutfits));
           })
           .catch((err) => {
             console.log(err);
@@ -78,17 +75,16 @@ class OutfitList extends React.Component {
     event.preventDefault();
     this.getCardInfo();
   }
-  // need to make an axios get request on mount to get existing list (save list on server)
+  // retreive outfits from local memory
   componentDidMount() {
-    // axios.get('/product/outfit')
-    //   .then((response) => {
-    //     this.setState({
-    //       outfits: response.data
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(error);
-    //   });
+    if (!localStorage.getItem('outfits')) {
+      localStorage.setItem('outfits', JSON.stringify(this.state.outfits));
+    } else {
+      let retreived = JSON.parse(localStorage.getItem('outfits'));
+      this.setState({
+        outfits: retreived
+      });
+    }
   }
 
   render() {
