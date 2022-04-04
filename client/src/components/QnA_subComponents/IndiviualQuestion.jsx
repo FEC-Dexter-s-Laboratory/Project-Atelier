@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Answers from './Answers.jsx';
 
 const Linkbutton = styled.button`
   font-family: "Verdana" sans-serif;
@@ -32,7 +33,10 @@ class IndividualQuestion extends React.Component {
         {this.props.data.results.map((obj, index) =>{
           while (index < this.state.questionCount) {
             return (
-              <div> Q: {obj.question_body} <span>Helpful? <a>Yes</a>|<Linkbutton>Add Answer</Linkbutton> </span></div>
+              <div>
+                Q: {obj.question_body} <span>Helpful? <Linkbutton>Yes</Linkbutton><span> ({obj.question_helpfulness}) | </span><Linkbutton>Add Answer</Linkbutton> </span>
+                <Answers ans={obj.answers}/>
+              </div>
             );
           }
         })}

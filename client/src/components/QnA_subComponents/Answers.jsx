@@ -9,7 +9,18 @@ class Answers extends React.Component {
   }
 
   render() {
-
+    return (<div>
+      {this.props.ans.map((obj, index) =>{
+        while (index < this.state.questionCount) {
+          return (
+            <div>
+                Q: {obj.question_body} <span>Helpful? <Linkbutton>Yes</Linkbutton><span> ({obj.question_helpfulness}) | </span><Linkbutton>Add Answer</Linkbutton> </span>
+              <Answers ans={obj.answers}/>
+            </div>
+          );
+        }
+      })}
+    </div>);
   }
 }
 
