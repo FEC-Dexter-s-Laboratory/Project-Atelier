@@ -19,23 +19,9 @@ function App() {
     <>
       <Search />
       <Overview />
-<<<<<<< HEAD
-      <RelatedItems />
-      <QAndA />
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-      {/* <RelatedItems /> */}
-      <QAndA />
-=======
-      <RelatedItems />
-=======
       <RelatedList currentId={65632} />
       <OutfitList currentId={65632}/>
->>>>>>> bba457905f81ce7faf0cc98c9e442529f7ae6897
       {/* <QAndA /> */}
->>>>>>> 758b1d3e67987ca6216cf333a909fa43bfab7f90
->>>>>>> main
       <RatingsAndReviews />
     </>
   );
