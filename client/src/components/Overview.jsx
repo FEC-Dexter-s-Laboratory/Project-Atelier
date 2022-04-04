@@ -29,14 +29,14 @@ const TestDiv = styled.div`
   overflow: hidden;
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 20% 20% 20% 20% 20%;
+  grid-template-rows: 25% 25% 25% 25%;
   background-color: transparent;
   color: black;
-  height: 80vh;
-  width: 15vw;
+  height: 65vh;
+  width: 12vw;
   overflow-wrap: break-word;
   z-index: 10;
-  top: 0;
+  top: 15%;
   left: 0;
 `;
 
@@ -55,7 +55,7 @@ const ProductTitle = styled.h1`
   color: white;
 `;
 
-const Price = styled.h4`
+const Price = styled.div`
   color: white;
 `;
 
@@ -88,7 +88,9 @@ const Overview = (props) => {
   const [isClicked, setIsClicked] = useState(false);
   const [category, setCategory] = useState('Category');
   const [title, setTitle] = useState('Title');
-  const [price, setPrice] = useState('Price');
+  const [originalPrice, setOriginalPrice] = useState('Price');
+  const [salePrice, setSalePrice] = useState(null);
+  const [isOnSale, setIsOnSale] = useState(false);
   const [slogan, setSlogan] = useState('Slogan');
   const [description, setDescription] = useState('Description');
   const [mainImage, setMainImage] = useState('img');
@@ -98,9 +100,12 @@ const Overview = (props) => {
   const [styleResults, setStyleResults] = useState([]);
   const [checkMarkStyle, setCheckMarkStyle] = useState(0);
   const [isHighlighted, setIsHighlighted] = useState(false);
-  let colCounter = 0;
-  let rowCounter = 1;
-  let thumbDisplay = 'contents';
+  const [thumbDisplayChange, setThumbDisplayChanged] = useState('contents');
+  let stylesColCounter = 0;
+  let stylesRowCounter = 0;
+  let styleResultsColCounter = 0;
+  let styleResultsRowCounter = 1;
+  let thumbDisplay = 'flex';
   // const { currentProductId } = useContext(ProductIdContext);
   // console.log('product ID yo! -> ', currentProductId);
 
@@ -108,7 +113,6 @@ const Overview = (props) => {
     e.target.style.transition = '.2s';
     e.target.style.transform = 'scale(1.25)';
     e.target.style.zIndex = '20';
-    console.log('z index -> ', e.target.style.zIndex);
   };
 
   const leaveThumb = (e) => {
@@ -120,10 +124,58 @@ const Overview = (props) => {
     if (!isHighlighted) {
       setIsHighlighted(true);
       e.target.style.border = '2px ridge white';
+      displayImage(e);
     } else {
       setIsHighlighted(false);
       e.target.style.border = null;
     }
+  };
+
+  const displayImage = (e) => {
+    let newImage = '';
+    styleResults.forEach(style => {
+      if (style.style_id === Number(e.target.classList[0])) {
+        newImage = style.photos[0].url;
+      }
+    });
+    setMainImage(newImage);
+  };
+
+  const displayThumb = (e) => {
+    let newImage = '';
+    styles.forEach(style => {
+      if (style.id === Number(e.target.classList[0])) {
+        newImage = style.srcUrl;
+      }
+    });
+    setMainImage(newImage);
+  };
+
+  const changeStyle = (e) => {
+    displayImage(e);
+    let newStyleImages = [];
+    for (let i = 0; i < styleResults.length; i++) {
+      if (styleResults[i].style_id === Number(e.target.classList[0])) {
+        for (let j = 0; j < styleResults[i].photos.length; j++) {
+          newStyleImages.push({
+            srcThumb: styleResults[i].photos[j].thumbnail_url,
+            srcUrl: styleResults[i].photos[j].url,
+            id: j,
+          });
+          setSelectedStyle(styleResults[i].name);
+          setOriginalPrice(styleResults[i].original_price);
+          if (styleResults[i].sale_price) {
+            setSalePrice(styleResults[i].sale_price);
+            setIsOnSale(true);
+          } else {
+            setSalePrice(null);
+            setIsOnSale(false);
+          }
+        }
+        break;
+      }
+    }
+    setStyles(newStyleImages);
   };
 
   const getData = (id) => {
@@ -132,14 +184,11 @@ const Overview = (props) => {
       method: 'GET',
     })
       .then(res => {
-        console.log('result data -> ', res.data);
-        console.log('before -> ', category);
         setCategory(res.data.category);
         setTitle(res.data.name);
-        setPrice(res.data.default_price);
+        setOriginalPrice(res.data.default_price);
         setSlogan(res.data.slogan);
         setDescription(res.data.description);
-        console.log('after -> ', category);
       })
       .catch(err => console.error(err));
   };
@@ -154,11 +203,22 @@ const Overview = (props) => {
         setSelectedStyle(res.data.results[0].name);
         setResultsLength(res.data.results.length);
         let styleArr = [];
+        let index = 0;
         res.data.results[0].photos.forEach(photo => {
-          styleArr.push(photo.thumbnail_url);
+          styleArr.push({
+            srcThumb: photo.thumbnail_url,
+            srcUrl: photo.url,
+            id: index,
+          });
+          index += 1;
         });
         setStyles(styleArr);
         setStyleResults(res.data.results);
+        setOriginalPrice(res.data.results[0].original_price);
+        if (res.data.results[0].sale_price) {
+          setSalePrice(res.data.results[0].sale_price);
+          setIsOnSale(true);
+        }
       })
       .catch(err => console.error(err));
   };
@@ -174,9 +234,9 @@ const Overview = (props) => {
         <TestDiv>
           {
             styles.map(style => {
-              rowCounter += 1;
-              colCounter = 1;
-              if (rowCounter >= 4) {
+              stylesRowCounter += 1;
+              stylesColCounter = 1;
+              if (stylesRowCounter === 5) {
                 thumbDisplay = 'none';
               }
               // return (
@@ -185,11 +245,12 @@ const Overview = (props) => {
               //   src={style} />
               // );
               return (
-                <div style={{gridColumn: colCounter, gridRow: rowCounter, display: 'flex', justifyContent: 'end'}}>
+                <div style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}}>
                   <img
                     style={{height: '100px', width: '100px', position: 'absolute', zIndex: '12', border: '1px solid black', float: 'right'}}
-                    src={style}
-                    onMouseEnter={enterThumb} onMouseLeave={leaveThumb} />
+                    src={style.srcThumb}
+                    className={style.id}
+                    onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={displayThumb} />
                 </div>
               );
             })
@@ -200,17 +261,30 @@ const Overview = (props) => {
       <SelectStyleDiv>
         <ProductCategory>{category}</ProductCategory>
         <ProductTitle><b>{title}</b></ProductTitle>
-        <Price>{`$${price}`}</Price>
+        <Price>
+          {
+            !isOnSale ? <h4>{`$${originalPrice}`}</h4> : (
+              <>
+                <h4 style={{textDecoration: 'line-through'}}>{`$${originalPrice}`}</h4>
+                <h4 style={{color: 'red'}}>{`Now only $${salePrice}!`}</h4>
+              </>
+            )
+          }
+        </Price>
         <SelectedStyle>{`STYLE > ${selectedStyle}`}</SelectedStyle>
         <ChooseStyle>
           {
             styleResults.map((style, index) => {
-              colCounter += 1;
+              styleResultsColCounter += 1;
+              if (styleResultsColCounter > 4) {
+                styleResultsColCounter = 1;
+                styleResultsRowCounter += 1;
+              }
               return (
-                <div key={style.style_id}>
-                  <img src={style.photos[0].thumbnail_url} style={{borderRadius: '50%', width: '80px', height: '80px', gridColumn: colCounter}}
-                    onClick={highlight} onMouseEnter={enterThumb} onMouseLeave={leaveThumb} />
-                  {/* <i className="fa-solid fa-circle-check" style={{display: checkMarkStyle === 0 ? 'absolute' : 'none', color: 'green', top: '0%', right: '100%'}}></i> */}
+                <div key={style.style_id} style={{gridColumn: styleResultsColCounter, gridRow: styleResultsRowCounter}}>
+                  <img className={style.style_id} src={style.photos[0].thumbnail_url} style={{borderRadius: '50%', width: '80px', height: '80px'}}
+                    onClick={changeStyle} onMouseEnter={enterThumb} onMouseLeave={leaveThumb} />
+                  {/* <i className="fa-solid fa-circle-check" style={{display: checkMarkStyle === 0 ? 'absolute' : 'none', color: 'green', top: '0%', right: '100%'}}></i> DO DIV with checkmark background possibly */}
                 </div>
               );
             })

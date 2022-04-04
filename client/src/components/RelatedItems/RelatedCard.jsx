@@ -1,5 +1,5 @@
-// import React from 'react';
-// import styled from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 
 const CardStyle = styled.div`
   padding: 8;
@@ -51,4 +51,4 @@ const RelatedCard = (props) => {
   }
 };
 
-// export default RelatedCard;
+export default RelatedCard;

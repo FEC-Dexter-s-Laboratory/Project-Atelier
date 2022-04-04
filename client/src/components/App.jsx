@@ -50,6 +50,7 @@ class App extends React.Component {
       <>
         <Search />
         <Overview productId={this.state.productId} />
+        {/* <RelatedList /> */}
       </>
     );
   }
