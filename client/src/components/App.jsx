@@ -15,6 +15,13 @@ class App extends React.Component {
       productId: '65631',
       qtys: {},
     };
+    this.handleCardClick = this.handleCardClick.bind(this);
+  }
+
+  handleCardClick(clickedId) {
+    this.setState({
+      productId: clickedId
+    });
   }
 
   componentDidMount() {
@@ -37,8 +44,8 @@ class App extends React.Component {
       <>
         <Search />
         <Overview productId={this.state.productId} qtys={this.state.qtys} />
-        <RelatedList currentId={this.state.productId} />
-        <OutfitList currentId={this.state.productId} />
+        <RelatedList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
+        <OutfitList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
       </>
     );
   }

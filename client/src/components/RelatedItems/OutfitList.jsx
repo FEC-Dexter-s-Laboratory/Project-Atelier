@@ -110,7 +110,7 @@ class OutfitList extends React.Component {
     return (
       <DivContainer>
         <h3>Your Outfit</h3>
-        <Carousel products={this.state.outfits} handleDefaultClick={this.handleDefaultClick} use={this.state.use} handleOutfitClick={this.handleOutfitClick} />
+        <Carousel products={this.state.outfits} handleDefaultClick={this.handleDefaultClick} use={this.state.use} handleOutfitClick={this.handleOutfitClick} handleCardClick={this.props.handleCardClick} />
       </DivContainer>
     );
   }

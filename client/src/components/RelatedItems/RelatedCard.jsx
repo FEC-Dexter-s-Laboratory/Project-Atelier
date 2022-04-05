@@ -78,7 +78,7 @@ const RelatedCard = (props) => {
     }
     return (
     // add onclick for card, will need to send product.id back to App to change state
-      <CardStyle>
+      <CardStyle onClick={() => props.handleCardClick(product.id)}>
         {modal}
         {removeOutfit}
         <Image>

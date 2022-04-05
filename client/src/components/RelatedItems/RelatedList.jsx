@@ -80,7 +80,7 @@ class RelatedItems extends React.Component {
     return (
       <DivContainer>
         <h3>Related Items</h3>
-        <Carousel products={this.state.relatedList} use={this.state.use} />
+        <Carousel products={this.state.relatedList} use={this.state.use} handleCardClick={this.props.handleCardClick} />
       </DivContainer>
     );
   }
