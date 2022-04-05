@@ -26,6 +26,7 @@ class OutfitList extends React.Component {
     // weed out if this card is already in list
     for (let i = 0; i < this.state.outfits.length; i++) {
       if (this.state.outfits[i].id === this.state.currentId) {
+        console.log('here')
         return;
       }
     }

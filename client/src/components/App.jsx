@@ -4,7 +4,7 @@ import Reviews from './Reviews/Reviews.jsx';
 import RelatedList from './RelatedItems/RelatedList.jsx';
 import OutfitList from './RelatedItems/OutfitList.jsx';
 import Search from './Search.jsx';
-import QandA from './QandA.jsx';
+import QandA from './QAndA.jsx';
 import axios from 'axios';
 // import { ProductIdContext } from './Contexts/ProductIdContext.jsx';
 

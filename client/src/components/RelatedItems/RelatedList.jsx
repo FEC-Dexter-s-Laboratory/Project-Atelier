@@ -22,6 +22,7 @@ class RelatedItems extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.state.currentId)
     let relatedProducts = [];
     // GET related ids (currently using testId, change later!)
     axios.get(`/products/${this.state.currentId}/related`)
