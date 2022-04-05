@@ -35,8 +35,8 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Search />
-        <Overview productId={this.state.productId} qtys={this.state.qtys} />
+        {/* <Search /> */}
+        {/* <Overview productId={this.state.productId} qtys={this.state.qtys} /> */}
         <QandA />
       </>
     );
