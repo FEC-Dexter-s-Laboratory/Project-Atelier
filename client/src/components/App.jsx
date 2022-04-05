@@ -5,26 +5,42 @@ import RelatedList from './RelatedItems/RelatedList.jsx';
 import OutfitList from './RelatedItems/OutfitList.jsx';
 import Search from './Search.jsx';
 import QAndA from './QAndA.jsx';
+import axios from 'axios';
+// import { ProductIdContext } from './Contexts/ProductIdContext.jsx';
 
-function App() {
-  // function handlers, state, hooks, general javascript all goes here
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      productId: '65631',
+      qtys: {},
+    };
+  }
 
-  const [isHovering, setIsHovering] = useState(false);
+  componentDidMount() {
+    axios({
+      url: `/products/${this.state.productId}/styles`,
+      method: 'GET'
+    })
+      .then(res => {
+        this.setState({
+          productId: this.state.productId,
+          qtys: res.data.results[0].skus,
+        });
+      })
+      .catch(err => console.error(err));
+  }
 
-  useEffect(() => {
-    // implement the desired hook effects here
-  }, []);
 
-  return (
-    <>
-      <Search />
-      <Overview />
-      <RelatedList currentId={65632} />
-      <OutfitList currentId={65632}/>
-      {/* <QAndA /> */}
-      <Reviews currentId={65632}/>
-    </>
-  );
+  render() {
+    return (
+      <>
+        <Search />
+        <Overview productId={this.state.productId} qtys={this.state.qtys} />
+      </>
+    );
+  }
+
 }
 
 export default App;
