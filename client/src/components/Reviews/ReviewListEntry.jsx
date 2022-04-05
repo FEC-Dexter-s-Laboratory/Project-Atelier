@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+<<<<<<< HEAD
 import StarDisplay from '../library/StarDisplay.jsx';
+=======
+>>>>>>> befae24b9894004a5d108f3171090896a3e6f925
 
 const ReviewListEntry = function({ review }) {
 
@@ -12,18 +15,32 @@ const ReviewListEntry = function({ review }) {
   // ## review.summary (truncate to eliminate next-line?)
 
   // review.body
+<<<<<<< HEAD
   // display first 250 characters
   // if longer, render link "Show more" -> expand body text to full length (1000chars)
+=======
+    // display first 250 characters
+    // if longer, render link "Show more" -> expand body text to full length (1000chars)
+>>>>>>> befae24b9894004a5d108f3171090896a3e6f925
 
   // if review.photos.length > 0, image thumbnails (click to launch full-screen modal)
 
   // if review.recommend
+<<<<<<< HEAD
   // check mark, I recommend this product
 
   // review.response
   // different colored div background
   // <strong>Response from seller:
   // text below
+=======
+    // check mark, I recommend this product
+
+  // review.response
+    // different colored div background
+    // <strong>Response from seller:
+    // text below
+>>>>>>> befae24b9894004a5d108f3171090896a3e6f925
 
   // Helpful?
   // Yes link -> send API call
@@ -31,6 +48,7 @@ const ReviewListEntry = function({ review }) {
 
   // CSS border between reviews (skip first top border)
 
+<<<<<<< HEAD
   return (
     <div className="review-list-entry">
       <StarDisplay font={30} rating={review.rating} />
@@ -38,6 +56,8 @@ const ReviewListEntry = function({ review }) {
     </div>
   );
 
+=======
+>>>>>>> befae24b9894004a5d108f3171090896a3e6f925
 };
 
 export default ReviewListEntry;

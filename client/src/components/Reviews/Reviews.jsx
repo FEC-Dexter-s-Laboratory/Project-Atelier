@@ -72,7 +72,11 @@ class Reviews extends React.Component {
         </RightColumn>
 
 
+<<<<<<< HEAD
         {/* <ReviewsNav /> */}
+=======
+        <ReviewsNav />
+>>>>>>> befae24b9894004a5d108f3171090896a3e6f925
 
         {/* <h1>Star Components:</h1>
         <StarButtons fontSize={50}/>
