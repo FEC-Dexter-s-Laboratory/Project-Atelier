@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import questions from './QnA_subComponents/HardCodedData';
-import SingleQuestion from './QnA_subComponents/IndiviualQuestion.jsx';
+import questions from './QnA_subComponents/HardCodedData.js';
+import IndividualQuestion from './QnA_subComponents/IndiviualQuestion.jsx';
 
 const QnAContainer = styled.div`
   margin-left: 20%;
@@ -23,21 +23,33 @@ const SearchInput = styled.input`
   background-position: right center;
 `;
 
-function QAndA(props) {
-  const searchRef = useRef(null);
-  const [questData, setQuestData] = useState("");
+class QandA extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchKey: '',
+    };
+  }
 
-  useEffect(() => {
-    setQuestData(questions);
-  });
+  handleChange (e) {
+    e.preventDefault();
+    if (e.target.value.length >= 3) {
+      this.setState ({
+        searchKey: e.target.value,
+      });
+    }
+  }
 
-  return (
-    <QnAContainer>
-      <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
-      <SearchInput type="search" placeholder="Have a question? Search for answers…" ref={searchRef} />
-      <SingleQuestion data={questData} />
-    </QnAContainer>
-  );
+  render () {
+    return (
+      <QnAContainer>
+        <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
+        <SearchInput type="search" onChange={this.handleChange.bind(this)} placeholder="Have a question? Search for answers…" />
+        <IndividualQuestion data={questions} search={this.state.searchKey} />
+      </QnAContainer>
+    );
+  }
+
 }
 
-export default QAndA;
+export default QandA;

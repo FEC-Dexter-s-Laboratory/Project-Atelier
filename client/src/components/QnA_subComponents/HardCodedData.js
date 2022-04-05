@@ -16,7 +16,7 @@ const questions =
           "question_body": "Can I wash it?",
           "question_date": "2018-02-08T00:00:00.000Z",
           "asker_name": "cleopatra",
-          "question_helpfulness": 7,
+          "question_helpfulness": 9,
           "reported": false,
           "answers": {
               "5361400": {
@@ -39,7 +39,7 @@ const questions =
                   "id": 5361450,
                   "body": "I wouldn't machine wash it",
                   "date": "2018-03-08T00:00:00.000Z",
-                  "answerer_name": "ceasar",
+                  "answerer_name": "Seller",
                   "helpfulness": 0,
                   "photos": []
               },
