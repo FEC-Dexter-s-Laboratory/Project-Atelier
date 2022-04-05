@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import Modal from './Modal.jsx';
 
 const CardStyle = styled.div`
   padding: 8;
@@ -13,8 +14,18 @@ const Image = styled.div`
   width: 200px;
 `;
 
+const CompareStar = styled.img`
+  display: relative;
+  top: 0;
+  right: 0;
+`;
+
 const RelatedCard = (props) => {
+
   let {product} = props;
+
+  const [isOpen, setIsOpen] = useState(false);
+
   if (product.id === 'default') {
     return (
       <CardStyle onClick={props.handleDefaultClick}>
@@ -39,9 +50,19 @@ const RelatedCard = (props) => {
         <span style={{color: 'red'}}><b>{product.sale_price}</b></span>
       </div>;
     }
+    let modal;
+    if (props.use === 'compare') {
+      modal =
+      <>
+        <CompareStar src="https://upload.wikimedia.org/wikipedia/commons/7/71/Blank_star_%28fixed_width%29.svg" onClick={() => setIsOpen(true)}/>
+        <Modal open={isOpen} onClose={() => setIsOpen(false)} comparedId={product.id}/>
+      </>;
+    }
     return (
-      // add onclick for card, will need to send product.id back to App to change state
+    // add onclick for card, will need to send product.id back to App to change state
+
       <CardStyle>
+        {modal}
         <Image>{image}</Image>
         <div>{product.category}</div>
         <b>{product.name}</b>

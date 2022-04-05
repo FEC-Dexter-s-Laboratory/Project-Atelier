@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const Table = styled.div`
   border: 2px solid black;
-  width: 75%;
+  width: 100%;
   margin: auto;
   text-align: center;
 `;
@@ -59,6 +59,9 @@ class Comparison extends React.Component {
             if (!currentChars[currentFeat]) {
               let tuple = ['', ''];
               tuple[position] = featList[i].value;
+              if (tuple[position] === true) {
+                tuple[position] = '&#10004;';
+              }
               currentChars[currentFeat] = tuple;
             // else add the value in the correct position
             } else {
@@ -76,15 +79,12 @@ class Comparison extends React.Component {
   }
 
   // make API calls for products at /product/product_id
-  // need the info at .features (will be an array of feature/value objects)
-  // list out all features from both lists
   componentDidMount() {
     this.getFeatures(this.props.currentId, 0);
     this.getFeatures(this.props.comparedId, 1);
   }
 
   render() {
-    console.log(this.state.features)
     return (
       <Table>
         <h3>Comparison</h3>
@@ -94,9 +94,9 @@ class Comparison extends React.Component {
           <GridHeader>{this.state.comparedProd}</GridHeader>
           {Object.keys(this.state.features).map(feature =>
             <>
-              <div>{this.state.features[feature][0]}</div>
-              <div>{feature}</div>
-              <div>{this.state.features[feature][1]}</div>
+              <GridItem>{this.state.features[feature][0]}</GridItem>
+              <GridItem>{feature}</GridItem>
+              <GridItem>{this.state.features[feature][1]}</GridItem>
             </>
           )}
         </Grid>
