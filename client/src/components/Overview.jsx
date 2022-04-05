@@ -20,7 +20,7 @@ const ImageContainer = styled.div`
 const MainImage = styled.img`
   position: absolute;
   grid-column: 1;
-  width: 50vw;
+  width: 55vw;
   height: 100vh;
 `;
 
@@ -33,11 +33,12 @@ const TestDiv = styled.div`
   background-color: transparent;
   color: black;
   height: 65vh;
-  width: 12vw;
+  width: 15vw;
   overflow-wrap: break-word;
   z-index: 10;
   top: 15%;
   left: 0;
+  margin-left: 1%;
 `;
 
 const SelectStyleDiv = styled.div`
@@ -66,6 +67,35 @@ const SelectedStyle = styled.h2`
 const ChooseStyle = styled.div`
   display: grid;
   position: relative;
+`;
+
+const DropdownDiv = styled.div`
+  display: grid;
+  position: relative;
+`;
+
+const SelectSize = styled.select`
+  grid-column: 1;
+  grid-row: 1;
+  margin: 3%;
+`;
+
+const SelectQuantity = styled.select`
+  grid-column: 2;
+  grid-row: 1;
+  margin: 3%;
+`;
+
+const AddToCart = styled.button`
+  grid-column: 1;
+  grid-row: 2;
+  margin: 3%;
+`;
+
+const Favorite = styled.button`
+  grid-column: 2;
+  grid-row: 2;
+  margin: 3%;
 `;
 
 const DescriptionDiv = styled.div`
@@ -101,6 +131,8 @@ const Overview = (props) => {
   const [checkMarkStyle, setCheckMarkStyle] = useState(0);
   const [isHighlighted, setIsHighlighted] = useState(false);
   const [thumbDisplayChange, setThumbDisplayChanged] = useState('contents');
+  const [isLiked, setIsLiked] = useState(false);
+  const [inCart, setInCart] = useState(false);
   let stylesColCounter = 0;
   let stylesRowCounter = 0;
   let styleResultsColCounter = 0;
@@ -176,6 +208,22 @@ const Overview = (props) => {
       }
     }
     setStyles(newStyleImages);
+  };
+
+  const toggleLike = (e) => {
+    if (!isLiked) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  };
+
+  const addToCart = (e) => {
+    if (!inCart) {
+      setInCart(true);
+    } else {
+      setInCart(false);
+    }
   };
 
   const getData = (id) => {
@@ -281,7 +329,7 @@ const Overview = (props) => {
                 styleResultsRowCounter += 1;
               }
               return (
-                <div key={style.style_id} style={{gridColumn: styleResultsColCounter, gridRow: styleResultsRowCounter}}>
+                <div key={style.style_id} style={{gridColumn: styleResultsColCounter, gridRow: styleResultsRowCounter, margin: '4%'}}>
                   <img className={style.style_id} src={style.photos[0].thumbnail_url} style={{borderRadius: '50%', width: '80px', height: '80px'}}
                     onClick={changeStyle} onMouseEnter={enterThumb} onMouseLeave={leaveThumb} />
                   {/* <i className="fa-solid fa-circle-check" style={{display: checkMarkStyle === 0 ? 'absolute' : 'none', color: 'green', top: '0%', right: '100%'}}></i> DO DIV with checkmark background possibly */}
@@ -290,6 +338,21 @@ const Overview = (props) => {
             })
           }
         </ChooseStyle>
+        <DropdownDiv>
+          <SelectSize>
+            <option>Select Size</option>
+            <option>XS</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+          </SelectSize>
+          <SelectQuantity>
+            <option>1</option>
+          </SelectQuantity>
+          <AddToCart onClick={addToCart}>{!inCart ? 'Add To Cart ➕ ' : 'Added To Cart ✅ '}</AddToCart>
+          <Favorite onClick={toggleLike}>{!isLiked ? '  ⭐  ' : '  ❤️  '}</Favorite>
+        </DropdownDiv>
       </SelectStyleDiv>
       <DescriptionDiv>
         <DescriptionTitle>{slogan}</DescriptionTitle>
