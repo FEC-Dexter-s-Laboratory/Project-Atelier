@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const DivContainer = styled.div`
-  border: 6px ridge darkblue;
-  background-image: linear-gradient(to bottom right, cyan, deepskyblue);
-  display: grid;
-`;
+import StarButtons from './library/StarButtons.jsx';
+import StarDisplay from './library/StarDisplay.jsx';
 
-function RatingsAndReviews(props) {
-  // function handlers, state, hooks, general javascript all goes here
+// const DivContainer = styled.div`
+//   border: 6px ridge darkblue;
+//   background-image: linear-gradient(to bottom right, cyan, deepskyblue);
+//   display: grid;
+// `;
 
-  const [isClicked, setIsClicked] = useState(false);
+class RatingsAndReviews extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
 
-  useEffect(() => {
-    // implement desired hook effects here
-  }, [isClicked]);
+    };
+  }
 
-  return (
-    <DivContainer></DivContainer>
-  );
+  render() {
+    return (
+      <div className="reviews-module">
+        Hello World!
+        <StarButtons fontSize={100}/>
+        <StarDisplay fontSize={100} rating={3.63}/>
+      </div>
+    );
+  }
 }
 
 export default RatingsAndReviews;
