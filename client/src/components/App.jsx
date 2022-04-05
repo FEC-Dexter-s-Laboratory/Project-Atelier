@@ -37,6 +37,8 @@ class App extends React.Component {
       <>
         <Search />
         <Overview productId={this.state.productId} qtys={this.state.qtys} />
+        <RelatedList currentId={this.state.productId} />
+        <OutfitList currentId={this.state.productId} />
       </>
     );
   }

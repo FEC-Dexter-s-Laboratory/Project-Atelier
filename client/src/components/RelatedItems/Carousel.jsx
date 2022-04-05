@@ -34,7 +34,6 @@ const ContentStyle = styled.div`
 
 const Arrow = styled.button`
   position: absolute;
-  z-index: 1;
   top: 50%;
   transform: translateY(-50%);
   width: 48px;
