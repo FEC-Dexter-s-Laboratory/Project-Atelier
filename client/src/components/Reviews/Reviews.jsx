@@ -71,7 +71,6 @@ class Reviews extends React.Component {
           />
         </RightColumn>
 
-
         {/* <ReviewsNav /> */}
 
         {/* <h1>Star Components:</h1>

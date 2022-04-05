@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import StarDisplay from '../library/StarDisplay.jsx';
 
+
 const ReviewListEntry = function({ review }) {
 
   // StarDisplay for review.rating
@@ -24,6 +25,12 @@ const ReviewListEntry = function({ review }) {
   // different colored div background
   // <strong>Response from seller:
   // text below
+  // check mark, I recommend this product
+
+  // review.response
+  // different colored div background
+  // <strong>Response from seller:
+  // text below
 
   // Helpful?
   // Yes link -> send API call
@@ -37,7 +44,6 @@ const ReviewListEntry = function({ review }) {
       <div>ReviewListEntry</div>
     </div>
   );
-
 };
 
 export default ReviewListEntry;
