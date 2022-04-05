@@ -68,7 +68,7 @@ const Carousel = (props) => {
         <ContentWrapper>
           {products.map(product =>
             <ContentStyle style={{transform: `translateX(-${currentIndex * (100)}%)`}}>
-              <RelatedCard product={product} key={product.id} handleDefaultClick={props.handleDefaultClick} use={props.use} />
+              <RelatedCard product={product} key={product.id} handleDefaultClick={props.handleDefaultClick} use={props.use} handleOutfitClick={props.handleOutfitClick} />
             </ContentStyle>
           )}
         </ContentWrapper>

@@ -14,10 +14,12 @@ class OutfitList extends React.Component {
     this.state = {
       outfits: [{id: 'default'}],
       // change currentId based on prop passed from App
-      currentId: this.props.currentId
+      currentId: this.props.currentId,
+      use: 'outfit'
     };
     this.getCardInfo = this.getCardInfo.bind(this);
     this.handleDefaultClick = this.handleDefaultClick.bind(this);
+    this.handleOutfitClick = this.handleOutfitClick.bind(this);
   }
   getCardInfo() {
     // weed out if this card is already in list
@@ -75,6 +77,22 @@ class OutfitList extends React.Component {
     event.preventDefault();
     this.getCardInfo();
   }
+
+  // onClick for action button (removes clicked outfit from storage)
+  handleOutfitClick(event, outfitId) {
+    event.preventDefault();
+    let currentOutfits = this.state.outfits;
+    for (let i = 0; i < currentOutfits.length; i++) {
+      if (currentOutfits[i].id === outfitId) {
+        currentOutfits.splice(i, 1);
+      }
+    }
+    this.setState({
+      outfits: currentOutfits
+    });
+    localStorage.setItem('outfits', JSON.stringify(currentOutfits));
+  }
+
   // retreive outfits from local memory
   componentDidMount() {
     if (!localStorage.getItem('outfits')) {
@@ -91,7 +109,7 @@ class OutfitList extends React.Component {
     return (
       <DivContainer>
         <h3>Your Outfit</h3>
-        <Carousel products={this.state.outfits} handleDefaultClick={this.handleDefaultClick} />
+        <Carousel products={this.state.outfits} handleDefaultClick={this.handleDefaultClick} use={this.state.use} handleOutfitClick={this.handleOutfitClick} />
       </DivContainer>
     );
   }

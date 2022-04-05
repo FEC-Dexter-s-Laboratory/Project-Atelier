@@ -15,9 +15,19 @@ const Image = styled.div`
 `;
 
 const CompareStar = styled.img`
-  display: relative;
+  position: relative;
   top: 0;
   right: 0;
+`;
+
+const RemoveButton = styled.button`
+  font-weight: bold;
+  border: none;
+  background-color: white;
+`;
+
+const ButtonAlign = styled.div`
+  text-align: right;
 `;
 
 const RelatedCard = (props) => {
@@ -50,20 +60,31 @@ const RelatedCard = (props) => {
         <span style={{color: 'red'}}><b>{product.sale_price}</b></span>
       </div>;
     }
+    // conditional rendering of action buttons (modal or X)
     let modal;
+    let removeOutfit;
     if (props.use === 'compare') {
       modal =
-      <>
+      <ButtonAlign>
         <CompareStar src="https://upload.wikimedia.org/wikipedia/commons/7/71/Blank_star_%28fixed_width%29.svg" onClick={() => setIsOpen(true)}/>
         <Modal open={isOpen} onClose={() => setIsOpen(false)} comparedId={product.id}/>
-      </>;
+      </ButtonAlign>;
+    }
+    if (props.use === 'outfit') {
+      removeOutfit =
+      <ButtonAlign>
+        <RemoveButton onClick={(e) => props.handleOutfitClick(e, product.id)} >X</RemoveButton>
+      </ButtonAlign>;
     }
     return (
     // add onclick for card, will need to send product.id back to App to change state
 
       <CardStyle>
         {modal}
-        <Image>{image}</Image>
+        {removeOutfit}
+        <Image>
+          {image}
+        </Image>
         <div>{product.category}</div>
         <b>{product.name}</b>
         {price}
