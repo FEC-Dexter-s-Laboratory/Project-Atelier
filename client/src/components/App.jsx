@@ -8,49 +8,34 @@ import QAndA from './QAndA.jsx';
 import axios from 'axios';
 // import { ProductIdContext } from './Contexts/ProductIdContext.jsx';
 
-// const App = () => {
-//   // function handlers, state, hooks, general javascript all goes here
-
-//   const [isHovering, setIsHovering] = useState(false);
-//   const [currentProductId, setCurrentProductId] = useState(1);
-
-//   useEffect(() => {
-//     // implement the desired hook effects here
-//   }, []);
-
-//   return (
-//     <>
-//       {/* <ProductIdContext.Provider value={{currentProductId, setCurrentProductId}}> */}
-//         <Search />
-//         <Overview />
-//         {/* <RelatedItems />
-//         <QAndA />
-//         <RatingsAndReviews /> */}
-//       {/* </ProductIdContext.Provider> */}
-//     </>
-//   );
-// };
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: '65631'
+      productId: '65631',
+      qtys: {},
     };
   }
 
-  // componentDidMount() {
-  //   axios({
-  //     url: '/products'
-  //   })
-  // }
+  componentDidMount() {
+    axios({
+      url: `/products/${this.state.productId}/styles`,
+      method: 'GET'
+    })
+      .then(res => {
+        this.setState({
+          productId: this.state.productId,
+          qtys: res.data.results[0].skus,
+        });
+      })
+      .catch(err => console.error(err));
+  }
 
   render() {
     return (
       <>
         <Search />
-        <Overview productId={this.state.productId} />
-        {/* <RelatedList /> */}
+        <Overview productId={this.state.productId} qtys={this.state.qtys} />
       </>
     );
   }

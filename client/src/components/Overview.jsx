@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import axios from 'axios';
 // import { ProductIdContext } from './Contexts/ProductIdContext.jsx';
 
+// ALL STYLED COMPONENTS
+// Overview container
 const DivContainer = styled.div`
   border: 6px ridge darkblue;
   background-image: linear-gradient(to bottom right, cyan, deepskyblue);
   display: grid;
 `;
 
+// For images and thumbnails
 const ImageContainer = styled.div`
   position: relative;
   grid-column: 1;
@@ -41,6 +44,7 @@ const TestDiv = styled.div`
   margin-left: 1%;
 `;
 
+// For selecting styles
 const SelectStyleDiv = styled.div`
   grid-column: 2;
   grid-row: 1;
@@ -98,6 +102,7 @@ const Favorite = styled.button`
   margin: 3%;
 `;
 
+// For description
 const DescriptionDiv = styled.div`
   grid-row: 2;
   display: grid;
@@ -115,6 +120,7 @@ const DescriptionSpan = styled.span`
 
 const Overview = (props) => {
   // State variables and functions
+  // * this is subject to change still, I will clean up my state and try useReducer *
   const [isClicked, setIsClicked] = useState(false);
   const [category, setCategory] = useState('Category');
   const [title, setTitle] = useState('Title');
@@ -133,14 +139,26 @@ const Overview = (props) => {
   const [thumbDisplayChange, setThumbDisplayChanged] = useState('contents');
   const [isLiked, setIsLiked] = useState(false);
   const [inCart, setInCart] = useState(false);
+  const [skus, setSkus] = useState({});
+  const [xsQuantity, setXsQuantity] = useState(1);
+  const [sQuantity, setSQuantity] = useState(1);
+  const [mQuantity, setMQuantity] = useState(1);
+  const [lQuantity, setLQuantity] = useState(1);
+  const [xlQuantity, setXlQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState('Select Size');
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [qProps, setQProps] = useState({});
+  const [qList, setQList] = useState([1]);
+  const [qListLength, setQListLength] = useState(1);
+
+  // Non-state variables used for initial rendering
   let stylesColCounter = 0;
   let stylesRowCounter = 0;
   let styleResultsColCounter = 0;
   let styleResultsRowCounter = 1;
   let thumbDisplay = 'flex';
-  // const { currentProductId } = useContext(ProductIdContext);
-  // console.log('product ID yo! -> ', currentProductId);
 
+  // Mouseover animation functions
   const enterThumb = (e) => {
     e.target.style.transition = '.2s';
     e.target.style.transform = 'scale(1.25)';
@@ -152,6 +170,7 @@ const Overview = (props) => {
     e.target.style.transform = 'scale(1.00)';
   };
 
+  // for highlighting selected thumbnail
   const highlight = (e) => {
     if (!isHighlighted) {
       setIsHighlighted(true);
@@ -163,10 +182,15 @@ const Overview = (props) => {
     }
   };
 
+  // for all main image rendering, including when switching between images
   const displayImage = (e) => {
+    console.log('display e ', e);
     let newImage = '';
+    console.log('style results ', styleResults)
     styleResults.forEach(style => {
-      if (style.style_id === Number(e.target.classList[0])) {
+      console.log('inside the loop yo')
+      if (style.style_id === Number(e.target.classList[0]) || style.style_id === e) {
+        console.log('made it')
         newImage = style.photos[0].url;
       }
     });
@@ -183,26 +207,29 @@ const Overview = (props) => {
     setMainImage(newImage);
   };
 
+  // for updating main image, thumbnails, and all relevant state when switching between styles
   const changeStyle = (e) => {
+    console.log('e is ', e);
     displayImage(e);
     let newStyleImages = [];
     for (let i = 0; i < styleResults.length; i++) {
-      if (styleResults[i].style_id === Number(e.target.classList[0])) {
+      console.log('style i ', styleResults[i]);
+      if (styleResults[i].style_id === Number(e.target.classList[0]) || styleResults[i].style_id === e) {
         for (let j = 0; j < styleResults[i].photos.length; j++) {
           newStyleImages.push({
             srcThumb: styleResults[i].photos[j].thumbnail_url,
             srcUrl: styleResults[i].photos[j].url,
             id: j,
           });
-          setSelectedStyle(styleResults[i].name);
-          setOriginalPrice(styleResults[i].original_price);
-          if (styleResults[i].sale_price) {
-            setSalePrice(styleResults[i].sale_price);
-            setIsOnSale(true);
-          } else {
-            setSalePrice(null);
-            setIsOnSale(false);
-          }
+        }
+        setSelectedStyle(styleResults[i].name);
+        setOriginalPrice(styleResults[i].original_price);
+        if (styleResults[i].sale_price) {
+          setSalePrice(styleResults[i].sale_price);
+          setIsOnSale(true);
+        } else {
+          setSalePrice(null);
+          setIsOnSale(false);
         }
         break;
       }
@@ -210,6 +237,86 @@ const Overview = (props) => {
     setStyles(newStyleImages);
   };
 
+  // for selecting a size, changes quantity accordingly
+  const checkSkus = (e) => {
+    let q = [];
+    if (e.target.value === 'Select Size') {
+      setQList([1]);
+    }
+    if (e.target.value === 'XS') {
+      if (xsQuantity >= 15) {
+        for (let i = 1; i <= 15; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      } else {
+        for (let i = 1; i <= xsQuantity; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      }
+    } else if (e.target.value === 'S') {
+      if (sQuantity >= 15) {
+        for (let i = 1; i <= 15; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      } else {
+        for (let i = 1; i <= sQuantity; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      }
+    } else if (e.target.value === 'M') {
+      if (mQuantity >= 15) {
+        for (let i = 1; i <= 15; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      } else {
+        for (let i = 1; i <= mQuantity; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      }
+    } else if (e.target.value === 'L') {
+      if (lQuantity >= 15) {
+        for (let i = 1; i <= 15; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      } else {
+        for (let i = 1; i <= lQuantity; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      }
+    } else if (e.target.value === 'XL') {
+      if (xlQuantity >= 15) {
+        for (let i = 1; i <= 15; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      } else {
+        for (let i = 1; i <= xlQuantity; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      }
+    }
+  };
+
+  // for toggling the like button and the add to cart button
   const toggleLike = (e) => {
     if (!isLiked) {
       setIsLiked(true);
@@ -226,6 +333,7 @@ const Overview = (props) => {
     }
   };
 
+  // axios call for getting product data
   const getData = (id) => {
     axios({
       url: `/products/${id}`,
@@ -241,7 +349,8 @@ const Overview = (props) => {
       .catch(err => console.error(err));
   };
 
-  const getStyles = (id) => {
+  // axios call for getting style data on selected product
+  const getStyles = (id, p) => {
     axios({
       url: `/products/${id}/styles`,
       method: 'GET',
@@ -271,29 +380,44 @@ const Overview = (props) => {
       .catch(err => console.error(err));
   };
 
+  // for initial rendering, similar to componentDidMount
   useEffect(() => {
     getData(props.productId);
-    getStyles(props.productId);
-  }, [isClicked]);
+    getStyles(props.productId, props.qtys);
+    setQProps(props.qtys);
+    let qArr = [];
+    let qs = Object.values(props.qtys);
+    setQProps(qs);
+    if (qs.length > 0) {
+      for (let i = 0; i < qs.length; i++) {
+        if (qs[i].size === 'XS') {
+          setXsQuantity(qs[i].quantity);
+        } else if (qs[i].size === 'S') {
+          setSQuantity(qs[i].quantity);
+        } else if (qs[i].size === 'M') {
+          setMQuantity(qs[i].quantity);
+        } else if (qs[i].size === 'L') {
+          setLQuantity(qs[i].quantity);
+        } else if (qs[i].size === 'XL') {
+          setXlQuantity(qs[i].quantity);
+        }
+      }
+    }
+  }, [isClicked, props.qtys]);
 
   return (
     <DivContainer>
       <ImageContainer>
         <TestDiv>
           {
-            styles.map(style => {
+            styles.map((style, index) => {
               stylesRowCounter += 1;
               stylesColCounter = 1;
               if (stylesRowCounter === 5) {
                 thumbDisplay = 'none';
               }
-              // return (
-              // <img
-              //   style={{display: thumbDisplay, height: '200px', width: '200px', position: 'absolute', zIndex: '12', gridColumn: colCounter, gridRow: rowCounter}}
-              //   src={style} />
-              // );
               return (
-                <div style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}}>
+                <div key={index} style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}}>
                   <img
                     style={{height: '100px', width: '100px', position: 'absolute', zIndex: '12', border: '1px solid black', float: 'right'}}
                     src={style.srcThumb}
@@ -339,7 +463,7 @@ const Overview = (props) => {
           }
         </ChooseStyle>
         <DropdownDiv>
-          <SelectSize>
+          <SelectSize onChange={checkSkus}>
             <option>Select Size</option>
             <option>XS</option>
             <option>S</option>
@@ -347,8 +471,14 @@ const Overview = (props) => {
             <option>L</option>
             <option>XL</option>
           </SelectSize>
-          <SelectQuantity>
-            <option>1</option>
+          <SelectQuantity onChange={checkSkus}>
+            {
+              qList.map((q, index) => {
+                return (
+                  <option key={index}>{q}</option>
+                );
+              })
+            }
           </SelectQuantity>
           <AddToCart onClick={addToCart}>{!inCart ? 'Add To Cart ➕ ' : 'Added To Cart ✅ '}</AddToCart>
           <Favorite onClick={toggleLike}>{!isLiked ? '  ⭐  ' : '  ❤️  '}</Favorite>
@@ -360,7 +490,6 @@ const Overview = (props) => {
           {description}
         </DescriptionSpan>
       </DescriptionDiv>
-      {/* <img src={mainImage} /> */}
     </DivContainer>
   );
 };
