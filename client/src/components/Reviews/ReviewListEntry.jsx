@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import StarDisplay from '../library/StarDisplay.jsx';
 
 const ReviewListEntry = function({ review }) {
 
@@ -11,24 +12,31 @@ const ReviewListEntry = function({ review }) {
   // ## review.summary (truncate to eliminate next-line?)
 
   // review.body
-    // display first 250 characters
-    // if longer, render link "Show more" -> expand body text to full length (1000chars)
+  // display first 250 characters
+  // if longer, render link "Show more" -> expand body text to full length (1000chars)
 
   // if review.photos.length > 0, image thumbnails (click to launch full-screen modal)
 
   // if review.recommend
-    // check mark, I recommend this product
+  // check mark, I recommend this product
 
   // review.response
-    // different colored div background
-    // <strong>Response from seller:
-    // text below
+  // different colored div background
+  // <strong>Response from seller:
+  // text below
 
   // Helpful?
   // Yes link -> send API call
   // (review.helpfulness) | Report link -> send API call
 
   // CSS border between reviews (skip first top border)
+
+  return (
+    <div className="review-list-entry">
+      <StarDisplay font={30} rating={review.rating} />
+      <div>ReviewListEntry</div>
+    </div>
+  );
 
 };
 

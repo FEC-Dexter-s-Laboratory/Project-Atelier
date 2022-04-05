@@ -6,9 +6,9 @@ const SortReviews = function({ count }) {
 
   return (
     <div className="sort-reviews">
-      <label for="reviews">{count} reviews, sorted by</label>
-      <select id="reviews">
-        <option value="relevance" selected>relevance</option>
+      <label>{count} reviews, sorted by </label>
+      <select id="reviews" defaultValue="relevance">
+        <option value="relevance">relevance</option>
         <option value="newest">newest</option>
         <option value="helpful">helpful</option>
       </select>
