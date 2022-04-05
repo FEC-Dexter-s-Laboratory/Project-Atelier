@@ -184,13 +184,9 @@ const Overview = (props) => {
 
   // for all main image rendering, including when switching between images
   const displayImage = (e) => {
-    console.log('display e ', e);
     let newImage = '';
-    console.log('style results ', styleResults)
     styleResults.forEach(style => {
-      console.log('inside the loop yo')
       if (style.style_id === Number(e.target.classList[0]) || style.style_id === e) {
-        console.log('made it')
         newImage = style.photos[0].url;
       }
     });
@@ -209,11 +205,9 @@ const Overview = (props) => {
 
   // for updating main image, thumbnails, and all relevant state when switching between styles
   const changeStyle = (e) => {
-    console.log('e is ', e);
     displayImage(e);
     let newStyleImages = [];
     for (let i = 0; i < styleResults.length; i++) {
-      console.log('style i ', styleResults[i]);
       if (styleResults[i].style_id === Number(e.target.classList[0]) || styleResults[i].style_id === e) {
         for (let j = 0; j < styleResults[i].photos.length; j++) {
           newStyleImages.push({
@@ -230,6 +224,25 @@ const Overview = (props) => {
         } else {
           setSalePrice(null);
           setIsOnSale(false);
+        }
+        let skus = styleResults[i].skus;
+        for (const sku in skus) {
+          if (skus[sku].size === 'XS') {
+            console.log('xs test')
+            setXsQuantity(skus[sku].quantity);
+          } else if (skus[sku].size === 'S') {
+            console.log('s test')
+            setSQuantity(skus[sku].quantity);
+          } else if (skus[sku].size === 'M') {
+            console.log('m test')
+            setMQuantity(skus[sku].quantity);
+          } else if (skus[sku].size === 'L') {
+            console.log('l test')
+            setLQuantity(skus[sku].quantity);
+          } else if (skus[sku].size === 'XL') {
+            console.log('xl test')
+            setXlQuantity(skus[sku].quantity);
+          }
         }
         break;
       }
