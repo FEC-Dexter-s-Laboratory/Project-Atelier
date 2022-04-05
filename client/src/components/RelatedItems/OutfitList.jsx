@@ -24,55 +24,60 @@ class OutfitList extends React.Component {
   }
   getCardInfo() {
     // weed out if this card is already in list
+    let exists = false;
     for (let i = 0; i < this.state.outfits.length; i++) {
-      if (this.state.outfits[i].id === this.state.currentId) {
-        console.log('here')
-        return;
+      let numId = parseInt(this.state.currentId);
+      if (this.state.outfits[i].id === numId) {
+        exists = true;
       }
     }
-    // get all info to make new card
-    let product = {};
-    axios.get(`/products/${this.state.currentId}`)
-      .then((response) => {
-        let {data} = response;
-        product.id = data.id;
-        product.name = data.name;
-        product.category = data.category;
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .then(() => {
-        axios.get(`/products/${this.state.currentId}/styles`)
-          .then((response) => {
-            let { data } = response;
-            let styles = data.results;
-            let foundDefault = false;
-            for (let j = 0; j < styles.length; j++) {
-              if (styles[j]['default?'] === true) {
-                product.original_price = styles[j].original_price;
-                product.sale_price = styles[j].sale_price;
-                product.photos = styles[j].photos;
-                foundDefault = true;
+    if (exists === true) {
+      return;
+    } else {
+      // get all info to make new card
+      let product = {};
+      axios.get(`/products/${this.state.currentId}`)
+        .then((response) => {
+          let {data} = response;
+          product.id = data.id.toString();
+          product.name = data.name;
+          product.category = data.category;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .then(() => {
+          axios.get(`/products/${this.state.currentId}/styles`)
+            .then((response) => {
+              let { data } = response;
+              let styles = data.results;
+              let foundDefault = false;
+              for (let j = 0; j < styles.length; j++) {
+                if (styles[j]['default?'] === true) {
+                  product.original_price = styles[j].original_price;
+                  product.sale_price = styles[j].sale_price;
+                  product.photos = styles[j].photos;
+                  foundDefault = true;
+                }
               }
-            }
-            if (foundDefault === false) {
-              product.original_price = styles[0].original_price;
-              product.sale_price = styles[0].sale_price;
-              product.photos = styles[0].photos;
-            }
-            let newOutfits = this.state.outfits;
-            newOutfits.push(product);
-            this.setState({
-              outfits: newOutfits
+              if (foundDefault === false) {
+                product.original_price = styles[0].original_price;
+                product.sale_price = styles[0].sale_price;
+                product.photos = styles[0].photos;
+              }
+              let newOutfits = this.state.outfits;
+              newOutfits.push(product);
+              this.setState({
+                outfits: newOutfits
+              });
+              // store updated outfit list to local storage
+              localStorage.setItem('outfits', JSON.stringify(newOutfits));
+            })
+            .catch((err) => {
+              console.log(err);
             });
-            // store updated outfit list to local storage
-            localStorage.setItem('outfits', JSON.stringify(newOutfits));
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
+        });
+    }
   }
   // make onClick for default card (adds current product to outfits list)
   handleDefaultClick(event) {

@@ -22,7 +22,6 @@ class RelatedItems extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state.currentId)
     let relatedProducts = [];
     // GET related ids (currently using testId, change later!)
     axios.get(`/products/${this.state.currentId}/related`)
@@ -34,7 +33,7 @@ class RelatedItems extends React.Component {
           axios.get(`/products/${relatedIds[i]}`)
             .then((response) => {
               let { data } = response;
-              product.id = data.id;
+              product.id = data.id.toString();
               product.name = data.name;
               product.category = data.category;
             })
