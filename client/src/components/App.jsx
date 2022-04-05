@@ -4,7 +4,7 @@ import Reviews from './Reviews/Reviews.jsx';
 import RelatedList from './RelatedItems/RelatedList.jsx';
 import OutfitList from './RelatedItems/OutfitList.jsx';
 import Search from './Search.jsx';
-import QandA from './QandA.jsx';
+import QandA from './QAndA.jsx';
 import axios from 'axios';
 // import { ProductIdContext } from './Contexts/ProductIdContext.jsx';
 
@@ -15,6 +15,13 @@ class App extends React.Component {
       productId: '65631',
       qtys: {},
     };
+    this.handleCardClick = this.handleCardClick.bind(this);
+  }
+
+  handleCardClick(clickedId) {
+    this.setState({
+      productId: clickedId
+    });
   }
 
   componentDidMount() {
@@ -37,6 +44,8 @@ class App extends React.Component {
       <>
         <Search />
         <Overview productId={this.state.productId} qtys={this.state.qtys} />
+        <RelatedList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
+        <OutfitList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
         <QandA />
       </>
     );

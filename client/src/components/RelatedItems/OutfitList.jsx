@@ -1,7 +1,8 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import Carousel from './Carousel.jsx';
 import styled from 'styled-components';
-const axios = require('axios');
+import axios from 'axios';
 
 const DivContainer = styled.div`
   margin: auto;
@@ -14,15 +15,18 @@ class OutfitList extends React.Component {
     this.state = {
       outfits: [{id: 'default'}],
       // change currentId based on prop passed from App
-      currentId: this.props.currentId
+      currentId: this.props.currentId,
+      use: 'outfit'
     };
     this.getCardInfo = this.getCardInfo.bind(this);
     this.handleDefaultClick = this.handleDefaultClick.bind(this);
+    this.handleOutfitClick = this.handleOutfitClick.bind(this);
   }
   getCardInfo() {
     // weed out if this card is already in list
     for (let i = 0; i < this.state.outfits.length; i++) {
       if (this.state.outfits[i].id === this.state.currentId) {
+        console.log('here')
         return;
       }
     }
@@ -62,11 +66,8 @@ class OutfitList extends React.Component {
             this.setState({
               outfits: newOutfits
             });
-            // need to make an axios post request to retain list when item is added (retain list that can be used to make cards)
-            // axios.post('/product/outfit', this.state.outfits)
-            //   .catch((err) => {
-            //     console.log(err);
-            //   });
+            // store updated outfit list to local storage
+            localStorage.setItem('outfits', JSON.stringify(newOutfits));
           })
           .catch((err) => {
             console.log(err);
@@ -78,24 +79,39 @@ class OutfitList extends React.Component {
     event.preventDefault();
     this.getCardInfo();
   }
-  // need to make an axios get request on mount to get existing list (save list on server)
+
+  // onClick for action button (removes clicked outfit from storage)
+  handleOutfitClick(event, outfitId) {
+    event.preventDefault();
+    let currentOutfits = this.state.outfits;
+    for (let i = 0; i < currentOutfits.length; i++) {
+      if (currentOutfits[i].id === outfitId) {
+        currentOutfits.splice(i, 1);
+      }
+    }
+    this.setState({
+      outfits: currentOutfits
+    });
+    localStorage.setItem('outfits', JSON.stringify(currentOutfits));
+  }
+
+  // retreive outfits from local memory
   componentDidMount() {
-    // axios.get('/product/outfit')
-    //   .then((response) => {
-    //     this.setState({
-    //       outfits: response.data
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(error);
-    //   });
+    if (!localStorage.getItem('outfits')) {
+      localStorage.setItem('outfits', JSON.stringify(this.state.outfits));
+    } else {
+      let retreived = JSON.parse(localStorage.getItem('outfits'));
+      this.setState({
+        outfits: retreived
+      });
+    }
   }
 
   render() {
     return (
       <DivContainer>
         <h3>Your Outfit</h3>
-        <Carousel products={this.state.outfits} handleDefaultClick={this.handleDefaultClick} />
+        <Carousel products={this.state.outfits} handleDefaultClick={this.handleDefaultClick} use={this.state.use} handleOutfitClick={this.handleOutfitClick} handleCardClick={this.props.handleCardClick} />
       </DivContainer>
     );
   }
