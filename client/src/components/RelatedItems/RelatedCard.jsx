@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import Modal from './Modal.jsx';
 
 const CardStyle = styled.div`
   padding: 8;
@@ -13,8 +14,28 @@ const Image = styled.div`
   width: 200px;
 `;
 
+const CompareStar = styled.img`
+  position: relative;
+  top: 0;
+  right: 0;
+`;
+
+const RemoveButton = styled.button`
+  font-weight: bold;
+  border: none;
+  background-color: white;
+`;
+
+const ButtonAlign = styled.div`
+  text-align: right;
+`;
+
 const RelatedCard = (props) => {
+
   let {product} = props;
+
+  const [isOpen, setIsOpen] = useState(false);
+
   if (product.id === 'default') {
     return (
       <CardStyle onClick={props.handleDefaultClick}>
@@ -39,10 +60,30 @@ const RelatedCard = (props) => {
         <span style={{color: 'red'}}><b>{product.sale_price}</b></span>
       </div>;
     }
+    // conditional rendering of action buttons (modal or X)
+    let modal;
+    let removeOutfit;
+    if (props.use === 'compare') {
+      modal =
+      <ButtonAlign>
+        <CompareStar src="https://upload.wikimedia.org/wikipedia/commons/7/71/Blank_star_%28fixed_width%29.svg" onClick={() => setIsOpen(true)}/>
+        <Modal open={isOpen} onClose={() => setIsOpen(false)} comparedId={product.id}/>
+      </ButtonAlign>;
+    }
+    if (props.use === 'outfit') {
+      removeOutfit =
+      <ButtonAlign>
+        <RemoveButton onClick={(e) => props.handleOutfitClick(e, product.id)} >X</RemoveButton>
+      </ButtonAlign>;
+    }
     return (
-      // add onclick for card, will need to send product.id back to App to change state
-      <CardStyle>
-        <Image>{image}</Image>
+    // add onclick for card, will need to send product.id back to App to change state
+      <CardStyle onClick={() => props.handleCardClick(product.id)}>
+        {modal}
+        {removeOutfit}
+        <Image>
+          {image}
+        </Image>
         <div>{product.category}</div>
         <b>{product.name}</b>
         {price}

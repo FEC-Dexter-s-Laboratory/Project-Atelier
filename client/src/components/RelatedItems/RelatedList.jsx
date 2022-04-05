@@ -1,8 +1,9 @@
+/* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import RelatedCard from './RelatedCard.jsx';
 import Carousel from './Carousel.jsx';
-const axios = require('axios');
+import axios from 'axios';
 
 const DivContainer = styled.div`
   margin: auto;
@@ -15,11 +16,13 @@ class RelatedItems extends React.Component {
     this.state = {
       relatedList: [],
       // change current id to be the prop passed from app
-      currentId: this.props.currentId
+      currentId: this.props.currentId,
+      use: 'compare'
     };
   }
 
   componentDidMount() {
+    console.log(this.state.currentId)
     let relatedProducts = [];
     // GET related ids (currently using testId, change later!)
     axios.get(`/products/${this.state.currentId}/related`)
@@ -78,7 +81,7 @@ class RelatedItems extends React.Component {
     return (
       <DivContainer>
         <h3>Related Items</h3>
-        <Carousel products={this.state.relatedList} />
+        <Carousel products={this.state.relatedList} use={this.state.use} handleCardClick={this.props.handleCardClick} />
       </DivContainer>
     );
   }

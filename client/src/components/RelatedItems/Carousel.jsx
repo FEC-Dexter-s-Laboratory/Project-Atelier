@@ -34,7 +34,6 @@ const ContentStyle = styled.div`
 
 const Arrow = styled.button`
   position: absolute;
-  z-index: 1;
   top: 50%;
   transform: translateY(-50%);
   width: 48px;
@@ -68,7 +67,7 @@ const Carousel = (props) => {
         <ContentWrapper>
           {products.map(product =>
             <ContentStyle style={{transform: `translateX(-${currentIndex * (100)}%)`}}>
-              <RelatedCard product={product} key={product.id} handleDefaultClick={props.handleDefaultClick} />
+              <RelatedCard product={product} key={product.id} handleDefaultClick={props.handleDefaultClick} use={props.use} handleOutfitClick={props.handleOutfitClick} handleCardClick={props.handleCardClick} />
             </ContentStyle>
           )}
         </ContentWrapper>
