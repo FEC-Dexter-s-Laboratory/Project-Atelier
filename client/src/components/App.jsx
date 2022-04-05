@@ -17,12 +17,12 @@ function App() {
 
   return (
     <>
-      <Search />
-      <Overview />
-      <RelatedList currentId={65632} />
-      <OutfitList currentId={65632}/>
-      {/* <QAndA /> */}
-      <RatingsAndReviews />
+      {/* <Search /> */}
+      {/* <Overview /> */}
+      {/* <RelatedList currentId={65632} /> */}
+      {/* <OutfitList currentId={65632}/> */}
+      <QAndA />
+      {/* <RatingsAndReviews /> */}
     </>
   );
 }

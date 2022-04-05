@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Answers from './Answers.jsx';
 import moment from 'moment';
 
 const Linkbutton = styled.button`
@@ -14,6 +13,10 @@ const Linkbutton = styled.button`
 	border: none;
 	cursor: pointer;
 
+`;
+
+const Orderlist = styled.ol`
+list-style-type: none;
 `;
 
 let sortedQuest = [];
@@ -75,7 +78,7 @@ class IndividualQuestion extends React.Component {
       );
     } else {
       return (
-        <ol>
+        <Orderlist>
           {this.sortQuestions(this.state.questions).map((obj, index) =>{
             return (
               <li key={obj.question_id}>
@@ -91,8 +94,8 @@ class IndividualQuestion extends React.Component {
               </li>
             );
           })}
-          {/* <button onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button> */}
-        </ol>
+          <button onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
+        </Orderlist>
       );
     }
   }
