@@ -23,21 +23,33 @@ const SearchInput = styled.input`
   background-position: right center;
 `;
 
-const QAndA = (props) => {
-  const searchRef = useRef(null);
-  const [questData, setQuestData] = useState("");
+class QandA extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchKey: '',
+    };
+  }
 
-  useEffect(() => {
-    setQuestData(questions);
-  }, [questData]);
+  handleChange (e) {
+    e.preventDefault();
+    if (e.target.value.length >= 3) {
+      this.setState ({
+        searchKey: e.target.value,
+      });
+    }
+  }
 
-  return (
-    <QnAContainer>
-      <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
-      <SearchInput type="search" placeholder="Have a question? Search for answers…" ref={searchRef} />
-      <IndividualQuestion data={questions} />
-    </QnAContainer>
-  );
-};
+  render () {
+    return (
+      <QnAContainer>
+        <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
+        <SearchInput type="search" onChange={this.handleChange.bind(this)} placeholder="Have a question? Search for answers…" />
+        <IndividualQuestion data={questions} search={this.state.searchKey} />
+      </QnAContainer>
+    );
+  }
 
-export default QAndA;
+}
+
+export default QandA;
