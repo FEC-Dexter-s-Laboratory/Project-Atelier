@@ -17,10 +17,10 @@ function App() {
 
   return (
     <>
-      <Search />
+      {/* <Search />
       <Overview />
       <RelatedList currentId={65632} />
-      <OutfitList currentId={65632}/>
+      <OutfitList currentId={65632}/> */}
       {/* <QAndA /> */}
       <Reviews currentId={65632}/>
     </>
