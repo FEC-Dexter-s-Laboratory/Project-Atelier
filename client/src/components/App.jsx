@@ -4,7 +4,7 @@ import RatingsAndReviews from './RatingsAndReviews.jsx';
 import RelatedList from './RelatedItems/RelatedList.jsx';
 import OutfitList from './RelatedItems/OutfitList.jsx';
 import Search from './Search.jsx';
-import QandA from './QandA.jsx';
+import QAndA from './QAndA.jsx';
 
 function App() {
   // function handlers, state, hooks, general javascript all goes here
@@ -17,12 +17,12 @@ function App() {
 
   return (
     <>
-      {/* <Search />
+      <Search />
       <Overview />
       <RelatedList currentId={65632} />
-      <OutfitList currentId={65632}/> */}
-      <QandA />
-      {/* <RatingsAndReviews /> */}
+      <OutfitList currentId={65632}/>
+      {/* <QAndA /> */}
+      <RatingsAndReviews />
     </>
   );
 }
