@@ -5,7 +5,8 @@ import RelatedCard from './RelatedCard.jsx';
 const CaroContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  overflow: hidden;
 `;
 
 const CaroWrapper = styled.div`
@@ -43,19 +44,67 @@ const Arrow = styled.button`
   border: 1px solid #ddd;
 `;
 
+const PreviewImage = styled.div`
+  background: white;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  z-index: 2;
+  padding: 2px;
+  width: 25%;
+`;
+
 const Carousel = (props) => {
   const { products } = props;
+  const {images} = props;
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const nextButton = () => {
     if (currentIndex < (products.length - 1)) {
       setCurrentIndex(currentIndex + 1);
     }
+    console.log(currentIndex)
   };
+
   const backButton = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
   };
+
+  // const [previewIndex, setPreviewIndex] = useState(0);
+  // const previewRight = () => {
+  //   if (previewIndex < (images.length - 1)) {
+  //     setPreviewIndex(previewIndex + 1);
+  //   }
+  // };
+  // const previewLeft = () => {
+  //   if (previewIndex > 0) {
+  //     setPreviewIndex(previewIndex - 1);
+  //   }
+  // };
+
+  // if (images) {
+  //   return (
+  //     <CaroContainer>
+  //       <CaroWrapper >
+  //         {previewIndex > 0 &&
+  //         <Arrow style={{left: '-20px'}} onClick={previewLeft}> &lt; </Arrow>
+  //         }
+  //         <ContentWrapper >
+  //           {images.map(image =>
+  //             <PreviewImage style={{transform: `translateX(-${previewIndex * (100 / 4)}%)`}}>
+  //               <img src={image.thumbnail_url} height="100px" width="auto"/>
+  //             </PreviewImage>
+  //           )}
+  //         </ContentWrapper>
+  //         {previewIndex < (images.length - 1) &&
+  //         <Arrow style={{right: '30px'}} onClick={previewRight}> &gt; </Arrow>
+  //         }
+  //       </CaroWrapper>
+  //     </CaroContainer>
+  //   );
+  // }
 
   return (
     <CaroContainer>

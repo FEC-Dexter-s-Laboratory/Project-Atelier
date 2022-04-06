@@ -56,7 +56,6 @@ class RelatedItems extends React.Component {
                       let { data } = response;
                       let styles = data.results;
                       let foundDefault = false;
-                      console.log(styles)
                       for (let j = 0; j < styles.length; j++) {
                         if (styles[j]['default?'] === true) {
                           product.original_price = styles[j].original_price;

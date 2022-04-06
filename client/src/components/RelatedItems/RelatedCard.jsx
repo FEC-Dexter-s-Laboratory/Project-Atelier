@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import Modal from './Modal.jsx';
 import StarDisplay from '../library/StarDisplay.jsx';
+import Carousel from './Carousel.jsx';
 
 const CardStyle = styled.div`
   padding: 8;
@@ -40,6 +41,9 @@ const RelatedCard = (props) => {
   let {product} = props;
 
   const [isOpen, setIsOpen] = useState(false);
+  const [mouseOn, setMouseOn] = useState(false);
+
+  // create star rating
   let ratings = product.ratings;
   let sumRatings = 0;
   let countRatings = 0;
@@ -49,6 +53,7 @@ const RelatedCard = (props) => {
   }
   const averageRating = sumRatings / countRatings;
 
+  // conditional rendering of outfit default card
   if (product.id === 'default') {
     return (
       <CardStyle onClick={props.handleDefaultClick}>
@@ -73,7 +78,7 @@ const RelatedCard = (props) => {
         <span style={{color: 'red'}}><b>{product.sale_price}</b></span>
       </div>;
     }
-    // conditional rendering of action buttons (modal or X)
+    // conditional rendering of related items or outfit action buttons (modal or X)
     let modal;
     let removeOutfit;
     if (props.use === 'compare') {
@@ -89,14 +94,19 @@ const RelatedCard = (props) => {
         <RemoveButton onClick={(e) => props.handleOutfitClick(e, product.id)} >X</RemoveButton>
       </ButtonAlign>;
     }
+
     return (
-    // add onclick for card, will need to send product.id back to App to change state
       <CardStyle >
         {modal}
         {removeOutfit}
         <Clickable onClick={() => props.handleCardClick(product.id)}>
-          <Image>
+          <Image onMouseEnter={() => setMouseOn(true)} onMouseLeave={() => setMouseOn(false)}>
             {image}
+            {/* {mouseOn && (
+              <div style={{position: 'absolute', bottom: '20%'}}>
+                <Carousel images={product.photos}/>
+              </div>
+            )} */}
           </Image>
           <div>{product.category}</div>
           <b>{product.name}</b>
