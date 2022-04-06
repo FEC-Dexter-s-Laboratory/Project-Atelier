@@ -80,12 +80,12 @@ export const reviewData = {
       "photos": []
     },
     {
-      "review_id": 1136191,
-      "rating": 5,
+      "review_id": 1136654,
+      "rating": 3,
       "summary": "I'm not a fan!",
       "recommend": false,
       "response": "Sorry to hear. Is there anything in particular you don't like?",
-      "body": "I don't like them",
+      "body": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.",
       "date": "2019-06-16T00:00:00.000Z",
       "reviewer_name": "negativity",
       "helpfulness": 1,
