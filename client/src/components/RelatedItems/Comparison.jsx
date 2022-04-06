@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 const Table = styled.div`
-  border: 2px solid black;
   width: 100%;
   margin: auto;
   text-align: center;
@@ -17,7 +16,7 @@ const Grid = styled.div`
 const GridHeader = styled.div`
   text-align: center;
   display: grid;
-  border: 2px solid black;
+  font-weight: bold;
 `;
 
 const GridItem = styled.div`
@@ -87,10 +86,10 @@ class Comparison extends React.Component {
   render() {
     return (
       <Table>
-        <h3>Comparison</h3>
+        <h3>Comparing</h3>
         <Grid>
           <GridHeader>{this.state.currentProd}</GridHeader>
-          <GridHeader>Characteristics</GridHeader>
+          <GridHeader></GridHeader>
           <GridHeader>{this.state.comparedProd}</GridHeader>
           {Object.keys(this.state.features).map(feature =>
             <>

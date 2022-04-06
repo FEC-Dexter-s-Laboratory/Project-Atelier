@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import Modal from './Modal.jsx';
+import StarDisplay from '../library/StarDisplay.jsx';
 
 const CardStyle = styled.div`
   padding: 8;
@@ -18,6 +19,7 @@ const CompareStar = styled.img`
   position: relative;
   top: 0;
   right: 0;
+  zindex: 1;
 `;
 
 const RemoveButton = styled.button`
@@ -30,11 +32,23 @@ const ButtonAlign = styled.div`
   text-align: right;
 `;
 
+const Clickable = styled.div`
+
+`;
+
 const RelatedCard = (props) => {
 
   let {product} = props;
 
   const [isOpen, setIsOpen] = useState(false);
+  let ratings = product.ratings;
+  let sumRatings = 0;
+  let countRatings = 0;
+  for (let key in ratings) {
+    sumRatings += Number(key) * Number(ratings[key]);
+    countRatings += Number(ratings[key]);
+  }
+  const averageRating = sumRatings / countRatings;
 
   if (product.id === 'default') {
     return (
@@ -78,15 +92,18 @@ const RelatedCard = (props) => {
     }
     return (
     // add onclick for card, will need to send product.id back to App to change state
-      <CardStyle onClick={() => props.handleCardClick(product.id)}>
+      <CardStyle >
         {modal}
         {removeOutfit}
-        <Image>
-          {image}
-        </Image>
-        <div>{product.category}</div>
-        <b>{product.name}</b>
-        {price}
+        <Clickable onClick={() => props.handleCardClick(product.id)}>
+          <Image>
+            {image}
+          </Image>
+          <div>{product.category}</div>
+          <b>{product.name}</b>
+          {price}
+          <StarDisplay font={30} rating={averageRating}/>
+        </Clickable>
       </CardStyle>
     );
   }
