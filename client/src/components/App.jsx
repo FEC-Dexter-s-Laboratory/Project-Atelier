@@ -21,7 +21,7 @@ class App extends React.Component {
   handleCardClick(clickedId) {
     let newId = clickedId.toString();
     this.setState({
-      productId: clickedId
+      productId: newId
     });
   }
 

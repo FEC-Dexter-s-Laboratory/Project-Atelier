@@ -14,8 +14,6 @@ class OutfitList extends React.Component {
     super(props);
     this.state = {
       outfits: [{id: 'default'}],
-      // change currentId based on prop passed from App
-      currentId: this.props.currentId,
       use: 'outfit'
     };
     this.getCardInfo = this.getCardInfo.bind(this);
@@ -26,8 +24,7 @@ class OutfitList extends React.Component {
     // weed out if this card is already in list
     let exists = false;
     for (let i = 0; i < this.state.outfits.length; i++) {
-      let numId = parseInt(this.state.currentId);
-      if (this.state.outfits[i].id === numId) {
+      if (this.state.outfits[i].id === this.props.currentId) {
         exists = true;
       }
     }
@@ -36,7 +33,7 @@ class OutfitList extends React.Component {
     } else {
       // get all info to make new card
       let product = {};
-      axios.get(`/products/${this.state.currentId}`)
+      axios.get(`/products/${this.props.currentId}`)
         .then((response) => {
           let {data} = response;
           product.id = data.id.toString();
@@ -47,7 +44,7 @@ class OutfitList extends React.Component {
           console.log(err);
         })
         .then(() => {
-          axios.get(`/products/${this.state.currentId}/styles`)
+          axios.get(`/products/${this.props.currentId}/styles`)
             .then((response) => {
               let { data } = response;
               let styles = data.results;
