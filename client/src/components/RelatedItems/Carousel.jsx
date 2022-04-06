@@ -34,7 +34,6 @@ const ContentStyle = styled.div`
 
 const Arrow = styled.button`
   position: absolute;
-  z-index: 1;
   top: 50%;
   transform: translateY(-50%);
   width: 48px;
@@ -47,7 +46,6 @@ const Arrow = styled.button`
 const Carousel = (props) => {
   const { products } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const nextButton = () => {
     if (currentIndex < (products.length - 1)) {
       setCurrentIndex(currentIndex + 1);
@@ -68,7 +66,7 @@ const Carousel = (props) => {
         <ContentWrapper>
           {products.map(product =>
             <ContentStyle style={{transform: `translateX(-${currentIndex * (100)}%)`}}>
-              <RelatedCard product={product} key={product.id} handleDefaultClick={props.handleDefaultClick} />
+              <RelatedCard product={product} key={product.id} handleDefaultClick={props.handleDefaultClick} use={props.use} handleOutfitClick={props.handleOutfitClick} handleCardClick={props.handleCardClick} />
             </ContentStyle>
           )}
         </ContentWrapper>

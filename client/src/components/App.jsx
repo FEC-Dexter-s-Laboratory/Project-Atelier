@@ -4,27 +4,54 @@ import Reviews from './Reviews/Reviews.jsx';
 import RelatedList from './RelatedItems/RelatedList.jsx';
 import OutfitList from './RelatedItems/OutfitList.jsx';
 import Search from './Search.jsx';
-import QAndA from './QAndA.jsx';
+import QandA from './QAndA.jsx';
+import axios from 'axios';
+// import { ProductIdContext } from './Contexts/ProductIdContext.jsx';
 
-function App() {
-  // function handlers, state, hooks, general javascript all goes here
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      productId: '65631',
+      qtys: {},
+    };
+    this.handleCardClick = this.handleCardClick.bind(this);
+  }
 
-  const [isHovering, setIsHovering] = useState(false);
+  handleCardClick(clickedId) {
+    let newId = clickedId.toString();
+    this.setState({
+      productId: newId
+    });
+  }
 
-  useEffect(() => {
-    // implement the desired hook effects here
-  }, []);
+  componentDidMount() {
+    axios({
+      url: `/products/${this.state.productId}/styles`,
+      method: 'GET'
+    })
+      .then(res => {
+        this.setState({
+          productId: this.state.productId,
+          qtys: res.data.results[0].skus,
+        });
+      })
+      .catch(err => console.error(err));
+  }
 
-  return (
-    <>
-      {/* <Search />
-      <Overview />
-      <RelatedList currentId={65632} />
-      <OutfitList currentId={65632}/> */}
-      {/* <QAndA /> */}
-      <Reviews currentId={65632}/>
-    </>
-  );
+
+  render() {
+    return (
+      <>
+        <Search />
+        <Overview productId={this.state.productId} qtys={this.state.qtys} />
+        <RelatedList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
+        <OutfitList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
+        <QandA />
+      </>
+    );
+  }
+
 }
 
 export default App;
