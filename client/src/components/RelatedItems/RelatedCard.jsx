@@ -19,6 +19,7 @@ const CompareStar = styled.img`
   position: relative;
   top: 0;
   right: 0;
+  zindex: 1;
 `;
 
 const RemoveButton = styled.button`
@@ -31,12 +32,16 @@ const ButtonAlign = styled.div`
   text-align: right;
 `;
 
+const Clickable = styled.div`
+
+`;
+
 const RelatedCard = (props) => {
 
-  let {product, ratings} = props;
+  let {product} = props;
 
   const [isOpen, setIsOpen] = useState(false);
-
+  let ratings = product.ratings;
   let sumRatings = 0;
   let countRatings = 0;
   for (let key in ratings) {
@@ -87,16 +92,18 @@ const RelatedCard = (props) => {
     }
     return (
     // add onclick for card, will need to send product.id back to App to change state
-      <CardStyle onClick={() => props.handleCardClick(product.id)}>
+      <CardStyle >
         {modal}
         {removeOutfit}
-        <Image>
-          {image}
-        </Image>
-        <div>{product.category}</div>
-        <b>{product.name}</b>
-        {price}
-        <StarDisplay font={30} rating={averageRating}/>
+        <Clickable onClick={() => props.handleCardClick(product.id)}>
+          <Image>
+            {image}
+          </Image>
+          <div>{product.category}</div>
+          <b>{product.name}</b>
+          {price}
+          <StarDisplay font={30} rating={averageRating}/>
+        </Clickable>
       </CardStyle>
     );
   }

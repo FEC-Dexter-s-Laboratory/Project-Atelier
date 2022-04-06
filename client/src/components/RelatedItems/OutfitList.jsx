@@ -43,37 +43,48 @@ class OutfitList extends React.Component {
         .catch((err) => {
           console.log(err);
         })
-        .then(() => {
-          axios.get(`/products/${this.props.currentId}/styles`)
+        .then(
+          // get review ratings for each product
+          axios.get(`/reviews/meta/${this.props.currentId}`)
             .then((response) => {
-              let { data } = response;
-              let styles = data.results;
-              let foundDefault = false;
-              for (let j = 0; j < styles.length; j++) {
-                if (styles[j]['default?'] === true) {
-                  product.original_price = styles[j].original_price;
-                  product.sale_price = styles[j].sale_price;
-                  product.photos = styles[j].photos;
-                  foundDefault = true;
-                }
-              }
-              if (foundDefault === false) {
-                product.original_price = styles[0].original_price;
-                product.sale_price = styles[0].sale_price;
-                product.photos = styles[0].photos;
-              }
-              let newOutfits = this.state.outfits;
-              newOutfits.push(product);
-              this.setState({
-                outfits: newOutfits
-              });
-              // store updated outfit list to local storage
-              localStorage.setItem('outfits', JSON.stringify(newOutfits));
+              let {data} = response;
+              product.ratings = data.ratings;
             })
             .catch((err) => {
               console.log(err);
-            });
-        });
+            })
+            .then(
+              axios.get(`/products/${this.props.currentId}/styles`)
+                .then((response) => {
+                  let { data } = response;
+                  let styles = data.results;
+                  let foundDefault = false;
+                  for (let j = 0; j < styles.length; j++) {
+                    if (styles[j]['default?'] === true) {
+                      product.original_price = styles[j].original_price;
+                      product.sale_price = styles[j].sale_price;
+                      product.photos = styles[j].photos;
+                      foundDefault = true;
+                    }
+                  }
+                  if (foundDefault === false) {
+                    product.original_price = styles[0].original_price;
+                    product.sale_price = styles[0].sale_price;
+                    product.photos = styles[0].photos;
+                  }
+                  let newOutfits = this.state.outfits;
+                  newOutfits.push(product);
+                  this.setState({
+                    outfits: newOutfits
+                  });
+                  // store updated outfit list to local storage
+                  localStorage.setItem('outfits', JSON.stringify(newOutfits));
+                })
+                .catch((err) => {
+                  console.log(err);
+                })
+            )
+        );
     }
   }
   // make onClick for default card (adds current product to outfits list)
