@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import RatingBreakdown from './RatingBreakdown.jsx';
 import StarFilter from './StarFilter.jsx';
 import ProductBreakdown from './ProductBreakdown.jsx';
@@ -11,13 +12,6 @@ import ReviewModal from './ReviewModal.jsx';
 import StarButtons from '../library/StarButtons.jsx';
 import StarDisplay from '../library/StarDisplay.jsx';
 import { reviewData, reviewMetaData } from './reviewSampleData';
-
-
-// const DivContainer = styled.div`
-//   border: 6px ridge darkblue;
-//   background-image: linear-gradient(to bottom right, cyan, deepskyblue);
-//   display: grid;
-// `;
 
 const ReviewsContainer = styled.div`
   display: grid;
@@ -40,12 +34,47 @@ class Reviews extends React.Component {
     this.state = {
       productId: this.props.currentId,
       sort: 'relevant',
-      reviews: reviewData.results,
+      reviews: reviewData,
       meta: reviewMetaData,
-      addReview: false
+      addReview: false,
+      reviewsToFetch: 2,
     };
 
+    this.fetchReviews = this.fetchReviews.bind(this);
+    this.fetchMeta = this.fetchMeta.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchReviews();
+    this.fetchMeta();
+  }
+
+  fetchReviews() {
+    axios.get(`/reviews/${this.state.productId}`, {
+      params: {
+        count: this.state.reviewsToFetch,
+        sort: this.state.sort
+      }
+    })
+      .then(({data}) => {
+        this.setState({
+          reviews: data.results
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
+  fetchMeta() {
+    axios.get(`/reviews/meta/${this.state.productId}`)
+      .then(({data}) => {
+        this.setState({
+          meta: data
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   toggleModal() {
@@ -73,7 +102,7 @@ class Reviews extends React.Component {
           </LeftColumn>
           <RightColumn>
             <SortReviews
-              count={this.state.reviews.length}
+              ratings={this.state.meta.ratings}
             />
             <ReviewList
               reviews={this.state.reviews}

@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SortReviews = function({ count }) {
+const SortReviews = function({ ratings }) {
 
+  let count = 0;
+  for (let key in ratings) {
+    count += Number(ratings[key]);
+  }
 
   return (
     <h3 className="sort-reviews">
