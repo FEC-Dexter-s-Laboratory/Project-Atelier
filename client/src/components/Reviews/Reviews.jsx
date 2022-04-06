@@ -17,19 +17,19 @@ import { reviewData, reviewMetaData } from './reviewSampleData';
 //   display: grid;
 // `;
 
-const DivContainer = styled.div`
-  display: inline-block;
-  vertical-align: top;
-  border: 1px #353935;
-  width: 300px;
+const ReviewsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  margin: 2% 20% 2% 20%;
 `;
 
 const LeftColumn = styled.div`
-  display: inline-block;
+  grid-column-start: 1;
 `;
 
 const RightColumn = styled.div`
-  display: inline-block;
+  grid-column-start: 2;
+  grid-column-end: -1;
 `;
 
 class Reviews extends React.Component {
@@ -46,8 +46,9 @@ class Reviews extends React.Component {
   render() {
     return (
       <div className="reviews-module">
-        <div>Ratings &amp; Reviews</div>
-        <DivContainer>
+
+        <ReviewsContainer>
+          <div>Ratings &amp; Reviews</div>
           <LeftColumn>
             <RatingBreakdown
               ratings={this.state.meta.ratings}
@@ -60,16 +61,17 @@ class Reviews extends React.Component {
               chars={this.state.meta.characteristics}
             />
           </LeftColumn>
-        </DivContainer>
+          <RightColumn>
+            <SortReviews
+              count={this.state.reviews.length}
+            />
+            <ReviewList
+              reviews={this.state.reviews}
+            />
+          </RightColumn>
+        </ReviewsContainer>
 
-        <RightColumn>
-          <SortReviews
-            count={this.state.reviews.length}
-          />
-          <ReviewList
-            reviews={this.state.reviews}
-          />
-        </RightColumn>
+
 
         {/* <ReviewsNav /> */}
 

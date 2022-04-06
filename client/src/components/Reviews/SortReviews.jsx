@@ -5,14 +5,14 @@ const SortReviews = function({ count }) {
 
 
   return (
-    <div className="sort-reviews">
+    <h3 className="sort-reviews">
       <label>{count} reviews, sorted by </label>
       <select id="reviews" defaultValue="relevance">
         <option value="relevance">relevance</option>
         <option value="newest">newest</option>
         <option value="helpful">helpful</option>
       </select>
-    </div>
+    </h3>
   );
 };
 
