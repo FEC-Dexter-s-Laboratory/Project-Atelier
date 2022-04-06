@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import { Linkbutton, Orderlist } from './QnAStyledComponents.style.js';
+import axios from 'axios';
+import { Linkbutton, Orderlist, Questiondiv, Innerquestiondiv} from './QnAStyledComponents.style.js';
 
 
 class IndividualQuestion extends React.Component {
@@ -70,12 +71,12 @@ class IndividualQuestion extends React.Component {
           {this.sortQuestions(this.state.questions).map((obj, index) =>{
             return (
               <li key={obj.question_id}>
-                <div>Q: {obj.question_body} <span>Helpful? <Linkbutton>Yes</Linkbutton> ({obj.question_helpfulness}) | <Linkbutton>Add Answer</Linkbutton></span></div>
+                <Questiondiv>Q: {obj.question_body} <Innerquestiondiv>Helpful? <Linkbutton>Yes</Linkbutton> ({obj.question_helpfulness}) | <Linkbutton>Add Answer</Linkbutton></Innerquestiondiv></Questiondiv>
                 {this.sortAnswers(obj.answers).map((obj, index) => {
                   return (
                     <div key={obj.id}>
-                        A: {obj.body} <br />
-                        by {obj.answerer_name === 'Seller' ? (<b>{obj.answerer_name}</b>) : obj.answerer_name}, {moment(obj.date).format('LL')} | Helpful? <Linkbutton>Yes</Linkbutton> ({obj.helpfulness}) | <Linkbutton>Report</Linkbutton>
+                      A: {obj.body} <br />
+                      by {obj.answerer_name === 'Seller' ? (<b>{obj.answerer_name}</b>) : obj.answerer_name}, {moment(obj.date).format('LL')} | Helpful? <Linkbutton>Yes</Linkbutton> ({obj.helpfulness}) | <Linkbutton>Report</Linkbutton>
                     </div>
                   );
                 })}

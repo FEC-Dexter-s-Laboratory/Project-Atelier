@@ -11,12 +11,25 @@ const Linkbutton = styled.button`
 	padding: 0;
 	border: none;
 	cursor: pointer;
-
 `;
 
 const Orderlist = styled.ol`
-list-style-type: none;
+  display: contents;
+  list-style-type: none;
 `;
+
+const Questiondiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: large;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`
+const Innerquestiondiv = styled.div`
+  font-weight: lighter;
+  font-size: small;
+`
 
 //QandA component styles
 const QnAContainer = styled.div`
@@ -39,4 +52,4 @@ const SearchInput = styled.input`
   background-position: right center;
 `;
 
-export { Linkbutton, Orderlist, QnAContainer, QnAHeader, SearchInput };
+export { Linkbutton, Orderlist, Questiondiv, Innerquestiondiv, QnAContainer, QnAHeader, SearchInput };

@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import questions from './QnA_subComponents/HardCodedData.js';
 import IndividualQuestion from './QnA_subComponents/IndiviualQuestion.jsx';
 import { QnAContainer, QnAHeader, SearchInput } from '././QnA_subComponents/QnAStyledComponents.style.js';
@@ -8,7 +9,24 @@ class QandA extends React.Component {
     super(props);
     this.state = {
       searchKey: '',
+      questionData: [],
     };
+  }
+
+  componentDidMount() {
+    axios.get('/qa/questions', {
+      params: {
+        product_id: this.props.currentId,
+      }
+    })
+      .then((res) => {
+        this.setState({
+          questionData: res.data
+        });
+      })
+      .catch((err) => {
+        console.log('err: ', err);
+      });
   }
 
   handleChange (e) {
@@ -25,13 +43,17 @@ class QandA extends React.Component {
   }
 
   render () {
-    return (
-      <QnAContainer>
-        <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
-        <SearchInput type="search" onChange={this.handleChange.bind(this)} placeholder="Have a question? Search for answers…" />
-        <IndividualQuestion data={questions} search={this.state.searchKey} />
-      </QnAContainer>
-    );
+    if (Array.isArray(this.state.questionData)) {
+      return (<div>Loading...</div>);
+    } else {
+      return (
+        <QnAContainer>
+          <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
+          <SearchInput type="search" onChange={this.handleChange.bind(this)} placeholder="Have a question? Search for answers…" />
+          <IndividualQuestion data={this.state.questionData} search={this.state.searchKey} />
+        </QnAContainer>
+      );
+    }
   }
 
 }
