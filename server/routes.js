@@ -73,10 +73,11 @@ router.get('/products/:product_id/styles', (req, res) => {
 
 // route to get reviews metadata by product id
 router.get('/reviews/meta/:product_id', (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/reviews/meta`, {
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/reviews/meta', {
     headers: {
       Authorization: process.env.AUTH_TOKEN
     },
+    // eslint-disable-next-line camelcase
     params: {product_id: req.params.product_id}
   })
     .then(({data}) => {
