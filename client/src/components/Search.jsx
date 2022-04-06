@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import CartModal from './Overview/CartModal.jsx';
 
 // styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const NavContainer = styled.nav`
@@ -69,6 +70,8 @@ const CartImage = styled.img`
 
 const Search = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+
 
   const submitSearch = (query) => {
     // axios({
@@ -89,18 +92,15 @@ const Search = (props) => {
     setSearchTerm(e.target.value);
   };
 
-  const goToCart = (e) => {
-    alert('Going to cart!!!');
-  };
-
   return (
     <NavContainer>
       <Logo><b>Project Atelier</b></Logo>
       <SearchDiv>
         <SearchInput onChange={handleInput} type="text" value={searchTerm} placeHolder="search here..." />
         <SearchButton onClick={submitSearch}>Search</SearchButton>
-        <CartButton onClick={goToCart}>
+        <CartButton onClick={() => setIsOpen(true)}>
           <CartImage src="http://learnmongodbthehardway.com/images/originals/shopping_cart_racing.png" />
+          <CartModal productId={props.productId} open={isOpen} onClose={() => setIsOpen(false)} />
         </CartButton>
       </SearchDiv>
     </NavContainer>
