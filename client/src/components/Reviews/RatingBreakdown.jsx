@@ -17,8 +17,11 @@ const RatingBreakdown = function({ratings, recommended}) {
   // Render average rating, average star rating, % total recommended...
   return (
     <div className="rating-breakdown">
-      <span>{averageRating.toFixed(1)}</span>
-      <StarDisplay font={30} rating={averageRating} />
+      <h3>
+        {averageRating.toFixed(1)}
+        <StarDisplay font={30} rating={averageRating} />
+      </h3>
+
       <span>{(totalRecommended * 100).toFixed(0)}% of reviews recommend this product</span>
     </div>
   );

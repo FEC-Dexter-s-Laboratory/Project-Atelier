@@ -53,10 +53,10 @@ class App extends React.Component {
         <RelatedList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
         <OutfitList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
         <QandA />
+        <Reviews currentId={this.state.productId} />
       </>
     );
   }
-
 }
 
 export default App;
