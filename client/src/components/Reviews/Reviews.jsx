@@ -5,6 +5,8 @@ import StarFilter from './StarFilter.jsx';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import SortReviews from './SortReviews.jsx';
 import ReviewList from './ReviewList.jsx';
+import ReviewNav from './ReviewNav.jsx';
+import ReviewModal from './ReviewModal.jsx';
 
 import StarButtons from '../library/StarButtons.jsx';
 import StarDisplay from '../library/StarDisplay.jsx';
@@ -36,17 +38,25 @@ class Reviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: this.props.currentId,
+      productId: this.props.currentId,
       sort: 'relevant',
       reviews: reviewData.results,
-      meta: reviewMetaData
+      meta: reviewMetaData,
+      addReview: false
     };
+
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  toggleModal() {
+    this.setState({
+      addReview: !this.state.addReview
+    });
   }
 
   render() {
     return (
       <div className="reviews-module">
-
         <ReviewsContainer>
           <div>Ratings &amp; Reviews</div>
           <LeftColumn>
@@ -68,19 +78,37 @@ class Reviews extends React.Component {
             <ReviewList
               reviews={this.state.reviews}
             />
+            <ReviewNav
+              remainingReviews={true} // this is hard-coded atm
+              toggle={this.toggleModal}
+            />
           </RightColumn>
+          <ReviewModal
+            productId={this.state.productId}
+            visible={this.state.addReview}
+            toggle={this.toggleModal} />
         </ReviewsContainer>
-
-
-
-        {/* <ReviewsNav /> */}
-
-        {/* <h1>Star Components:</h1>
-        <StarButtons fontSize={50}/>
-        <StarDisplay fontSize={50} rating={3.14}/> */}
       </div>
     );
   }
 }
 
 export default Reviews;
+
+// metadata request
+//
+// axios.get(`/reviews/meta/${productId}`)
+//   .then((response) => {
+//     let ratings = response.data.ratings;
+//     let sumRatings = 0;
+//     let countRatings = 0;
+//     for (let key in ratings) {
+//       sumRatings += Number(key) * Number(ratings[key]);
+//       countRatings += Number(ratings[key]);
+//     }
+//     const averageRating = sumRatings / countRatings;
+//     // do something with averageRating here (return || setState || assign to global variable)
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });

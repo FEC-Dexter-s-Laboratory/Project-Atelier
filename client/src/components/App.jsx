@@ -43,11 +43,11 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Search />
+        {/* <Search />
         <Overview productId={this.state.productId} qtys={this.state.qtys} />
         <RelatedList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
         <OutfitList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
-        <QandA />
+        <QandA /> */}
         <Reviews currentId={this.state.productId} />
       </>
     );
