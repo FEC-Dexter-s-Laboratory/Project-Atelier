@@ -94,7 +94,7 @@ class Comparison extends React.Component {
           {Object.keys(this.state.features).map(feature =>
             <>
               <GridItem>{this.state.features[feature][0]}</GridItem>
-              <GridItem>{feature}</GridItem>
+              <GridItem><b>{feature}</b></GridItem>
               <GridItem>{this.state.features[feature][1]}</GridItem>
             </>
           )}

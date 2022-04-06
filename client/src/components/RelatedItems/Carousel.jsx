@@ -28,7 +28,7 @@ const ContentStyle = styled.div`
   width: 35%;
   flex-shrink: 0;
   flex-grow: 1;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -47,10 +47,11 @@ const PreviewImage = styled.div`
   background: white;
   display: flex;
   flex-direction: row;
-  overflow: hidden;
-  z-index: 2;
+  z-index: 100;
   padding: 2px;
   width: 25%;
+  border: 1px solid grey;
+  justify-content: center;
 `;
 
 const Carousel = (props) => {
@@ -85,17 +86,17 @@ const Carousel = (props) => {
       <CaroContainer>
         <CaroWrapper >
           {previewIndex > 0 &&
-          <Arrow style={{left: '-20px'}} onClick={previewLeft}> &lt; </Arrow>
+          <Arrow style={{left: '-40px'}} onClick={previewLeft}> &lt; </Arrow>
           }
           <ContentWrapper >
             {images.map(image =>
-              <PreviewImage style={{transform: `translateX(-${previewIndex * (100 / 4)}%)`}}>
-                <img src={image.thumbnail_url} height="100px" width="auto"/>
+              <PreviewImage style={{transform: `translateX(-${previewIndex * (100)}%)`}}>
+                <img src={image.thumbnail_url} height="100%" style={{overflow: 'hidden'}}/>
               </PreviewImage>
             )}
           </ContentWrapper>
           {previewIndex < (images.length - 1) &&
-          <Arrow style={{right: '30px'}} onClick={previewRight}> &gt; </Arrow>
+          <Arrow style={{right: '70px'}} onClick={previewRight}> &gt; </Arrow>
           }
         </CaroWrapper>
       </CaroContainer>
@@ -106,7 +107,7 @@ const Carousel = (props) => {
     <CaroContainer>
       <CaroWrapper>
         {currentIndex > 0 &&
-        <Arrow style={{left: '-70px'}} onClick={backButton}> &lt; </Arrow>
+        <Arrow style={{left: '-20px'}} onClick={backButton}> &lt; </Arrow>
         }
         <ContentWrapper>
           {products.map(product =>
@@ -116,7 +117,7 @@ const Carousel = (props) => {
           )}
         </ContentWrapper>
         {currentIndex < (products.length - 3) &&
-        <Arrow style={{right: '24px'}} onClick={nextButton}> &gt; </Arrow>
+        <Arrow style={{right: '-55px'}} onClick={nextButton}> &gt; </Arrow>
         }
       </CaroWrapper>
     </CaroContainer>

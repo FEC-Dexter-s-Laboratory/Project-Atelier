@@ -32,10 +32,6 @@ const ButtonAlign = styled.div`
   text-align: right;
 `;
 
-const Clickable = styled.div`
-
-`;
-
 const RelatedCard = (props) => {
   let {product} = props;
 
@@ -95,23 +91,23 @@ const RelatedCard = (props) => {
     }
 
     return (
-      <CardStyle >
+      <CardStyle onMouseLeave={() => setMouseOn(false)}>
         {modal}
         {removeOutfit}
-        <Clickable onClick={() => props.handleCardClick(product.id)}>
-          <Image onMouseEnter={() => setMouseOn(true)} onMouseLeave={() => setMouseOn(false)}>
+        <div onClick={() => props.handleCardClick(product.id)}>
+          <Image onMouseEnter={() => setMouseOn(true)} >
             {image}
-            {/* {mouseOn && (
-              <div style={{position: 'absolute', bottom: '20%'}}>
-                <Carousel images={product.photos}/>
-              </div>
-            )} */}
           </Image>
+          {mouseOn && (
+            <div style={{position: 'fixed', bottom: '20%', left: '-10%', width: '100%'}}>
+              <Carousel images={product.photos}/>
+            </div>
+          )}
           <div>{product.category}</div>
           <b>{product.name}</b>
           {price}
           <StarDisplay font={30} rating={averageRating}/>
-        </Clickable>
+        </div>
       </CardStyle>
     );
   }
