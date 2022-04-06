@@ -86,8 +86,6 @@ class RelatedItems extends React.Component {
       });
   }
 
-<<<<<<< HEAD
-=======
   componentDidMount() {
     this.handleRendering();
   }
@@ -97,7 +95,6 @@ class RelatedItems extends React.Component {
       this.handleRendering();
     }
   }
->>>>>>> main
 
   render() {
     return (
