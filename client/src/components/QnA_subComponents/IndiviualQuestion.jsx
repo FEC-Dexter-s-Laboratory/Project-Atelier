@@ -11,7 +11,6 @@ class IndividualQuestion extends React.Component {
       questionCount: 2,
       answerCount: 2,
       questions: [],
-      questIsActive: false,
     };
     this.sortAnswers.bind(this);
     this.sortQuestions.bind(this);
@@ -69,21 +68,32 @@ class IndividualQuestion extends React.Component {
       return (
         <Orderlist>
           {this.sortQuestions(this.state.questions).map((obj, index) =>{
-            return (
-              <li key={obj.question_id}>
-                <Questiondiv>Q: {obj.question_body} <Innerquestiondiv>Helpful? <Linkbutton>Yes</Linkbutton> ({obj.question_helpfulness}) | <Linkbutton>Add Answer</Linkbutton></Innerquestiondiv></Questiondiv>
-                {this.sortAnswers(obj.answers).map((obj, index) => {
-                  return (
-                    <div key={obj.id}>
-                      A: {obj.body} <br />
-                      by {obj.answerer_name === 'Seller' ? (<b>{obj.answerer_name}</b>) : obj.answerer_name}, {moment(obj.date).format('LL')} | Helpful? <Linkbutton>Yes</Linkbutton> ({obj.helpfulness}) | <Linkbutton>Report</Linkbutton>
-                    </div>
-                  );
-                })}
-              </li>
-            );
-          })}
-          <button onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
+            while (index < this.state.questionCount) {
+              return (
+                <li key={obj.question_id}>
+                  <Questiondiv>Q: {obj.question_body} <Innerquestiondiv>Helpful? <Linkbutton>Yes</Linkbutton> ({obj.question_helpfulness}) | <Linkbutton>Add Answer</Linkbutton></Innerquestiondiv></Questiondiv>
+                  {this.sortAnswers(obj.answers).map((obj, index) => {
+                    // while (index < this.state.answerCount) {
+                    return (
+                      <div key={obj.id}>
+                        A: {obj.body} <br />
+                        by {obj.answerer_name === 'Seller' ? (<b>{obj.answerer_name}</b>) : obj.answerer_name}, {moment(obj.date).format('LL')} | Helpful? <Linkbutton>Yes</Linkbutton> ({obj.helpfulness}) | <Linkbutton>Report</Linkbutton>
+                        {
+
+                        }
+                      </div>
+                    );
+                    // }
+                  })}
+                </li>
+              );
+            }
+          })}{
+            this.state.questions.length > this.state.questionCount
+              ? <button onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
+              : <button hidden='hidden' onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
+          }
+
         </Orderlist>
       );
     }

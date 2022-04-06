@@ -86,4 +86,21 @@ router.get('/reviews/meta/:product_id', (req, res) => {
     });
 });
 
+// route to questions
+router.get('/qa/questions', (req, res) => {
+  console.log(req.query);
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/questions', {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN,
+    }, params: req.query
+  })
+    .then(({ data }) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(404);
+    });
+});
+
 module.exports = router;
