@@ -25,10 +25,10 @@ const ContentWrapper = styled.div`
 const ContentStyle = styled.div`
   display: flex;
   transition: all 250ms linear;
-  width: 50%;
+  width: 35%;
   flex-shrink: 0;
   flex-grow: 1;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -43,8 +43,20 @@ const Arrow = styled.button`
   border: 1px solid #ddd;
 `;
 
+const PreviewImage = styled.div`
+  background: white;
+  display: flex;
+  flex-direction: row;
+  z-index: 100;
+  padding: 2px;
+  width: 25%;
+  border: 1px solid grey;
+  justify-content: center;
+`;
+
 const Carousel = (props) => {
   const { products } = props;
+  const {images} = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const nextButton = () => {
     if (currentIndex < (products.length - 1)) {
@@ -57,21 +69,55 @@ const Carousel = (props) => {
     }
   };
 
+  const [previewIndex, setPreviewIndex] = useState(0);
+  const previewRight = () => {
+    if (previewIndex < (images.length - 1)) {
+      setPreviewIndex(previewIndex + 1);
+    }
+  };
+  const previewLeft = () => {
+    if (previewIndex > 0) {
+      setPreviewIndex(previewIndex - 1);
+    }
+  };
+
+  if (images) {
+    return (
+      <CaroContainer>
+        <CaroWrapper >
+          {previewIndex > 0 &&
+          <Arrow style={{left: '-40px'}} onClick={previewLeft}> &lt; </Arrow>
+          }
+          <ContentWrapper >
+            {images.map(image =>
+              <PreviewImage style={{transform: `translateX(-${previewIndex * (100)}%)`}}>
+                <img src={image.thumbnail_url} height="100%" style={{overflow: 'hidden'}}/>
+              </PreviewImage>
+            )}
+          </ContentWrapper>
+          {previewIndex < (images.length - 1) &&
+          <Arrow style={{right: '70px'}} onClick={previewRight}> &gt; </Arrow>
+          }
+        </CaroWrapper>
+      </CaroContainer>
+    );
+  }
+
   return (
     <CaroContainer>
       <CaroWrapper>
         {currentIndex > 0 &&
-        <Arrow style={{left: '-70px'}} onClick={backButton}> &lt; </Arrow>
+        <Arrow style={{left: '-20px'}} onClick={backButton}> &lt; </Arrow>
         }
         <ContentWrapper>
           {products.map(product =>
             <ContentStyle style={{transform: `translateX(-${currentIndex * (100)}%)`}}>
-              <RelatedCard product={product} key={product.id} handleDefaultClick={props.handleDefaultClick} use={props.use} handleOutfitClick={props.handleOutfitClick} handleCardClick={props.handleCardClick} />
+              <RelatedCard product={product} key={product.id} handleDefaultClick={props.handleDefaultClick} use={props.use} handleOutfitClick={props.handleOutfitClick} handleCardClick={props.handleCardClick} mainId={props.mainId}/>
             </ContentStyle>
           )}
         </ContentWrapper>
-        {currentIndex < (products.length - 2) &&
-        <Arrow style={{right: '24px'}} onClick={nextButton}> &gt; </Arrow>
+        {currentIndex < (products.length - 3) &&
+        <Arrow style={{right: '-55px'}} onClick={nextButton}> &gt; </Arrow>
         }
       </CaroWrapper>
     </CaroContainer>

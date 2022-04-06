@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 
 import Overview from '../components/Overview.jsx';
 
-describe('Overview', () => {
+xdescribe('Overview', () => {
   test('renders Overview component', () => {
     render(<Overview />);
   });
