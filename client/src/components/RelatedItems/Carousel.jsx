@@ -46,7 +46,6 @@ const Arrow = styled.button`
 const Carousel = (props) => {
   const { products } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const nextButton = () => {
     if (currentIndex < (products.length - 1)) {
       setCurrentIndex(currentIndex + 1);
