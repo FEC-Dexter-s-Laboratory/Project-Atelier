@@ -56,6 +56,7 @@ class RelatedItems extends React.Component {
                       let { data } = response;
                       let styles = data.results;
                       let foundDefault = false;
+                      console.log(styles)
                       for (let j = 0; j < styles.length; j++) {
                         if (styles[j]['default?'] === true) {
                           product.original_price = styles[j].original_price;
@@ -100,7 +101,7 @@ class RelatedItems extends React.Component {
     return (
       <DivContainer>
         <h3>Related Items</h3>
-        <Carousel products={this.state.relatedList} use={this.state.use} handleCardClick={this.props.handleCardClick} />
+        <Carousel products={this.state.relatedList} use={this.state.use} handleCardClick={this.props.handleCardClick} mainId={this.props.currentId}/>
       </DivContainer>
     );
   }

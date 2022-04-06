@@ -19,7 +19,6 @@ const CompareStar = styled.img`
   position: relative;
   top: 0;
   right: 0;
-  zindex: 1;
 `;
 
 const RemoveButton = styled.button`
@@ -81,7 +80,7 @@ const RelatedCard = (props) => {
       modal =
       <ButtonAlign>
         <CompareStar src="https://upload.wikimedia.org/wikipedia/commons/7/71/Blank_star_%28fixed_width%29.svg" onClick={() => setIsOpen(true)}/>
-        <Modal open={isOpen} onClose={() => setIsOpen(false)} comparedId={product.id}/>
+        <Modal open={isOpen} onClose={() => setIsOpen(false)} comparedId={product.id} mainId={props.mainId} />
       </ButtonAlign>;
     }
     if (props.use === 'outfit') {

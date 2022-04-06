@@ -8,3 +8,9 @@ describe('RelatedList', () => {
     render(<RelatedList />);
   });
 });
+
+// test if outfit list renders
+
+// test if cards render
+
+// test if outfits display in order added

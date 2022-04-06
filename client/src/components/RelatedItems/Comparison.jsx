@@ -79,7 +79,7 @@ class Comparison extends React.Component {
 
   // make API calls for products at /product/product_id
   componentDidMount() {
-    this.getFeatures(this.props.currentId, 0);
+    this.getFeatures(this.props.mainId, 0);
     this.getFeatures(this.props.comparedId, 1);
   }
 
