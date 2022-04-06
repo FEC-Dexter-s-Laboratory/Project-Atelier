@@ -37,7 +37,6 @@ const Clickable = styled.div`
 `;
 
 const RelatedCard = (props) => {
-
   let {product} = props;
 
   const [isOpen, setIsOpen] = useState(false);

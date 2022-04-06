@@ -5,8 +5,7 @@ import RelatedCard from './RelatedCard.jsx';
 const CaroContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  overflow: hidden;
+  flex-direction: column;
 `;
 
 const CaroWrapper = styled.div`
@@ -26,7 +25,7 @@ const ContentWrapper = styled.div`
 const ContentStyle = styled.div`
   display: flex;
   transition: all 250ms linear;
-  width: 50%;
+  width: 35%;
   flex-shrink: 0;
   flex-grow: 1;
   justify-content: left;
@@ -58,53 +57,50 @@ const Carousel = (props) => {
   const { products } = props;
   const {images} = props;
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const nextButton = () => {
     if (currentIndex < (products.length - 1)) {
       setCurrentIndex(currentIndex + 1);
     }
-    console.log(currentIndex)
   };
-
   const backButton = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
   };
 
-  // const [previewIndex, setPreviewIndex] = useState(0);
-  // const previewRight = () => {
-  //   if (previewIndex < (images.length - 1)) {
-  //     setPreviewIndex(previewIndex + 1);
-  //   }
-  // };
-  // const previewLeft = () => {
-  //   if (previewIndex > 0) {
-  //     setPreviewIndex(previewIndex - 1);
-  //   }
-  // };
+  const [previewIndex, setPreviewIndex] = useState(0);
+  const previewRight = () => {
+    if (previewIndex < (images.length - 1)) {
+      setPreviewIndex(previewIndex + 1);
+    }
+  };
+  const previewLeft = () => {
+    if (previewIndex > 0) {
+      setPreviewIndex(previewIndex - 1);
+    }
+  };
 
-  // if (images) {
-  //   return (
-  //     <CaroContainer>
-  //       <CaroWrapper >
-  //         {previewIndex > 0 &&
-  //         <Arrow style={{left: '-20px'}} onClick={previewLeft}> &lt; </Arrow>
-  //         }
-  //         <ContentWrapper >
-  //           {images.map(image =>
-  //             <PreviewImage style={{transform: `translateX(-${previewIndex * (100 / 4)}%)`}}>
-  //               <img src={image.thumbnail_url} height="100px" width="auto"/>
-  //             </PreviewImage>
-  //           )}
-  //         </ContentWrapper>
-  //         {previewIndex < (images.length - 1) &&
-  //         <Arrow style={{right: '30px'}} onClick={previewRight}> &gt; </Arrow>
-  //         }
-  //       </CaroWrapper>
-  //     </CaroContainer>
-  //   );
-  // }
+  if (images) {
+    return (
+      <CaroContainer>
+        <CaroWrapper >
+          {previewIndex > 0 &&
+          <Arrow style={{left: '-20px'}} onClick={previewLeft}> &lt; </Arrow>
+          }
+          <ContentWrapper >
+            {images.map(image =>
+              <PreviewImage style={{transform: `translateX(-${previewIndex * (100 / 4)}%)`}}>
+                <img src={image.thumbnail_url} height="100px" width="auto"/>
+              </PreviewImage>
+            )}
+          </ContentWrapper>
+          {previewIndex < (images.length - 1) &&
+          <Arrow style={{right: '30px'}} onClick={previewRight}> &gt; </Arrow>
+          }
+        </CaroWrapper>
+      </CaroContainer>
+    );
+  }
 
   return (
     <CaroContainer>
@@ -119,7 +115,7 @@ const Carousel = (props) => {
             </ContentStyle>
           )}
         </ContentWrapper>
-        {currentIndex < (products.length - 2) &&
+        {currentIndex < (products.length - 3) &&
         <Arrow style={{right: '24px'}} onClick={nextButton}> &gt; </Arrow>
         }
       </CaroWrapper>
