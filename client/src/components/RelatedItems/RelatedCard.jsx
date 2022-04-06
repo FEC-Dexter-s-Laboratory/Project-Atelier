@@ -98,11 +98,11 @@ const RelatedCard = (props) => {
           <Image onMouseEnter={() => setMouseOn(true)} >
             {image}
           </Image>
-          {mouseOn && (
+          {/* {mouseOn && (
             <div style={{position: 'fixed', bottom: '20%', left: '-10%', width: '100%'}}>
               <Carousel images={product.photos}/>
             </div>
-          )}
+          )} */}
           <div>{product.category}</div>
           <b>{product.name}</b>
           {price}
