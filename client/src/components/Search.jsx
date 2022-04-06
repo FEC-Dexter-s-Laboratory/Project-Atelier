@@ -43,6 +43,28 @@ const SearchButton = styled.button`
   border-radius: 12px;
   height: fit-content;
   width: fit-content;
+  transition: .2s;
+  margin-left: 2%;
+  &:hover {
+    transform: scale(1.25);
+  }
+`;
+
+const CartButton = styled.button`
+  border: 1px solid blue;
+  border-radius: 12px;
+  height: fit-content;
+  width: fit-content;
+  transition: .2s;
+  margin-left: 5%;
+  &:hover {
+    transform: scale(1.25);
+  }
+`;
+
+const CartImage = styled.img`
+  width: 100px;
+  height: 70px;
 `;
 
 const Search = (props) => {
@@ -67,12 +89,19 @@ const Search = (props) => {
     setSearchTerm(e.target.value);
   };
 
+  const goToCart = (e) => {
+    alert('Going to cart!!!');
+  };
+
   return (
     <NavContainer>
       <Logo><b>Project Atelier</b></Logo>
       <SearchDiv>
         <SearchInput onChange={handleInput} type="text" value={searchTerm} placeHolder="search here..." />
         <SearchButton onClick={submitSearch}>Search</SearchButton>
+        <CartButton onClick={goToCart}>
+          <CartImage src="http://learnmongodbthehardway.com/images/originals/shopping_cart_racing.png" />
+        </CartButton>
       </SearchDiv>
     </NavContainer>
   );

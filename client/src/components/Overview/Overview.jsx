@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-// import { ProductIdContext } from './Contexts/ProductIdContext.jsx';
 
 // ALL STYLED COMPONENTS
 // Overview container
@@ -132,7 +131,6 @@ const Overview = (props) => {
   const [mainImage, setMainImage] = useState('img');
   const [selectedStyle, setSelectedStyle] = useState('Style 1');
   const [styles, setStyles] = useState([]);
-  const [resultsLength, setResultsLength] = useState(0);
   const [styleResults, setStyleResults] = useState([]);
   const [checkMarkStyle, setCheckMarkStyle] = useState(0);
   const [isHighlighted, setIsHighlighted] = useState(false);
@@ -145,11 +143,13 @@ const Overview = (props) => {
   const [mQuantity, setMQuantity] = useState(1);
   const [lQuantity, setLQuantity] = useState(1);
   const [xlQuantity, setXlQuantity] = useState(1);
+  const [xxlQuantity, setXxlQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState('Select Size');
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [qProps, setQProps] = useState({});
   const [qList, setQList] = useState([1]);
-  const [qListLength, setQListLength] = useState(1);
+  const [selectedItem, setSelectedItem] = useState(1);
+  // const [checkStyle, setCheckStyle] = useState('none')
 
   // Non-state variables used for initial rendering
   let stylesColCounter = 0;
@@ -157,6 +157,8 @@ const Overview = (props) => {
   let styleResultsColCounter = 0;
   let styleResultsRowCounter = 1;
   let thumbDisplay = 'flex';
+  let checkStyle = '';
+  let checkStyleIndex = 0;
 
   // Mouseover animation functions
   const enterThumb = (e) => {
@@ -186,7 +188,7 @@ const Overview = (props) => {
   const displayImage = (e) => {
     let newImage = '';
     styleResults.forEach(style => {
-      if (style.style_id === Number(e.target.classList[0]) || style.style_id === e) {
+      if (style.style_id === e) {
         newImage = style.photos[0].url;
       }
     });
@@ -195,7 +197,9 @@ const Overview = (props) => {
 
   const displayThumb = (e) => {
     let newImage = '';
+    console.log('styles be like ', styleResults)
     styles.forEach(style => {
+      console.log('stylin... ', style)
       if (style.id === Number(e.target.classList[0])) {
         newImage = style.srcUrl;
       }
@@ -205,10 +209,16 @@ const Overview = (props) => {
 
   // for updating main image, thumbnails, and all relevant state when switching between styles
   const changeStyle = (e) => {
+    if (e.target) {
+      e = Number(e.target.classList[0]);
+    }
+    setSelectedItem(e);
     displayImage(e);
     let newStyleImages = [];
+    let xlCount = 0;
     for (let i = 0; i < styleResults.length; i++) {
-      if (styleResults[i].style_id === Number(e.target.classList[0]) || styleResults[i].style_id === e) {
+      if (styleResults[i].style_id === e) {
+        document.getElementById(e).style.display = 'block';
         for (let j = 0; j < styleResults[i].photos.length; j++) {
           newStyleImages.push({
             srcThumb: styleResults[i].photos[j].thumbnail_url,
@@ -240,14 +250,30 @@ const Overview = (props) => {
             console.log('l test')
             setLQuantity(skus[sku].quantity);
           } else if (skus[sku].size === 'XL') {
-            console.log('xl test')
-            setXlQuantity(skus[sku].quantity);
+            if (xlCount > 0) {
+              console.log('changed second xl caught')
+              setXxlQuantity(skus[sku].quantity);
+            } else {
+              xlCount += 1;
+              console.log('xl test')
+              setXlQuantity(skus[sku].quantity);
+            }
+          } else if (skus[sku].size === 'XXL') {
+            console.log('xxl test')
+            setXxlQuantity(skus[sku].quantity);
           }
         }
-        break;
+      } else {
+        console.log('non style ', styleResults[i].style_id)
+        document.getElementById(styleResults[i].style_id).style.display = 'none';
       }
     }
     setStyles(newStyleImages);
+  };
+
+  const chooseQuantity = (e) => {
+    console.log('qty being chosen ', e.target.value);
+    setSelectedQuantity(e.target.value);
   };
 
   // for selecting a size, changes quantity accordingly
@@ -326,6 +352,20 @@ const Overview = (props) => {
         setQList(q);
         return;
       }
+    } else if (e.target.value === 'XXL') {
+      if (xxlQuantity >= 15) {
+        for (let i = 1; i <= 15; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      } else {
+        for (let i = 1; i <= xxlQuantity; i++) {
+          q.push(i);
+        }
+        setQList(q);
+        return;
+      }
     }
   };
 
@@ -338,9 +378,40 @@ const Overview = (props) => {
     }
   };
 
+  const saveToCart = (sku, qty) => {
+    console.log('skuzz me ', sku)
+    if (window.localStorage.getItem('cart')) {
+      // do stuff
+      let item = JSON.parse(window.localStorage.getItem('cart'));
+      console.log(item);
+      for (let i = 0; i < item.length; i++) {
+        let itemCount = item[i].count;
+        itemCount = Number(itemCount);
+        console.log('sku type ', item[i].skuId)
+        if (item[i].skuId === sku) {
+          itemCount += Number(qty);
+          console.log('item count ', itemCount)
+          item[i].count = itemCount;
+          window.localStorage.setItem('cart', JSON.stringify(item));
+          break;
+        } else {
+          let newItem = item.slice();
+          newItem.push({skuId: sku, count: qty});
+          window.localStorage.setItem('cart', JSON.stringify(newItem));
+        }
+      }
+    } else {
+      window.localStorage.setItem('cart', JSON.stringify([{
+        skuId: sku,
+        count: qty,
+      }]));
+    }
+  };
+
   const addToCart = (e) => {
     if (!inCart) {
       setInCart(true);
+      saveToCart(selectedItem, selectedQuantity);
     } else {
       setInCart(false);
     }
@@ -371,7 +442,6 @@ const Overview = (props) => {
       .then(res => {
         setMainImage(res.data.results[0].photos[0].url);
         setSelectedStyle(res.data.results[0].name);
-        setResultsLength(res.data.results.length);
         let styleArr = [];
         let index = 0;
         res.data.results[0].photos.forEach(photo => {
@@ -389,6 +459,7 @@ const Overview = (props) => {
           setSalePrice(res.data.results[0].sale_price);
           setIsOnSale(true);
         }
+        setSelectedItem(res.data.results[0].style_id);
       })
       .catch(err => console.error(err));
   };
@@ -402,6 +473,7 @@ const Overview = (props) => {
     let qs = Object.values(props.qtys);
     setQProps(qs);
     if (qs.length > 0) {
+      let xlCount = 0;
       for (let i = 0; i < qs.length; i++) {
         if (qs[i].size === 'XS') {
           setXsQuantity(qs[i].quantity);
@@ -412,7 +484,15 @@ const Overview = (props) => {
         } else if (qs[i].size === 'L') {
           setLQuantity(qs[i].quantity);
         } else if (qs[i].size === 'XL') {
-          setXlQuantity(qs[i].quantity);
+          if (xlCount > 0) {
+            console.log('second xl caught');
+            setXxlQuantity(qs[i].quantity);
+          } else {
+            xlCount += 1;
+            setXlQuantity(qs[i].quantity);
+          }
+        } else if (qs[i].size === 'XXL') {
+          setXxlQuantity(qs[i].quantity);
         }
       }
     }
@@ -460,16 +540,22 @@ const Overview = (props) => {
         <ChooseStyle>
           {
             styleResults.map((style, index) => {
+              checkStyleIndex += 1;
               styleResultsColCounter += 1;
               if (styleResultsColCounter > 4) {
                 styleResultsColCounter = 1;
                 styleResultsRowCounter += 1;
               }
+              if (index === 0) {
+                checkStyle = 'block';
+              } else {
+                checkStyle = 'none';
+              }
               return (
-                <div key={style.style_id} style={{gridColumn: styleResultsColCounter, gridRow: styleResultsRowCounter, margin: '4%'}}>
+                <div key={style.style_id} style={{gridColumn: styleResultsColCounter, gridRow: styleResultsRowCounter, margin: '4%', position: 'relative', width: 'fit-content'}} onClick={() => changeStyle(style.style_id)} className={style.style_id}>
                   <img className={style.style_id} src={style.photos[0].thumbnail_url} style={{borderRadius: '50%', width: '80px', height: '80px'}}
-                    onClick={changeStyle} onMouseEnter={enterThumb} onMouseLeave={leaveThumb} />
-                  {/* <i className="fa-solid fa-circle-check" style={{display: checkMarkStyle === 0 ? 'absolute' : 'none', color: 'green', top: '0%', right: '100%'}}></i> DO DIV with checkmark background possibly */}
+                    onMouseEnter={enterThumb} onMouseLeave={leaveThumb} />
+                  <img src="https://media.istockphoto.com/vectors/check-vector-id871478670?b=1&k=20&m=871478670&s=170667a&w=0&h=z-dZAr0bn8-IlGirxjJjqJcATVZWsHHr8UgEKxl1gtg=" style={{position: 'absolute', top: '0', right: '0', width: '30px', height: '30px', zIndex: '30', borderRadius: '50%', display: checkStyle}} id={style.style_id} />
                 </div>
               );
             })
@@ -483,8 +569,9 @@ const Overview = (props) => {
             <option>M</option>
             <option>L</option>
             <option>XL</option>
+            <option>XXL</option>
           </SelectSize>
-          <SelectQuantity onChange={checkSkus}>
+          <SelectQuantity onChange={chooseQuantity}>
             {
               qList.map((q, index) => {
                 return (
@@ -498,7 +585,9 @@ const Overview = (props) => {
         </DropdownDiv>
       </SelectStyleDiv>
       <DescriptionDiv>
-        <DescriptionTitle>{slogan}</DescriptionTitle>
+        <DescriptionTitle>
+          {slogan}
+        </DescriptionTitle>
         <DescriptionSpan>
           {description}
         </DescriptionSpan>
