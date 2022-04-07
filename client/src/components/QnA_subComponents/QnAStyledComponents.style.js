@@ -63,7 +63,7 @@ align-content: center;
   bottom: 0;
   left: 0;
   background-color: rgba(128,128,128,0.7);
-  zIndex: 1000;
+  z-index: 1000;
 `;
 
 const Questionform = styled.form`
