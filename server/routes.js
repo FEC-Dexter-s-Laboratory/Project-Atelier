@@ -103,6 +103,41 @@ router.get('/reviews/meta/:product_id', (req, res) => {
     });
 });
 
+router.get('/cart', (req, res) => {
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/cart', {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN,
+    },
+  })
+    .then(({ data }) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.sendStatus(404);
+    });
+});
+
+router.post('/cart', (req, res) => {
+  console.log('testing POST ', req.body);
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/cart', {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN,
+    },
+    data: {
+      item: {
+        'sku_id': req.body.sku,
+      },
+    }
+  })
+    .then(({ data }) => {
+      console.log('Successful cart post!');
+      res.send(data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
 // route to questions
 router.get('/qa/questions', (req, res) => {
   // console.log(req.query);
@@ -113,11 +148,9 @@ router.get('/qa/questions', (req, res) => {
   })
     .then(({ data }) => {
       // console.log(data.results);
-      res.send(data);
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(404);
     });
 });
 
