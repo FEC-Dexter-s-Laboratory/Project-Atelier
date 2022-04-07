@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import Comparison from './Comparison.jsx';
+import CartItems from './CartItems.jsx';
 
 const ModalStyle = styled.div`
   position: fixed;
@@ -12,6 +12,8 @@ const ModalStyle = styled.div`
   padding: 50px;
   z-index: 1000;
   overflow-y: auto;
+  width: 35%;
+  border-radius: 12px;
 `;
 
 const Overlay = styled.div`
@@ -26,26 +28,42 @@ const Overlay = styled.div`
 
 const Button = styled.button`
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 2%;
+  right: 2%;
   background-color: white;
   font-size: 20px;
+  border: 2px ridge grey;
+  border-radius: 12px;
 `;
 
-const Modal = (props) => {
+const CartModal = (props) => {
   let {open, onClose} = props;
   if (!open) {
     return null;
   }
+  // Mouseover animation functions
+  const enterButton = (e) => {
+    e.target.style.transition = '.2s';
+    e.target.style.transform = 'scale(1.25)';
+    e.target.style.zIndex = '20';
+  };
+
+  const leaveButton = (e) => {
+    e.target.style.transition = '.2s';
+    e.target.style.transform = 'scale(1.00)';
+  };
+
   return ReactDOM.createPortal(
     <Overlay>
       <ModalStyle>
-        <Button onClick={onClose} >X</Button>
-        <Comparison mainId={props.mainId} comparedId={props.comparedId} />
+        <Button onClick={() => {
+          props.onClose();
+        }} onMouseEnter={enterButton} onMouseLeave={leaveButton}>X</Button>
+        <CartItems productId={props.productId} />
       </ModalStyle>
     </Overlay>,
     document.getElementById('compare_portal')
   );
 };
 
-export default Modal;
+export default CartModal;
