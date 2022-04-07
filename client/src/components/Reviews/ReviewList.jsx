@@ -7,6 +7,7 @@ import ReviewListEntry from './ReviewListEntry.jsx';
 const ListContainer = styled.div`
   height: 500px;
   overflow-y: auto;
+  font-family: Comfortaa;
 `;
 
 const ReviewList = function ({ reviews }) {

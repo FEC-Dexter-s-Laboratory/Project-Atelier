@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const RatingBar = styled.progress`
   height: 10px;
   background-color: #eee;
+  font-family: Comfortaa;
 `;
 
 const StarFilter = function({ratings, toggleFilterReviews, resetFilters}) {
