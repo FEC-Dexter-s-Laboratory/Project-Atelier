@@ -10,13 +10,20 @@ const Star = styled.button`
   color: ${props => props.className === 'on' ? '#000' : '#ccc'}
 `;
 
-const StarButtons = function({fontSize}) {
+const StarButtons = function({fontSize, reportRating}) {
 
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
+  const handleClick = function(index) {
+    setRating(index);
+    if (reportRating) {
+      reportRating(index); // send back rating data to parent component
+    }
+  };
+
   return (
-    <div className="star-buttons">
+    <span className="star-buttons">
       {[...Array(5)].map((star, index) => {
         index += 1;
         return (
@@ -25,7 +32,7 @@ const StarButtons = function({fontSize}) {
             key={index}
             fontSize={fontSize}
             className={index <= (hover || rating) ? 'on' : 'off'}
-            onClick={() => setRating(index)}
+            onClick={() => handleClick(index)}
             onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(rating)}
           >
@@ -33,7 +40,7 @@ const StarButtons = function({fontSize}) {
           </Star>
         );
       })}
-    </div>
+    </span>
   );
 };
 
