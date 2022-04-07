@@ -2,97 +2,32 @@
 // count determines number of results per page
 
 // ** List does not include any reported reviews --??--
-export const reviewData = {
-  "product": "65632",
-  "page": 0,
-  "count": 50,
-  "results": [
-    {
-      "review_id": 1136188,
-      "rating": 4,
-      "summary": "I am liking these glasses",
-      "recommend": true,
-      "response": "Glad you're enjoying the product!",
-      "body": "They are very dark. But that's good because I'm in very sunny spots",
-      "date": "2019-06-23T00:00:00.000Z",
-      "reviewer_name": "bigbrotherbenjamin",
-      "helpfulness": 13,
-      "photos": []
-    },
-    {
-      "review_id": 1136189,
-      "rating": 4,
-      "summary": "They look good on me",
-      "recommend": true,
-      "response": "",
-      "body": "I so stylish and just my aesthetic.",
-      "date": "2019-03-12T00:00:00.000Z",
-      "reviewer_name": "fashionperson",
-      "helpfulness": 5,
-      "photos": []
-    },
-    {
-      "review_id": 1155741,
-      "rating": 5,
-      "summary": "This is a really nice product",
-      "recommend": true,
-      "response": null,
-      "body": "I love this. It is way better than I think.",
-      "date": "2022-03-31T00:00:00.000Z",
-      "reviewer_name": "Trytry",
-      "helpfulness": 3,
-      "photos": []
-    },
-    {
-      "review_id": 1155752,
-      "rating": 5,
-      "summary": "This is a really goood product",
-      "recommend": true,
-      "response": null,
-      "body": "I love this. It is way better than I think.",
-      "date": "2022-03-31T00:00:00.000Z",
-      "reviewer_name": "Trytry",
-      "helpfulness": 1,
-      "photos": []
-    },
-    {
-      "review_id": 1155751,
-      "rating": 5,
-      "summary": "This is a really goood product",
-      "recommend": true,
-      "response": null,
-      "body": "I love this. It is way better than I think.",
-      "date": "2022-03-31T00:00:00.000Z",
-      "reviewer_name": "Trytry",
-      "helpfulness": 1,
-      "photos": []
-    },
-    {
-      "review_id": 1136192,
-      "rating": 2,
-      "summary": "This product was ok!",
-      "recommend": false,
-      "response": "",
-      "body": "They're fine but I wouldn't buy again.",
-      "date": "2019-05-23T00:00:00.000Z",
-      "reviewer_name": "anyone",
-      "helpfulness": 1,
-      "photos": []
-    },
-    {
-      "review_id": 1136654,
-      "rating": 3,
-      "summary": "I'm not a fan!",
-      "recommend": false,
-      "response": "Sorry to hear. Is there anything in particular you don't like?",
-      "body": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.",
-      "date": "2019-06-16T00:00:00.000Z",
-      "reviewer_name": "negativity",
-      "helpfulness": 1,
-      "photos": []
-    }
-  ]
-};
+export const reviewData = [
+  {
+    "review_id": 1136188,
+    "rating": 4,
+    "summary": "I am liking these glasses",
+    "recommend": true,
+    "response": "Glad you're enjoying the product!",
+    "body": "They are very dark. But that's good because I'm in very sunny spots",
+    "date": "2019-06-23T00:00:00.000Z",
+    "reviewer_name": "bigbrotherbenjamin",
+    "helpfulness": 13,
+    "photos": []
+  },
+  {
+    "review_id": 1136189,
+    "rating": 4,
+    "summary": "They look good on me",
+    "recommend": true,
+    "response": "",
+    "body": "I so stylish and just my aesthetic.",
+    "date": "2019-03-12T00:00:00.000Z",
+    "reviewer_name": "fashionperson",
+    "helpfulness": 5,
+    "photos": []
+  }
+];
 
 
 // results from GET  /reviews/meta

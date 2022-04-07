@@ -28,25 +28,3 @@ const RatingBreakdown = function({ratings, recommended}) {
 };
 
 export default RatingBreakdown;
-
-// SAMPLE DATA:
-//
-// export const reviewMetaData = {
-//   "product_id": "65632",
-//   "ratings": {
-//     "2": "1",
-//     "3": "1",
-//     "4": "2",
-//     "5": "9"
-//   },
-//   "recommended": {
-//     "false": "2",
-//     "true": "11"
-//   },
-//   "characteristics": {
-//     "Quality": {
-//       "id": 220234,
-//       "value": "4.2000000000000000"
-//     }
-//   }
-// };
