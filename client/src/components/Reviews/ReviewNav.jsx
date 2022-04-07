@@ -1,15 +1,15 @@
 import React from 'react';
 
-const ReviewNav = function({ remainingReviews, toggle }) {
+const ReviewNav = function({ remainingReviews, displayMoreReviews, toggleModal }) {
 
   const moreReviews = remainingReviews
-    ? <button>MORE REVIEWS</button>
+    ? <button onClick={displayMoreReviews}>MORE REVIEWS</button>
     : null;
 
   return (
     <div>
       {moreReviews}
-      <button onClick={toggle}>ADD A REVIEW +</button>
+      <button onClick={toggleModal}>ADD A REVIEW +</button>
     </div>
   );
 };

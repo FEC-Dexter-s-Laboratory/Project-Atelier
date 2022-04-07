@@ -103,7 +103,7 @@ class ReviewModal extends React.Component {
   }
 
   render() {
-    const {visible, toggle} = this.props;
+    const {visible, toggleModal} = this.props;
 
     let parseRating = '';
     switch (this.state.rating) {
@@ -218,7 +218,7 @@ class ReviewModal extends React.Component {
             <br/>
             <div>
               <button type="button" onClick={this.handleSubmit}>Submit Review</button>
-              <button type="button" onClick={toggle}>Go Back</button>
+              <button type="button" onClick={toggleModal}>Go Back</button>
             </div>
           </ModalPop>
 

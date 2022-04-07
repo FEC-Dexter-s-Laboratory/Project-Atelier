@@ -4,10 +4,15 @@ import ReviewListEntry from './ReviewListEntry.jsx';
 
 // ReviewList only receives the correct number of reviews (2, 4, etc.), but should have infinite scroll (y overflow) and set height through CSS at all times.
 
+const ListContainer = styled.div`
+  height: 500px;
+  overflow-y: auto;
+`;
+
 const ReviewList = function ({ reviews }) {
 
   return (
-    <div className="review-list">
+    <ListContainer className="review-list">
       {reviews.map((review) => {
         return (
           <ReviewListEntry
@@ -16,7 +21,7 @@ const ReviewList = function ({ reviews }) {
           />
         );
       })}
-    </div>
+    </ListContainer>
   );
 };
 
