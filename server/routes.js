@@ -4,8 +4,6 @@ require('dotenv').config();
 
 const router = express.Router();
 
-// configure router file
-
 // example route for /products
 router.get('/products', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products', {
@@ -101,6 +99,24 @@ router.get('/reviews/meta/:product_id', (req, res) => {
       res.send(data);
     })
     .catch((err) => {
+      res.sendStatus(404);
+    });
+});
+
+// route to questions
+router.get('/qa/questions', (req, res) => {
+  console.log(req.query);
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/questions', {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN,
+    }, params: req.query
+  })
+    .then(({ data }) => {
+      console.log(data.results);
+      res.send(data);
+    })
+    .catch((err) => {
+      console.error(err);
       res.sendStatus(404);
     });
 });

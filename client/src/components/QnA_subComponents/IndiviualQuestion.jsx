@@ -1,25 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import moment from 'moment';
-
-const Linkbutton = styled.button`
-  font-family: "Verdana" sans-serif;
-	font-size: 1em;
-	text-align: left;
-	color: blue;
-	background: none;
-	margin: 0;
-	padding: 0;
-	border: none;
-	cursor: pointer;
-
-`;
-
-const Orderlist = styled.ol`
-list-style-type: none;
-`;
-
-let sortedQuest = [];
+import axios from 'axios';
+import { Linkbutton, Orderlist, Questiondiv, Innerquestiondiv} from './QnAStyledComponents.style.js';
+import QuestionModal from './QuestionModal.jsx';
+import AnswerModal from './AnswerModal.jsx';
 
 class IndividualQuestion extends React.Component {
   constructor(props) {
@@ -28,7 +12,8 @@ class IndividualQuestion extends React.Component {
       questionCount: 2,
       answerCount: 2,
       questions: [],
-      questIsActive: false,
+      Qmodalactive: false,
+      Amodalactive: false,
     };
     this.sortAnswers.bind(this);
     this.sortQuestions.bind(this);
@@ -41,10 +26,16 @@ class IndividualQuestion extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.search !== this.props.search) {
-      this.setState({
-        questions: this.props.data.results.filter(obj => obj.question_body.toLowerCase().includes(this.props.search.toLowerCase())),
-      });
+    if (this.props.search !== prevProps.search) {
+      if (!this.props.search.length) {
+        this.setState({
+          questions: this.props.data.results,
+        });
+      } else {
+        this.setState({
+          questions: this.props.data.results.filter(obj => obj.question_body.toLowerCase().includes(this.props.search.toLowerCase())),
+        });
+      }
     }
   }
 
@@ -80,21 +71,31 @@ class IndividualQuestion extends React.Component {
       return (
         <Orderlist>
           {this.sortQuestions(this.state.questions).map((obj, index) =>{
-            return (
-              <li key={obj.question_id}>
-                  Q: {obj.question_body} Helpful? <Linkbutton>Yes</Linkbutton> ({obj.question_helpfulness}) | <Linkbutton>Add Answer</Linkbutton>
-                {this.sortAnswers(obj.answers).map((obj, index) => {
-                  return (
-                    <div key={obj.id}>
+            while (index < this.state.questionCount) {
+              return (
+                <li key={obj.question_id}>
+                  <Questiondiv>Q: {obj.question_body} <Innerquestiondiv>Helpful? <Linkbutton>Yes</Linkbutton> ({obj.question_helpfulness}) | <Linkbutton onClick={()=> this.setState({Amodalactive: true})}>Add Answer</Linkbutton></Innerquestiondiv></Questiondiv>
+                  {this.sortAnswers(obj.answers).map((obj, index) => {
+                    // while (index < this.state.answerCount) {
+                    return (
+                      <div key={obj.id}>
                         A: {obj.body} <br />
-                        by {obj.answerer_name}, {moment(obj.date).format('LL')} | Helpful? <Linkbutton>Yes</Linkbutton> ({obj.helpfulness}) | <Linkbutton>Report</Linkbutton>
-                    </div>
-                  );
-                })}
-              </li>
-            );
-          })}
-          <button onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
+                        by {obj.answerer_name === 'Seller' ? (<b>{obj.answerer_name}</b>) : obj.answerer_name}, {moment(obj.date).format('LL')} | Helpful? <Linkbutton>Yes</Linkbutton> ({obj.helpfulness}) | <Linkbutton>Report</Linkbutton>
+                      </div>
+                    );
+                    // }
+                  })}
+                </li>
+              );
+            }
+          })}{
+            this.state.questions.length > this.state.questionCount
+              ? <button onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
+              : <button hidden='hidden' onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
+          }
+          <button onClick={()=> this.setState({Qmodalactive: true})}>Add Question</button>
+          <QuestionModal active={this.state.Qmodalactive} close={() => this.setState({Qmodalactive: false})}/>
+          <AnswerModal active={this.state.Amodalactive} close={() => this.setState({Amodalactive: false})}/>
         </Orderlist>
       );
     }
