@@ -41,6 +41,7 @@ const Arrow = styled.button`
   border-radius: 24px;
   background-color: white;
   border: 1px solid #ddd;
+  z-index: 20;
 `;
 
 const PreviewImage = styled.div`

@@ -6,6 +6,7 @@ const CartDiv = styled.div`
   border: 2px ridge grey;
   border-radius: 12px;
   padding: 5%;
+  background-color: white;
 `;
 
 const CartTitle = styled.h1`
@@ -17,6 +18,7 @@ const CartTitle = styled.h1`
 const ListItems = styled.ul`
   color: #3d3c3c;
   text-align: center;
+  font-family: 'Comfortaa';
 `;
 
 const CartItems = (props) => {
