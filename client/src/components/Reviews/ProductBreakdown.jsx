@@ -6,6 +6,7 @@ const SliderContainer = styled.div`
   width: 200px;
   background-color: #ddd;
   height: 10px;
+  font-family: Comfortaa
 `;
 
 const Slider = styled.span`
@@ -13,13 +14,16 @@ const Slider = styled.span`
   text-align: center;
   transform: translateX(-50%);
   left: ${props => props.value * 100}%;
+  font-family: Comfortaa
 `;
 
 const ProductBreakdown = function({ chars }) {
 
   let charArray = [];
   for (let char in chars) {
-    charArray.push({ char, value: chars[char].value });
+    if (chars[char].value !== null) {
+      charArray.push({ char, value: chars[char].value });
+    }
   }
 
   return (
