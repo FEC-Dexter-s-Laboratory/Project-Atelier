@@ -79,7 +79,7 @@ class Comparison extends React.Component {
 
   // make API calls for products at /product/product_id
   componentDidMount() {
-    this.getFeatures(this.props.currentId, 0);
+    this.getFeatures(this.props.mainId, 0);
     this.getFeatures(this.props.comparedId, 1);
   }
 
@@ -94,7 +94,7 @@ class Comparison extends React.Component {
           {Object.keys(this.state.features).map(feature =>
             <>
               <GridItem>{this.state.features[feature][0]}</GridItem>
-              <GridItem>{feature}</GridItem>
+              <GridItem><b>{feature}</b></GridItem>
               <GridItem>{this.state.features[feature][1]}</GridItem>
             </>
           )}
