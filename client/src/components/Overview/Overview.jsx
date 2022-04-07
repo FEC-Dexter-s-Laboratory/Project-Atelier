@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import StarButtons from '../library/StarButtons.jsx';
+import StarDisplay from '../library/StarDisplay.jsx';
 
 // ALL STYLED COMPONENTS
 // Overview container
 const DivContainer = styled.div`
-  border: 6px ridge darkblue;
-  background-image: linear-gradient(to bottom right, cyan, deepskyblue);
+  background-color: white;
   display: grid;
+  margin-bottom: 5%;
 `;
 
 // For images and thumbnails
@@ -33,7 +35,6 @@ const TestDiv = styled.div`
   grid-template-columns: 50% 50%;
   grid-template-rows: 25% 25% 25% 25%;
   background-color: transparent;
-  color: black;
   height: 65vh;
   width: 15vw;
   overflow-wrap: break-word;
@@ -43,38 +44,82 @@ const TestDiv = styled.div`
   margin-left: 1%;
 `;
 
+const ThumbUpArrow = styled.button`
+  font-size: 2rem;
+  color: black;
+  border-radius: 12px;
+  border: 2px ridge black;
+  position: absolute;
+  z-index: 12;
+  width: fit-content;
+  top: 5%;
+  left: 5%;
+  display: none;
+`;
+
+const ThumbDownArrow = styled.button`
+  font-size: 2rem;
+  color: black;
+  border-radius: 12px;
+  border: 2px ridge black;
+  position: absolute;
+  z-index: 12;
+  width: fit-content;
+  bottom: 11%;
+  left: 5%;
+  display: block;
+`;
+
 // For selecting styles
 const SelectStyleDiv = styled.div`
   grid-column: 2;
   grid-row: 1;
   width: 30vw;
   height: 80vh;
+  font-family: 'Comfortaa';
+`;
+
+const ReviewsDiv = styled.div`
+  display: flex;
+  justify-content: start;
+  margin-top: 13%;
+`;
+
+const ReadReviewsLink = styled.a`
+  margin-left: 2%;
+  margin-top: 1%;
 `;
 
 const ProductCategory = styled.h3`
-  color: white;
+  color: #3d3c3c;
+  margin-top: 13%
 `;
 
 const ProductTitle = styled.h1`
-  color: white;
+  color: #3d3c3c;
+  margin-top: 13%;
 `;
 
 const Price = styled.div`
-  color: white;
+  color: #3d3c3c;
+  margin-top: 13%;
 `;
 
 const SelectedStyle = styled.h2`
-  color: white;
+  color: #3d3c3c;
+  margin-top: 13%;
 `;
 
 const ChooseStyle = styled.div`
   display: grid;
   position: relative;
+  margin-top: 5%;
 `;
 
 const DropdownDiv = styled.div`
   display: grid;
   position: relative;
+  margin-top: 10%;
 `;
 
 const SelectSize = styled.select`
@@ -105,15 +150,16 @@ const Favorite = styled.button`
 const DescriptionDiv = styled.div`
   grid-row: 2;
   display: grid;
+  font-family: 'Comfortaa';
 `;
 
 const DescriptionTitle = styled.h1`
   font-family: 'Lobster Two', cursive;
-  color: white;
+  color: #3d3c3c;
 `;
 
 const DescriptionSpan = styled.span`
-  color: white;
+  color: #3d3c3c;
   padding: 1%;
 `;
 
@@ -149,6 +195,7 @@ const Overview = (props) => {
   const [qProps, setQProps] = useState({});
   const [qList, setQList] = useState([1]);
   const [selectedItem, setSelectedItem] = useState(1);
+  const [rating, setRating] = useState(1);
   // const [checkStyle, setCheckStyle] = useState('none')
 
   // Non-state variables used for initial rendering
@@ -196,15 +243,105 @@ const Overview = (props) => {
   };
 
   const displayThumb = (e) => {
+    let newE;
+    if (typeof e === 'object') {
+      newE = Number(e.target.classList[0]);
+    } else {
+      newE = e;
+    }
     let newImage = '';
-    console.log('styles be like ', styleResults)
-    styles.forEach(style => {
-      console.log('stylin... ', style)
-      if (style.id === Number(e.target.classList[0])) {
+    styles.forEach((style, index) => {
+      if (newE > 0) {
+        document.getElementById('thumbUpArrow').style.display = 'block';
+      }
+      if (style.id === newE) {
         newImage = style.srcUrl;
+        document.getElementById(`${index}thumb`).style.border = '4px solid white';
+      } else {
+        document.getElementById(`${index}thumb`).style.border = null;
       }
     });
     setMainImage(newImage);
+  };
+
+  const thumbUp = (e) => {
+    // move up through thumbnails
+    if (document.getElementById(`${styles.length - 1}thumb`).style.border === '4px solid white') {
+      document.getElementById('thumbDownArrow').style.display === 'block';
+    } else if (document.getElementById('1thumb').style.border === '4px solid white') {
+      document.getElementById('thumbUpArrow').style.display = 'none';
+      displayThumb(0);
+    } else if (document.getElementById('2thumb').style.border === '4px solid white') {
+      displayThumb(1);
+      document.getElementById('0thumb').style.transform = 'translateY(10%)';
+      document.getElementById('1thumb').style.transform = 'translateY(10%)';
+      document.getElementById('2thumb').style.transform = 'translateY(10%)';
+      document.getElementById('3thumb').style.transform = 'translateY(10%)';
+      document.getElementById('4thumb').style.transform = 'translateY(50%)';
+      document.getElementById('4thumbDiv').style.display = 'flex';
+      document.getElementById('4thumbDiv').style.alignItems = 'center';
+    } else if (document.getElementById('3thumb').style.border === '4px solid white') {
+      displayThumb(2);
+    } else if (document.getElementById('4thumb').style.border === '4px solid white') {
+      displayThumb(3);
+    }
+  };
+
+  const thumbDown = (e) => {
+    // move down through thumbnails
+    console.log('checking the style yo ', document.getElementById('0thumb').style.border);
+    if (document.getElementById('0thumb').style.border === '4px solid white') {
+      document.getElementById('thumbUpArrow').style.display = 'block';
+      displayThumb(1);
+    } else if (document.getElementById('1thumb').style.border === '4px solid white') {
+      displayThumb(2);
+    } else if (document.getElementById('2thumb').style.border === '4px solid white') {
+      displayThumb(3);
+    } else if (document.getElementById('3thumb').style.border === '4px solid white') {
+      displayThumb(4);
+      document.getElementById('0thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('1thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('2thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('3thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('4thumb').style.transform = 'translateY(-50%)';
+      document.getElementById('4thumbDiv').style.display = 'flex';
+      document.getElementById('4thumbDiv').style.alignItems = 'center';
+    }
+
+
+    /* if (document.getElementById('0thumb').style.border === '4px solid white') {
+      document.getElementById('thumbUpArrow').style.display = 'block';
+      displayThumb(1);
+      document.getElementById('0thumbDiv').style.display = 'none';
+      document.getElementById('0thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('1thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('2thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('3thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('4thumbDiv').style.display = 'block';
+      document.getElementById('4thumb').style.transform = 'translateY(-110%)';
+    } else if (document.getElementById('1thumb').style.border === '4px solid white') {
+      displayThumb(2);
+      document.getElementById('0thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('1thumbDiv').style.display = 'none';
+      document.getElementById('1thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('2thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('3thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('4thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('5thumbDiv').style.transform = 'translateY(-110%)';
+      document.getElementById('5thumb').style.transform = 'translateY(-110%)';
+    } else if (document.getElementById('2thumb').style.border === '4px solid white') {
+      displayThumb(3);
+      document.getElementById('0thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('1thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('2thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('3thumb').style.transform = 'translateY(-110%)';
+    } else if (document.getElementById('3thumb').style.border === '4px solid white') {
+      displayThumb(4);
+      document.getElementById('0thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('1thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('2thumb').style.transform = 'translateY(-110%)';
+      document.getElementById('3thumb').style.transform = 'translateY(-110%)';
+    } */
   };
 
   // for updating main image, thumbnails, and all relevant state when switching between styles
@@ -238,16 +375,12 @@ const Overview = (props) => {
         let skus = styleResults[i].skus;
         for (const sku in skus) {
           if (skus[sku].size === 'XS') {
-            console.log('xs test')
             setXsQuantity(skus[sku].quantity);
           } else if (skus[sku].size === 'S') {
-            console.log('s test')
             setSQuantity(skus[sku].quantity);
           } else if (skus[sku].size === 'M') {
-            console.log('m test')
             setMQuantity(skus[sku].quantity);
           } else if (skus[sku].size === 'L') {
-            console.log('l test')
             setLQuantity(skus[sku].quantity);
           } else if (skus[sku].size === 'XL') {
             if (xlCount > 0) {
@@ -255,16 +388,14 @@ const Overview = (props) => {
               setXxlQuantity(skus[sku].quantity);
             } else {
               xlCount += 1;
-              console.log('xl test')
               setXlQuantity(skus[sku].quantity);
             }
           } else if (skus[sku].size === 'XXL') {
-            console.log('xxl test')
+
             setXxlQuantity(skus[sku].quantity);
           }
         }
       } else {
-        console.log('non style ', styleResults[i].style_id)
         document.getElementById(styleResults[i].style_id).style.display = 'none';
       }
     }
@@ -272,7 +403,6 @@ const Overview = (props) => {
   };
 
   const chooseQuantity = (e) => {
-    console.log('qty being chosen ', e.target.value);
     setSelectedQuantity(e.target.value);
   };
 
@@ -281,6 +411,7 @@ const Overview = (props) => {
     let q = [];
     if (e.target.value === 'Select Size') {
       setQList([1]);
+      setSelectedSize(e.target.value);
     }
     if (e.target.value === 'XS') {
       if (xsQuantity >= 15) {
@@ -288,12 +419,14 @@ const Overview = (props) => {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       } else {
         for (let i = 1; i <= xsQuantity; i++) {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       }
     } else if (e.target.value === 'S') {
@@ -302,12 +435,14 @@ const Overview = (props) => {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       } else {
         for (let i = 1; i <= sQuantity; i++) {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       }
     } else if (e.target.value === 'M') {
@@ -316,12 +451,14 @@ const Overview = (props) => {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       } else {
         for (let i = 1; i <= mQuantity; i++) {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       }
     } else if (e.target.value === 'L') {
@@ -330,12 +467,14 @@ const Overview = (props) => {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       } else {
         for (let i = 1; i <= lQuantity; i++) {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       }
     } else if (e.target.value === 'XL') {
@@ -344,12 +483,14 @@ const Overview = (props) => {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       } else {
         for (let i = 1; i <= xlQuantity; i++) {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       }
     } else if (e.target.value === 'XXL') {
@@ -358,12 +499,14 @@ const Overview = (props) => {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       } else {
         for (let i = 1; i <= xxlQuantity; i++) {
           q.push(i);
         }
         setQList(q);
+        setSelectedSize(e.target.value);
         return;
       }
     }
@@ -378,32 +521,88 @@ const Overview = (props) => {
     }
   };
 
-  const saveToCart = (sku, qty) => {
-    console.log('skuzz me ', sku)
+  const saveToCart = (sku, qty, name, style, size) => {
+    // AXIOS CALLS FOR CART: NOT BEING USED
+    // axios.get('/cart')
+    //   .then(({ data }) => {
+    //     // save data to array
+    //     cartItems = data;
+    //     console.log('card items api ', cartItems);
+    //     if (cartItems.length > 0) {
+    //       console.log('cart items length >', cartItems.length);
+    //       let inItems = false;
+    //       for (let i = 0; i < cartItems.length; i++) {
+    //         console.log('incoming sku ', sku);
+    //         console.log('test for loop ', cartItems[i]['sku_id']);
+    //         if (cartItems[i]['sku_id'] === sku) {
+    //           console.log('cart item i sku = ', cartItems[i].sku);
+    //           let count = Number(cartItems[i].count) + Number(qty);
+    //           cartItems[i].count = String(count);
+    //           cartItems[i]['sku_id'] = sku;
+    //           inItems = true;
+    //           break;
+    //         }
+    //       }
+    //       if (!inItems) {
+    //         item['sku_id'] = sku;
+    //         item['count'] = String(qty);
+    //         cartItems.push(item);
+    //       }
+    //     } else {
+    //       item['sku_id'] = sku;
+    //       item['count'] = String(qty);
+    //       cartItems.push(item);
+    //     }
+
+    //     axios.post('/cart', {
+    //       items: cartItems,
+    //     })
+    //       .then((res) => {
+    //         // do something with the response
+    //         console.log('save to cart post res ', res.data);
+    //       })
+    //       .catch((err) => {
+    //         console.error(err);
+    //       });
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
+
+
+    console.log('skuzz me ', sku);
     if (window.localStorage.getItem('cart')) {
       // do stuff
-      let item = JSON.parse(window.localStorage.getItem('cart'));
-      console.log(item);
-      for (let i = 0; i < item.length; i++) {
-        let itemCount = item[i].count;
+      let items = JSON.parse(window.localStorage.getItem('cart'));
+      console.log('items be like', items);
+      for (let i = 0; i < items.length; i++) {
+        let itemCount = items[i].count;
         itemCount = Number(itemCount);
-        console.log('sku type ', item[i].skuId)
-        if (item[i].skuId === sku) {
+        console.log('itemCount be like ', itemCount);
+        console.log('sku type ', items[i].skuId);
+        if (items[i].skuId === sku) {
+          console.log('inside if getitem')
           itemCount += Number(qty);
-          console.log('item count ', itemCount)
-          item[i].count = itemCount;
-          window.localStorage.setItem('cart', JSON.stringify(item));
+          console.log('item count after ', itemCount)
+          items[i].count = itemCount;
+          console.log('items i count after', items[i].count)
+          window.localStorage.setItem('cart', JSON.stringify(items));
           break;
         } else {
-          let newItem = item.slice();
-          newItem.push({skuId: sku, count: qty});
+          console.log('inside get else')
+          let newItem = items.slice();
+          newItem.push({skuId: sku, name: name, style: style, size: size, count: Number(qty)});
           window.localStorage.setItem('cart', JSON.stringify(newItem));
         }
       }
     } else {
+      console.log('inside set else')
       window.localStorage.setItem('cart', JSON.stringify([{
         skuId: sku,
-        count: qty,
+        name: name,
+        style: style,
+        size: size,
+        count: Number(qty),
       }]));
     }
   };
@@ -411,7 +610,7 @@ const Overview = (props) => {
   const addToCart = (e) => {
     if (!inCart) {
       setInCart(true);
-      saveToCart(selectedItem, selectedQuantity);
+      saveToCart(selectedItem, selectedQuantity, title, selectedStyle, selectedSize);
     } else {
       setInCart(false);
     }
@@ -464,10 +663,30 @@ const Overview = (props) => {
       .catch(err => console.error(err));
   };
 
+  const getRating = (id) => {
+    axios.get(`/reviews/meta/${id}`)
+      .then((response) => {
+        let ratings = response.data.ratings;
+        let sumRatings = 0;
+        let countRatings = 0;
+        for (let key in ratings) {
+          sumRatings += Number(key) * Number(ratings[key]);
+          countRatings += Number(ratings[key]);
+        }
+        const averageRating = sumRatings / countRatings;
+        setRating(averageRating);
+        // do something with averageRating here (return || setState || assign to global variable)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   // for initial rendering, similar to componentDidMount
   useEffect(() => {
     getData(props.productId);
     getStyles(props.productId, props.qtys);
+    getRating(props.productId);
     setQProps(props.qtys);
     let qArr = [];
     let qs = Object.values(props.qtys);
@@ -496,11 +715,12 @@ const Overview = (props) => {
         }
       }
     }
-  }, [isClicked, props.qtys]);
+  }, [isClicked, props.qtys, props.productId]);
 
   return (
     <DivContainer>
       <ImageContainer>
+        <ThumbUpArrow id="thumbUpArrow" onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={thumbUp}> 🔼 </ThumbUpArrow>
         <TestDiv>
           {
             styles.map((style, index) => {
@@ -510,20 +730,26 @@ const Overview = (props) => {
                 thumbDisplay = 'none';
               }
               return (
-                <div key={index} style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}}>
+                <div key={index} style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}} id={`${style.id}thumbDiv`}>
                   <img
-                    style={{height: '100px', width: '100px', position: 'absolute', zIndex: '12', border: '1px solid black', float: 'right'}}
+                    style={{height: '100px', width: '100px', position: 'absolute', zIndex: '12', border: '1px solid black', float: 'right', border: index === 0 ? '4px solid white' : null, transition: '.2s'}}
                     src={style.srcThumb}
                     className={style.id}
-                    onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={displayThumb} />
+                    id={`${style.id}thumb`}
+                    onClick={displayThumb} />
                 </div>
               );
             })
           }
         </TestDiv>
+        <ThumbDownArrow id="thumbDownArrow" onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={thumbDown}> 🔽 </ThumbDownArrow>
         <MainImage src={mainImage} alt="style" />
       </ImageContainer>
       <SelectStyleDiv>
+        <ReviewsDiv>
+          <StarDisplay rating={rating} style={{gridColumn: '1'}} />
+          <ReadReviewsLink href="#reviews-module">Read All Reviews</ReadReviewsLink>
+        </ReviewsDiv>
         <ProductCategory>{category}</ProductCategory>
         <ProductTitle><b>{title}</b></ProductTitle>
         <Price>
@@ -552,7 +778,7 @@ const Overview = (props) => {
                 checkStyle = 'none';
               }
               return (
-                <div key={style.style_id} style={{gridColumn: styleResultsColCounter, gridRow: styleResultsRowCounter, margin: '4%', position: 'relative', width: 'fit-content'}} onClick={() => changeStyle(style.style_id)} className={style.style_id}>
+                <div key={style.style_id} style={{gridColumn: styleResultsColCounter, gridRow: styleResultsRowCounter, margin: '4%', position: 'relative', width: 'fit-content'}} onClick={(event) => changeStyle(style.style_id)} className={style.style_id}>
                   <img className={style.style_id} src={style.photos[0].thumbnail_url} style={{borderRadius: '50%', width: '80px', height: '80px'}}
                     onMouseEnter={enterThumb} onMouseLeave={leaveThumb} />
                   <img src="https://media.istockphoto.com/vectors/check-vector-id871478670?b=1&k=20&m=871478670&s=170667a&w=0&h=z-dZAr0bn8-IlGirxjJjqJcATVZWsHHr8UgEKxl1gtg=" style={{position: 'absolute', top: '0', right: '0', width: '30px', height: '30px', zIndex: '30', borderRadius: '50%', display: checkStyle}} id={style.style_id} />

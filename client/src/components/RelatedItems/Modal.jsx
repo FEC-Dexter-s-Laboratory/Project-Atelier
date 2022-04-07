@@ -10,7 +10,7 @@ const ModalStyle = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 50px;
-  zIndex: 1000;
+  z-index: 1000;
   overflow-y: auto;
 `;
 
@@ -21,7 +21,7 @@ const Overlay = styled.div`
   bottom: 0;
   left: 0;
   background-color: rgba(128,128,128,0.7);
-  zIndex: 1000;
+  z-index: 1000;
 `;
 
 const Button = styled.button`
