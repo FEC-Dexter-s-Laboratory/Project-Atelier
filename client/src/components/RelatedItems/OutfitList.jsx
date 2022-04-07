@@ -7,6 +7,7 @@ import axios from 'axios';
 const DivContainer = styled.div`
   margin: auto;
   width: 50%;
+  font-family: Comfortaa;
 `;
 
 class OutfitList extends React.Component {
