@@ -95,6 +95,7 @@ router.get('/qa/questions', (req, res) => {
     }, params: req.query
   })
     .then(({ data }) => {
+      console.log(data.results);
       res.send(data);
     })
     .catch((err) => {

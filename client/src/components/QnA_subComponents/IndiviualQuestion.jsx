@@ -2,7 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import { Linkbutton, Orderlist, Questiondiv, Innerquestiondiv} from './QnAStyledComponents.style.js';
-
+import QuestionModal from './QuestionModal.jsx';
+import AnswerModal from './AnswerModal.jsx';
 
 class IndividualQuestion extends React.Component {
   constructor(props) {
@@ -11,6 +12,8 @@ class IndividualQuestion extends React.Component {
       questionCount: 2,
       answerCount: 2,
       questions: [],
+      Qmodalactive: false,
+      Amodalactive: false,
     };
     this.sortAnswers.bind(this);
     this.sortQuestions.bind(this);
@@ -71,16 +74,13 @@ class IndividualQuestion extends React.Component {
             while (index < this.state.questionCount) {
               return (
                 <li key={obj.question_id}>
-                  <Questiondiv>Q: {obj.question_body} <Innerquestiondiv>Helpful? <Linkbutton>Yes</Linkbutton> ({obj.question_helpfulness}) | <Linkbutton>Add Answer</Linkbutton></Innerquestiondiv></Questiondiv>
+                  <Questiondiv>Q: {obj.question_body} <Innerquestiondiv>Helpful? <Linkbutton>Yes</Linkbutton> ({obj.question_helpfulness}) | <Linkbutton onClick={()=> this.setState({Amodalactive: true})}>Add Answer</Linkbutton></Innerquestiondiv></Questiondiv>
                   {this.sortAnswers(obj.answers).map((obj, index) => {
                     // while (index < this.state.answerCount) {
                     return (
                       <div key={obj.id}>
                         A: {obj.body} <br />
                         by {obj.answerer_name === 'Seller' ? (<b>{obj.answerer_name}</b>) : obj.answerer_name}, {moment(obj.date).format('LL')} | Helpful? <Linkbutton>Yes</Linkbutton> ({obj.helpfulness}) | <Linkbutton>Report</Linkbutton>
-                        {
-
-                        }
                       </div>
                     );
                     // }
@@ -93,7 +93,9 @@ class IndividualQuestion extends React.Component {
               ? <button onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
               : <button hidden='hidden' onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
           }
-
+          <button onClick={()=> this.setState({Qmodalactive: true})}>Add Question</button>
+          <QuestionModal active={this.state.Qmodalactive} close={() => this.setState({Qmodalactive: false})}/>
+          <AnswerModal active={this.state.Amodalactive} close={() => this.setState({Amodalactive: false})}/>
         </Orderlist>
       );
     }
