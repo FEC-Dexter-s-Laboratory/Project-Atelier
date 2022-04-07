@@ -9,16 +9,26 @@ const RatingBreakdown = function({ratings, recommended}) {
     sumRatings += Number(key) * Number(ratings[key]);
     countRatings += Number(ratings[key]);
   }
-  const averageRating = sumRatings / countRatings;
+  let averageRating = sumRatings / countRatings;
+  if (sumRatings === 0 || countRatings === 0) {
+    averageRating = null;
+  }
 
   // % Total Recommended
-  const totalRecommended = Number(recommended['true']) / (Number(recommended['true']) + Number(recommended['false']));
+  let totalRecommended = 1;
+  if (recommended['false'] === undefined) {
+    totalRecommended = 1;
+  } else if (recommended['true'] === undefined) {
+    totalRecommended = 0;
+  } else {
+    totalRecommended = Number(recommended['true']) / (Number(recommended['true']) + Number(recommended['false']));
+  }
 
   // Render average rating, average star rating, % total recommended...
   return (
     <div className="rating-breakdown">
       <h3>
-        {averageRating.toFixed(1)}
+        {averageRating ? averageRating.toFixed(1) : null}
         <StarDisplay font={30} rating={averageRating} />
       </h3>
 

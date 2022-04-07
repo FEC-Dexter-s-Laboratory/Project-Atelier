@@ -9,6 +9,7 @@ const EntryContainer = styled.div`
   display: grid;
   padding: 5px 0 5px 0;
   border-bottom: 1px solid #353935;
+  font-family: Comfortaa;
 `;
 
 class ReviewListEntry extends React.Component {
