@@ -1,34 +1,32 @@
-import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import axios from 'axios';
 import questions from './QnA_subComponents/HardCodedData.js';
 import IndividualQuestion from './QnA_subComponents/IndiviualQuestion.jsx';
-
-const QnAContainer = styled.div`
-  margin-left: 20%;
-  margin-right: 20%;
-  display: grid;
-`;
-
-const QnAHeader = styled.h1`
-  font-size: 15px;
-  font-weight: lighter;
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  height: 50px;
-  font-weight: bold;
-  background-image: url(https://cdn2.hubspot.net/hubfs/4004166/bioticresearch_website_assets/images/search_icon.png);
-  background-repeat: no-repeat;
-  background-position: right center;
-`;
+import { QnAContainer, QnAHeader, SearchInput } from '././QnA_subComponents/QnAStyledComponents.style.js';
 
 class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchKey: '',
+      questionData: [],
     };
+  }
+
+  componentDidMount() {
+    axios.get('/qa/questions', {
+      params: {
+        product_id: this.props.currentId,
+      }
+    })
+      .then((res) => {
+        this.setState({
+          questionData: res.data
+        });
+      })
+      .catch((err) => {
+        console.log('err: ', err);
+      });
   }
 
   handleChange (e) {
@@ -37,17 +35,25 @@ class QandA extends React.Component {
       this.setState ({
         searchKey: e.target.value,
       });
+    } else {
+      this.setState({
+        searchKey: '',
+      });
     }
   }
 
   render () {
-    return (
-      <QnAContainer>
-        <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
-        <SearchInput type="search" onChange={this.handleChange.bind(this)} placeholder="Have a question? Search for answers…" />
-        <IndividualQuestion data={questions} search={this.state.searchKey} />
-      </QnAContainer>
-    );
+    if (Array.isArray(this.state.questionData)) {
+      return (<div>Loading...</div>);
+    } else {
+      return (
+        <QnAContainer>
+          <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
+          <SearchInput type="search" onChange={this.handleChange.bind(this)} placeholder="Have a question? Search for answers…" />
+          <IndividualQuestion data={this.state.questionData} search={this.state.searchKey} />
+        </QnAContainer>
+      );
+    }
   }
 
 }

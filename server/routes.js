@@ -4,8 +4,6 @@ require('dotenv').config();
 
 const router = express.Router();
 
-// configure router file
-
 // example route for /products
 router.get('/products', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products', {
@@ -71,6 +69,23 @@ router.get('/products/:product_id/styles', (req, res) => {
     });
 });
 
+// route to get reviews data by product id, count & sort
+router.get('/reviews/:product_id', (req, res) => {
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/reviews', {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN
+    },
+    params: {
+      // eslint-disable-next-line camelcase
+      product_id: req.params.product_id,
+      count: req.query.count,
+      sort: req.query.sort
+    }
+  })
+    .then(({data}) => res.send(data))
+    .catch(err => res.sendStatus(404));
+});
+
 // route to get reviews metadata by product id
 router.get('/reviews/meta/:product_id', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/reviews/meta', {
@@ -117,6 +132,22 @@ router.post('/cart', (req, res) => {
     .then(({ data }) => {
       console.log('Successful cart post!');
       res.send(data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+// route to questions
+router.get('/qa/questions', (req, res) => {
+  // console.log(req.query);
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/questions', {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN,
+    }, params: req.query
+  })
+    .then(({ data }) => {
+      // console.log(data.results);
     })
     .catch((err) => {
       console.error(err);

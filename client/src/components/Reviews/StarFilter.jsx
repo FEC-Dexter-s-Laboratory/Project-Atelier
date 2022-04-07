@@ -6,9 +6,7 @@ const RatingBar = styled.progress`
   background-color: #eee;
 `;
 
-// IMPLEMENT FILTER CLICKS
-
-const StarFilter = function({ratings}) {
+const StarFilter = function({ratings, toggleFilterReviews, resetFilters}) {
 
   // Total reviews
   let countReviews = 0;
@@ -16,33 +14,43 @@ const StarFilter = function({ratings}) {
     countReviews += Number(ratings[key]);
   }
 
+  const resetFiltersLink = resetFilters
+    ? <span onClick={() => toggleFilterReviews('reset')}>reset all filters</span>
+    : null;
+
   return (
     <div>
-      <div>
-        <a>5 Stars </a>
+      <span onClick={() => toggleFilterReviews(5)}>
+        <span>5 Stars </span>
         <RatingBar max="1" value={ ratings['5'] / countReviews || 0 } />
         <label> { ratings['5'] || 0 }</label>
-      </div>
-      <div>
-        <a>4 Stars </a>
+      </span>
+      <br/>
+      <span onClick={() => toggleFilterReviews(4)}>
+        <span>4 Stars </span>
         <RatingBar max="1" value={ ratings['4'] / countReviews || 0 } />
         <label> { ratings['4'] || 0 }</label>
-      </div>
-      <div>
-        <a>3 Stars </a>
+      </span>
+      <br/>
+      <span onClick={() => toggleFilterReviews(3)}>
+        <span>3 Stars </span>
         <RatingBar max="1" value={ ratings['3'] / countReviews || 0 } />
         <label> { ratings['3'] || 0 }</label>
-      </div>
-      <div>
-        <a>2 Stars </a>
+      </span>
+      <br/>
+      <span onClick={() => toggleFilterReviews(2)}>
+        <span>2 Stars </span>
         <RatingBar max="1" value={ ratings['2'] / countReviews || 0 } />
         <label> { ratings['2'] || 0 }</label>
-      </div>
-      <div>
-        <a>1 Stars </a>
+      </span>
+      <br/>
+      <span onClick={() => toggleFilterReviews(1)}>
+        <span>1 Stars </span>
         <RatingBar max="1" value={ ratings['1'] / countReviews || 0 } />
         <label> { ratings['1'] || 0 }</label>
-      </div>
+      </span>
+      <br/>
+      {resetFiltersLink}
     </div>
   );
 };

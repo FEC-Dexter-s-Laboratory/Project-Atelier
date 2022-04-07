@@ -41,7 +41,7 @@ const Modal = (props) => {
     <Overlay>
       <ModalStyle>
         <Button onClick={onClose} >X</Button>
-        <Comparison currentId={65632} comparedId={props.comparedId} />
+        <Comparison mainId={props.mainId} comparedId={props.comparedId} />
       </ModalStyle>
     </Overlay>,
     document.getElementById('compare_portal')
