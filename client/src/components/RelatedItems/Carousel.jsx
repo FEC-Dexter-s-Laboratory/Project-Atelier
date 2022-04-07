@@ -6,6 +6,7 @@ const CaroContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  font-family: Comfortaa;
 `;
 
 const CaroWrapper = styled.div`
@@ -112,8 +113,8 @@ const Carousel = (props) => {
         }
         <ContentWrapper>
           {products.map(product =>
-            <ContentStyle style={{transform: `translateX(-${currentIndex * (100)}%)`}}>
-              <RelatedCard product={product} key={product.id} handleDefaultClick={props.handleDefaultClick} use={props.use} handleOutfitClick={props.handleOutfitClick} handleCardClick={props.handleCardClick} mainId={props.mainId}/>
+            <ContentStyle key={product.id} style={{transform: `translateX(-${currentIndex * (100)}%)`}}>
+              <RelatedCard product={product} handleDefaultClick={props.handleDefaultClick} use={props.use} handleOutfitClick={props.handleOutfitClick} handleCardClick={props.handleCardClick} mainId={props.mainId}/>
             </ContentStyle>
           )}
         </ContentWrapper>
