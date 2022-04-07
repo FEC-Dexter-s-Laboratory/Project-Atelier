@@ -148,6 +148,7 @@ router.get('/qa/questions', (req, res) => {
   })
     .then(({ data }) => {
       // console.log(data.results);
+      res.send(data);
     })
     .catch((err) => {
       console.error(err);
