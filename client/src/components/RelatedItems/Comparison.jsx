@@ -6,6 +6,7 @@ const Table = styled.div`
   width: 100%;
   margin: auto;
   text-align: center;
+  font-family: Comfortaa;
 `;
 
 const Grid = styled.div`
