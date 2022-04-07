@@ -172,7 +172,8 @@ class Reviews extends React.Component {
     }
 
     return (
-      <div className="reviews-module">
+      <div className="reviews-module" id="reviews-module">
+
         <ReviewsContainer>
           <div>Ratings &amp; Reviews</div>
           <LeftColumn>
