@@ -37,6 +37,11 @@ class IndividualQuestion extends React.Component {
         });
       }
     }
+    if (this.props.data !== prevProps.data) {
+      this.setState({
+        questions: this.props.data.results,
+      });
+    }
   }
 
   handleQClick (e) {
@@ -80,7 +85,12 @@ class IndividualQuestion extends React.Component {
                     return (
                       <div key={obj.id}>
                         A: {obj.body} <br />
-                        by {obj.answerer_name === 'Seller' ? (<b>{obj.answerer_name}</b>) : obj.answerer_name}, {moment(obj.date).format('LL')} | Helpful? <Linkbutton>Yes</Linkbutton> ({obj.helpfulness}) | <Linkbutton>Report</Linkbutton>
+                        by {obj.answerer_name === 'Seller'
+                          ? (<b>{obj.answerer_name}</b>)
+                          : obj.answerer_name},
+                        {moment(obj.date).format('LL')}
+                        | Helpful?
+                        <Linkbutton>Yes</Linkbutton> ({obj.helpfulness}) | <Linkbutton>Report</Linkbutton>
                       </div>
                     );
                     // }
