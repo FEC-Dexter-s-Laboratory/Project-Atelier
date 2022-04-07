@@ -16,6 +16,7 @@ const Linkbutton = styled.button`
 const Orderlist = styled.ol`
   display: contents;
   list-style-type: none;
+  font-family: Comfortaa;
 `;
 
 const Questiondiv = styled.div`
@@ -29,6 +30,7 @@ const Questiondiv = styled.div`
 const Innerquestiondiv = styled.div`
   font-weight: lighter;
   font-size: small;
+  margin-top: 20px;
 `;
 
 //QandA styled components
@@ -57,13 +59,13 @@ const Modalbackground = styled.div`
 display: flex;
 justify-content: center;
 align-content: center;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(128,128,128,0.7);
-  z-index: 1000;
+position: fixed;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+background-color: rgba(128,128,128,0.7);
+z-index: 1000;
 `;
 
 const Questionform = styled.form`
@@ -75,6 +77,7 @@ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 display: flex;
 flex-direction: column;
 padding: 25px;
+font-family: Comfortaa;
 `;
 
 const Titlelabel = styled.label`
