@@ -76,7 +76,6 @@ router.get('/reviews/:product_id', (req, res) => {
       Authorization: process.env.AUTH_TOKEN
     },
     params: {
-      // eslint-disable-next-line camelcase
       product_id: req.params.product_id,
       count: req.query.count,
       sort: req.query.sort
@@ -92,7 +91,6 @@ router.get('/reviews/meta/:product_id', (req, res) => {
     headers: {
       Authorization: process.env.AUTH_TOKEN
     },
-    // eslint-disable-next-line camelcase
     params: {product_id: req.params.product_id}
   })
     .then(({data}) => {
