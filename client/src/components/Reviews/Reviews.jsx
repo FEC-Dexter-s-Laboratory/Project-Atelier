@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Rating from './Rating.jsx';
 import Filters from './Filters.jsx';
-import ProductBreakdown from './ProductBreakdown.jsx';
+import Characteristics from './Characteristics.jsx';
 import SortReviews from './SortReviews.jsx';
 import ReviewList from './ReviewList.jsx';
 import ReviewNav from './ReviewNav.jsx';
@@ -26,8 +26,9 @@ const LeftColumn = styled.div`
   grid-column-start: 1;
   grid-row-start: 2;
   display: grid;
-  grid-template-rows: 15% 25% 60%;
-  margin-right: 3%;
+  grid-template-rows: 15% 25% 65%;
+  margin: 2%;
+  padding: 2%;
   height: 90vh;
 `;
 
@@ -37,7 +38,8 @@ const RightColumn = styled.div`
   grid-row-start: 2;
   display: grid;
   grid-template-rows: 5% 90% 5%;
-  margin-left: 3%;
+  margin: 2%;
+  padding: 2%;
   height: 90vh;
 `;
 
@@ -190,7 +192,7 @@ class Reviews extends React.Component {
             ratings={this.state.meta.ratings}
             currentFilters={this.state.currentFilters} // go fix this, removed filtersFlag and need to implement filter list
           />
-          <ProductBreakdown
+          <Characteristics
             chars={this.state.meta.characteristics}
           />
         </LeftColumn>

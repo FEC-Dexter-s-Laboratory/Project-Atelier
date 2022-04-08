@@ -7,9 +7,23 @@ const FiltersContainer = styled.div`
   grid-template-rows: 15% 15% 15% 15% 15% 25%;
 `;
 
+const Filter = styled.span`
+  color: black;
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    color: orange;
+  }
+`;
+
+const List = styled.span`
+  font-size: .9em;
+`;
+
 const Reset = styled.button`
   font-family: Comfortaa;
-	font-size: 1em;
 	text-align: center;
 	color: blue;
 	background: none;
@@ -37,26 +51,11 @@ cursor: pointer;
 }
 `;
 
-const Filter = styled.span`
-  color: black;
-  display: grid;
-  grid-template-columns: 20% 60% 20%;
-  align-items: center;
-  cursor: pointer;
-  &:hover {
-    color: orange;
-  }
-`;
-
 const RatingBar = styled.progress`
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: #eee;
-  border-radius: 2px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
   height: 15px;
   grid-column-start: 2;
   background-color: gray;
+  margin: 2%;
   width: 95%;
   `;
 
@@ -68,17 +67,17 @@ const Filters = function({ ratings, toggleReviewFilters, currentFilters }) {
   }
 
   const filtersList = currentFilters.length > 0
-    ? <div>
+    ? <List>
       <span>filtering </span>
       {[5, 4, 3, 2, 1].map((star) => {
         return currentFilters.includes(star)
-          ? <span>&#183; {star} </span>
+          ? <span key={`${star} filter`}>&#183; {star} </span>
           : null;
       })}
-      <span>stars  </span>
+      <span>stars  |&#32;</span>
       <Reset onClick={() => toggleReviewFilters('reset')}>reset</Reset>
-    </div>
-    : <div/>;
+    </List>
+    : null;
 
   return (
     <FiltersContainer>
@@ -97,7 +96,3 @@ const Filters = function({ ratings, toggleReviewFilters, currentFilters }) {
 };
 
 export default Filters;
-
-// TODO
-
-// improve naming for styled components, for when we remove them from the file.
