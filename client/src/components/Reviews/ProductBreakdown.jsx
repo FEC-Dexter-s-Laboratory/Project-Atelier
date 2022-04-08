@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const CharacteristicsContainer = styled.div`
+  grid-row-start: 5;
+`;
+
 const SliderContainer = styled.div`
   position: relative;
   width: 200px;
   background-color: #ddd;
   height: 10px;
-  font-family: Comfortaa
 `;
 
 const Slider = styled.span`
@@ -14,7 +17,6 @@ const Slider = styled.span`
   text-align: center;
   transform: translateX(-50%);
   left: ${props => props.value * 100}%;
-  font-family: Comfortaa
 `;
 
 const ProductBreakdown = function({ chars }) {
@@ -31,6 +33,7 @@ const ProductBreakdown = function({ chars }) {
       {charArray.map((factor) => {
         return (
           <div key={factor.char}>
+            <br/>
             <span>{factor.char}</span>
             <SliderContainer>
               <Slider value={factor.value / 5}>&#9660;</Slider>

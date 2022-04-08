@@ -8,6 +8,7 @@ const ListContainer = styled.div`
   height: 500px;
   overflow-y: auto;
   font-family: Comfortaa;
+  grid-row-start: 2;
 `;
 
 const ReviewList = function ({ reviews }) {

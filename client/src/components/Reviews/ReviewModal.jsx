@@ -128,9 +128,19 @@ class ReviewModal extends React.Component {
       parseRating = '';
     }
 
-    const bodyCounter = this.state.body.length >= 50
-      ? <span>Minimum reached</span>
-      : <span>Minimum required characters left &#91;{50 - this.state.body.length}&#93;</span>;
+    const bodyCounter = this.state.body.length < 50
+      ? <span>Minimum required characters left &#91;{50 - this.state.body.length}&#93;</span>
+      : <span>Minimum reached</span>;
+
+    // TODO
+    // product name
+    // characteristics
+    // photos
+
+    // field validation on submit
+
+    // lock background scroll
+
 
     if (visible) {
       return ReactDOM.createPortal(
