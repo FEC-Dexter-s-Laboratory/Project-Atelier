@@ -26,7 +26,10 @@ const SliderContainer = styled.div`
 const Slider = styled.span`
   position: absolute;
   text-align: center;
+  vertical-align: middle;
+  font-size: 20px;
   transform: translateX(-50%);
+  transform: translateY(-10%);
   left: ${props => props.value * 100}%;
 `;
 

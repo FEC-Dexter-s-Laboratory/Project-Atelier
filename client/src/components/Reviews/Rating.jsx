@@ -2,9 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import StarDisplay from '../library/StarDisplay.jsx';
 
-const RatingContainer = styled.h3`
+const RatingContainer = styled.div`
   grid-row-start: 1;
-  line-height: 2;
+  display: grid;
+  grid-template-columns: 25% 75%;
+  grid-template-rows: 70% 30%;
+`;
+
+const Average = styled.div`
+  font-size: 60px;
+  font-weight: bold;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  `;
+
+const Recommended = styled.div`
+  grid-column-start: 1;
+  grid-column-end: -1;
+  grid-row-start: 2;
+  font-size: 15px;
 `;
 
 const Rating = function({ ratings, recommended }) {
@@ -30,11 +46,9 @@ const Rating = function({ ratings, recommended }) {
 
   return (
     <RatingContainer className="rating-breakdown">
-      {averageRating ? averageRating.toFixed(1) : null}
-      <span>
-        <StarDisplay font={30} rating={averageRating} />
-      </span>
-      <span>{(totalRecommended * 100).toFixed(0)}% recommend</span>
+      <Average>{averageRating ? averageRating.toFixed(1) : null}</Average>
+      <StarDisplay fontSize={20} rating={averageRating} />
+      <Recommended>{(totalRecommended * 100).toFixed(0)}% of reviews recommend this product</Recommended>
     </RatingContainer>
   );
 };

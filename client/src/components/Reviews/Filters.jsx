@@ -80,7 +80,7 @@ const Filters = function({ ratings, toggleReviewFilters, currentFilters }) {
     : null;
 
   return (
-    <FiltersContainer>
+    <FiltersContainer className="rating-breakdown-filters">
       {[5, 4, 3, 2, 1].map((star) => {
         return (
           <Filter key={`${star}-star-filter`} onClick={() => toggleReviewFilters(star)}>

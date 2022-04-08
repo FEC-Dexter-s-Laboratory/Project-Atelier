@@ -4,7 +4,7 @@ import axios from 'axios';
 import Rating from './Rating.jsx';
 import Filters from './Filters.jsx';
 import Characteristics from './Characteristics.jsx';
-import SortReviews from './SortReviews.jsx';
+import ReviewSort from './ReviewSort.jsx';
 import ReviewList from './ReviewList.jsx';
 import ReviewNav from './ReviewNav.jsx';
 import ReviewModal from './ReviewModal.jsx';
@@ -26,9 +26,8 @@ const LeftColumn = styled.div`
   grid-column-start: 1;
   grid-row-start: 2;
   display: grid;
-  grid-template-rows: 15% 25% 65%;
+  grid-template-rows: 15% 25% 60%;
   margin: 2%;
-  padding: 2%;
   height: 90vh;
 `;
 
@@ -39,7 +38,6 @@ const RightColumn = styled.div`
   display: grid;
   grid-template-rows: 5% 90% 5%;
   margin: 2%;
-  padding: 2%;
   height: 90vh;
 `;
 
@@ -181,7 +179,7 @@ class Reviews extends React.Component {
     }
     return (
       <ReviewsContainer className="reviews-module" id="reviews-module">
-        <div>Ratings &amp; Reviews</div>
+        <h4>RATINGS &amp; REVIEWS</h4>
         <LeftColumn id="reviews-column-left">
           <Rating
             ratings={this.state.meta.ratings}
@@ -197,7 +195,7 @@ class Reviews extends React.Component {
           />
         </LeftColumn>
         <RightColumn id="reviews-column-right">
-          <SortReviews
+          <ReviewSort
             count={this.state.count}
             setSort={this.setSort}
           />

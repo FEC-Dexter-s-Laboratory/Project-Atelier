@@ -7,9 +7,16 @@ import StarDisplay from '../library/StarDisplay.jsx';
 
 const EntryContainer = styled.div`
   display: grid;
+  grid-template-rows: 5% 10% 30% 30% 15% 10%;
+  height: 45%;
   padding: 5px 0 5px 0;
   border-bottom: 1px solid #353935;
-  font-family: Comfortaa;
+`;
+
+const Header = styled.div`
+  grid-row-start: 1;
+  display: grid;
+  grid-template-columns: 50% 50%;
 `;
 
 class ReviewListEntry extends React.Component {
@@ -71,8 +78,13 @@ class ReviewListEntry extends React.Component {
 
     return (
       <EntryContainer className="review-list-entry">
-        <StarDisplay font={30} rating={review.rating} />
-        <span>{review.reviewer_name}, {moment(review.date).format('LL')}</span>
+        <Header>
+          <StarDisplay font={30} rating={review.rating} />
+          <span style={{textAlign: 'right'}}>
+            {review.reviewer_name}, {moment(review.date).format('LL')}
+          </span>
+        </Header>
+
         <h4>{review.summary}</h4>
         {reviewBody}
         {showMore}
