@@ -1,15 +1,9 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import RelatedCard from './RelatedCard.jsx';
 import Carousel from './Carousel.jsx';
 import axios from 'axios';
-
-const DivContainer = styled.div`
-  margin: auto;
-  width: 50%;
-  font-family: Comfortaa;
-`;
+import {DivContainer} from './Related&OutfitStyles.js';
 
 class RelatedItems extends React.Component {
   constructor(props) {

@@ -3,34 +3,7 @@ import styled from 'styled-components';
 import Modal from './Modal.jsx';
 import StarDisplay from '../library/StarDisplay.jsx';
 import Carousel from './Carousel.jsx';
-
-const CardStyle = styled.div`
-  padding: 8;
-  border: 1px solid black;
-`;
-const Image = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 200px;
-`;
-
-const CompareStar = styled.img`
-  position: relative;
-  top: 0;
-  right: 0;
-`;
-
-const RemoveButton = styled.button`
-  font-weight: bold;
-  border: none;
-  background-color: white;
-`;
-
-const ButtonAlign = styled.div`
-  text-align: right;
-`;
+import {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign} from './Related&OutfitStyles.js';
 
 const RelatedCard = (props) => {
   let {product} = props;
@@ -62,7 +35,8 @@ const RelatedCard = (props) => {
     if (product.photos[0].thumbnail_url === null) {
       image = <img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
     } else {
-      image = <img src={product.photos[0].thumbnail_url} width="200"/>;
+      // need to change this to change src if preview picture is clicked - need to send the url back to here
+      image = <img src={product.photos[0].thumbnail_url} style={{display: 'block', width: '100%'}}/>;
     }
     if (product.sale_price === null) {
       price = <div>{product.original_price}</div>;
@@ -98,11 +72,11 @@ const RelatedCard = (props) => {
           <Image onMouseEnter={() => setMouseOn(true)} >
             {image}
           </Image>
-          {/* {mouseOn && (
-            <div style={{position: 'fixed', bottom: '20%', left: '-10%', width: '100%'}}>
+          {mouseOn && (
+            <Preview >
               <Carousel images={product.photos}/>
-            </div>
-          )} */}
+            </Preview>
+          )}
           <div>{product.category}</div>
           <b>{product.name}</b>
           {price}
