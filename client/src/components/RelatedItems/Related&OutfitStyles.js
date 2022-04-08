@@ -109,6 +109,14 @@ const Arrow = styled.button`
   z-index: 20;
 `;
 
+const PreviewContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: Comfortaa;
+  z-index: 300;
+`;
+
 const PreviewImage = styled.div`
   background: white;
   display: flex;
@@ -159,6 +167,6 @@ const ButtonAlign = styled.div`
 `;
 
 export {DivContainer, ModalStyle, Overlay, ModalButton};
-export {CaroContainer, CaroWrapper, ContentWrapper, ContentStyle, Arrow, PreviewImage};
+export {CaroContainer, CaroWrapper, ContentWrapper, ContentStyle, Arrow, PreviewContainer, PreviewImage};
 export {Table, Grid, GridHeader, GridItem};
 export {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign};

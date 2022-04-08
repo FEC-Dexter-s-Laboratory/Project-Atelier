@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Modal from './Modal.jsx';
 import StarDisplay from '../library/StarDisplay.jsx';
 import Carousel from './Carousel.jsx';
 import {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign} from './Related&OutfitStyles.js';
 
-const RelatedCard = (props) => {
+const Card = (props) => {
   let {product} = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [mouseOn, setMouseOn] = useState(false);
+  const [previewClicked, setPreviewClicked] = useState(false);
 
   // create star rating
   let ratings = product.ratings;
@@ -20,6 +21,13 @@ const RelatedCard = (props) => {
     countRatings += Number(ratings[key]);
   }
   const averageRating = sumRatings / countRatings;
+
+  // onClick handler for preview pictures
+  let clickedPreview;
+  const previewClick = (event, url) => {
+    event.stopPropagation();
+    clickedPreview = url;
+  };
 
   // conditional rendering of outfit default card
   if (product.id === 'default') {
@@ -32,11 +40,12 @@ const RelatedCard = (props) => {
   } else {
     let image;
     let price;
+    let source = clickedPreview || product.photos[0].thumbnail_url;
     if (product.photos[0].thumbnail_url === null) {
       image = <img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
     } else {
       // need to change this to change src if preview picture is clicked - need to send the url back to here
-      image = <img src={product.photos[0].thumbnail_url} style={{display: 'block', width: '100%'}}/>;
+      image = <img src={source} style={{display: 'block', width: '100%'}}/>;
     }
     if (product.sale_price === null) {
       price = <div>{product.original_price}</div>;
@@ -74,7 +83,7 @@ const RelatedCard = (props) => {
           </Image>
           {mouseOn && (
             <Preview >
-              <Carousel images={product.photos}/>
+              <Carousel previewClick={previewClick} previewState={() => setPreviewClicked(true)} images={product.photos}/>
             </Preview>
           )}
           <div>{product.category}</div>
@@ -87,4 +96,4 @@ const RelatedCard = (props) => {
   }
 };
 
-export default RelatedCard;
+export default Card;

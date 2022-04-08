@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Card from './Card.jsx';
-import {CaroContainer, CaroWrapper, ContentWrapper, ContentStyle, Arrow, PreviewImage} from './Related&OutfitStyles.js';
+import {CaroContainer, CaroWrapper, ContentWrapper, ContentStyle, Arrow, PreviewContainer, PreviewImage} from './Related&OutfitStyles.js';
 
 const Carousel = (props) => {
   const { products } = props;
@@ -35,7 +35,7 @@ const Carousel = (props) => {
       return <div style={{position: 'fixed', left: '50px', bottom: '80px', background: 'white'}}>No preview images available.</div>;
     }
     return (
-      <CaroContainer>
+      <PreviewContainer>
         <CaroWrapper >
           {previewIndex > 0 &&
           <Arrow style={{left: '-40px', height: '30px', width: '30px'}} onClick={previewLeft}> &lt; </Arrow>
@@ -43,7 +43,10 @@ const Carousel = (props) => {
           <ContentWrapper >
             {images.map(image =>
               <PreviewImage style={{transform: `translateX(-${previewIndex * (100)}%)`}}>
-                <img src={image.thumbnail_url} height="100%" style={{overflow: 'hidden'}}/>
+                <img src={image.thumbnail_url} onClick={(e) => {
+                  props.previewClick(e, image.thumbnail_url);
+                  props.previewState();
+                }} height="100%" style={{overflow: 'hidden'}}/>
               </PreviewImage>
             )}
           </ContentWrapper>
@@ -51,7 +54,7 @@ const Carousel = (props) => {
           <Arrow style={{right: '70x', height: '30px', width: '30px'}} onClick={previewRight}> &gt; </Arrow>
           }
         </CaroWrapper>
-      </CaroContainer>
+      </PreviewContainer>
     );
   }
 
@@ -64,7 +67,8 @@ const Carousel = (props) => {
         <ContentWrapper>
           {products.map(product =>
             <ContentStyle key={product.id} style={{transform: `translateX(-${currentIndex * (100)}%)`}}>
-              <Card product={product} handleDefaultClick={props.handleDefaultClick} use={props.use} handleOutfitClick={props.handleOutfitClick} handleCardClick={props.handleCardClick} mainId={props.mainId}/>
+              <Card product={product} handleDefaultClick={props.handleDefaultClick} use={props.use} handleOutfitClick={props.handleOutfitClick}
+                handleCardClick={props.handleCardClick} mainId={props.mainId}/>
             </ContentStyle>
           )}
         </ContentWrapper>
