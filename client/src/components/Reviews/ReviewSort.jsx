@@ -14,15 +14,18 @@ const Select = styled.select`
   border: none;
   cursor: pointer;
   &:hover {
-    color: #7d7f7c;
+    color: teal;
   }
 `;
 
-const ReviewSort = function({ count, setSort }) {
+const ReviewSort = function({ reviews, setSort }) {
 
+  if (reviews.length === 0) {
+    return null;
+  }
   return (
     <SortContainer className="sort-reviews">
-      <label>{count} reviews, sorted by </label>
+      <label>{reviews.length} reviews, sorted by </label>
       <Select id="reviews" defaultValue="relevant" onChange={(e) => setSort(e)}>
         <option value="relevant">relevance</option>
         <option value="newest">newest</option>

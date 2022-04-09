@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const NavContainer = styled.div`
-  grid-row-start: 3;
 `;
 
 const ReviewNav = function({ remainingReviews, displayMoreReviews, toggleModal }) {

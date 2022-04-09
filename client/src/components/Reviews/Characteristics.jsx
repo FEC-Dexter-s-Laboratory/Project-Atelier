@@ -20,7 +20,7 @@ const SliderContainer = styled.div`
   justify-self: center;
   background-color: #ddd;
   height: 15px;
-  border-radius: 5px;
+  border-radius: 10px;
 `;
 
 const Slider = styled.span`

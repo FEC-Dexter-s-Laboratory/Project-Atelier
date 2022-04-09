@@ -10,6 +10,7 @@ const StarContainer = styled.span`
 const EmptyStar = styled.span`
   color: #ddd;
   z-index: 1;
+  margin: 0 2px 0 2px;
 `;
 
 const FilledStar = styled.span`
@@ -18,6 +19,7 @@ const FilledStar = styled.span`
   overflow: hidden;
   color: black;
   z-index: 2;
+  margin: 0 2px 0 2px;
 `;
 
 const StarDisplay = function(props) {

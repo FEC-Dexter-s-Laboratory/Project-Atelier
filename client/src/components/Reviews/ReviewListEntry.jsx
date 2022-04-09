@@ -2,14 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import StarDisplay from '../library/StarDisplay.jsx';
-
-//grid-template-columns: 25% 25% 25% 25%;
+import PhotoModal from './PhotoModal.jsx';
 
 const EntryContainer = styled.div`
   display: grid;
-  grid-template-rows: 5% 10% 30% 30% 15% 10%;
+  grid-template-rows: 5% 5% 10% 70% 5%;
   height: 45%;
-  padding: 5px 0 5px 0;
+  padding: 2.5% 0 2.5% 0;
   border-bottom: 1px solid #353935;
 `;
 
@@ -19,15 +18,80 @@ const Header = styled.div`
   grid-template-columns: 50% 50%;
 `;
 
+const Recommend = styled.div`
+  grid-row-start: 2;
+  text-align: right;
+  font-size: 12px;
+`;
+
+const Title = styled.div`
+  grid-row-start: 3;
+  font-size: 20px;
+  font-weight: bold;
+  align-self: center;
+`;
+
+const Body = styled.div`
+  grid-row-start: 4;
+  font-size: 14px;
+  padding: 1% 2% 1% 1%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &:-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+`;
+
+const Response = styled.div`
+  background-color: #d3d3d3;
+  margin: 2% 0;
+  padding: 2% 2% 1% 2%;
+`;
+
+const Footer = styled.div`
+  grid-row-start: -1;
+  font-size: 12px;
+`;
+
+const Button = styled.button`
+  font-family: Comfortaa;
+	text-align: center;
+	background: none;
+	margin: 0;
+	padding: 0;
+	border: none;
+	cursor: pointer;
+  &:hover {
+    color: teal;
+  }
+`;
+
+const Photos = styled.div`
+`;
+
+const Thumbnail = styled.img`
+  object-fit: contain;
+  height: 70px;
+  width: auto;
+  margin-right: 5px;
+  cursor: pointer;
+`;
+
+
 class ReviewListEntry extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      isBodyTruncated: true
+      isBodyTruncated: true,
+      photoModal: false,
+      photo: null
     };
 
     this.toggleTruncation = this.toggleTruncation.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   toggleTruncation() {
@@ -36,19 +100,19 @@ class ReviewListEntry extends React.Component {
     });
   }
 
+  toggleModal(photo) {
+    this.setState({
+      photo: photo,
+      photoModal: !this.state.photoModal
+    });
+  }
+
   // verified check, next to reviewer_name?
-
-  // ## review.summary (truncate to eliminate next-line?)
-
-  // handle body text  full length (1000chars)
-
-  // photo thubmnails & modal
 
   // Helpful?
   // Yes link -> send API call
   // (review.helpfulness) | Report link -> send API call
 
-  // CSS border between reviews (skip first top border)
   render () {
     const { review } = this.props;
 
@@ -57,45 +121,66 @@ class ReviewListEntry extends React.Component {
       : review.body;
 
     const showMore = review.body.length > 250 && this.state.isBodyTruncated
-      ? <button onClick={this.toggleTruncation}>Show more</button>
+      ? <Button onClick={this.toggleTruncation}>&nbsp;&nbsp;&nbsp;...show more</Button>
       : null;
 
-    // thumbnail click launches full page modal
     const reviewPhotos = review.photos.length > 0
-      ? <div>Photo Thumbnails Here</div>
+      ? <Photos>
+        {review.photos.map((photo, index) => {
+          return (
+            <Thumbnail
+              key={index}
+              src={photo}
+              onClick={() => this.toggleModal(photo)}
+            >
+            </Thumbnail>
+          );
+        })}
+      </Photos>
       : null;
 
     const reviewerRecommends = review.recommend
-      ? <div>&#10003;  I recommend this product</div>
+      ? '\u2713  I recommend this product'
       : null;
 
     const reviewResponse = review.response !== null && review.response.length > 0
-      ? <div>
-        <h5>Response from seller:</h5>
+      ? <Response>
+        <strong>Response from seller:</strong>
         <p>{review.response}</p>
-      </div>
+      </Response>
       : null;
 
     return (
       <EntryContainer className="review-list-entry">
         <Header>
-          <StarDisplay font={30} rating={review.rating} />
+          <StarDisplay rating={review.rating} />
           <span style={{textAlign: 'right'}}>
             {review.reviewer_name}, {moment(review.date).format('LL')}
           </span>
         </Header>
-
-        <h4>{review.summary}</h4>
-        {reviewBody}
-        {showMore}
-        {reviewPhotos}
-        {reviewerRecommends}
-        {reviewResponse}
-        <div>
-          Helpful? <button>Yes</button> &#40;{review.helpfulness}&#41;
-        </div>
-        <span>report review</span>
-
+        <Recommend>
+          {reviewerRecommends}
+        </Recommend>
+        <Title>
+          {review.summary}
+        </Title>
+        <Body>
+          {reviewBody}
+          {showMore}
+          {reviewResponse}
+          {reviewPhotos}
+        </Body>
+        <Footer>
+          Helpful?&nbsp;&nbsp;
+          <Button>Yes</Button>
+          &nbsp;&nbsp;&#40;{review.helpfulness}&#41;&nbsp;&nbsp;|&nbsp;&nbsp;
+          <Button>report</Button>
+        </Footer>
+        <PhotoModal
+          photo={this.state.photo}
+          visible={this.state.photoModal}
+          toggleModal={this.toggleModal}
+        />
       </EntryContainer>
     );
   }

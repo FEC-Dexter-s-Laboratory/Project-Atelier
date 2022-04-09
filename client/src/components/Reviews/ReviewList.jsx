@@ -12,6 +12,9 @@ const ListContainer = styled.div`
 
 const ReviewList = function ({ reviews }) {
 
+  if (reviews.length === 0) {
+    return null;
+  }
   return (
     <ListContainer className="review-list">
       {reviews.map((review) => {

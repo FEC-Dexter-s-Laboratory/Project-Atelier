@@ -196,7 +196,7 @@ class Reviews extends React.Component {
         </LeftColumn>
         <RightColumn id="reviews-column-right">
           <ReviewSort
-            count={this.state.count}
+            reviews={this.state.reviews}
             setSort={this.setSort}
           />
           <ReviewList

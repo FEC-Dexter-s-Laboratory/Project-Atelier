@@ -14,7 +14,7 @@ const Filter = styled.span`
   align-items: center;
   cursor: pointer;
   &:hover {
-    color: orange;
+    color: teal;
   }
 `;
 
@@ -32,7 +32,7 @@ const Reset = styled.button`
 	border: none;
 	cursor: pointer;
   &:hover {
-    color: orange;
+    color: teal;
   }
 `;
 
@@ -47,7 +47,7 @@ padding: 0;
 border: none;
 cursor: pointer;
 &:hover {
-  color: orange;
+  color: teal;
 }
 `;
 
