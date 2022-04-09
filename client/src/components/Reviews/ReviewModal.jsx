@@ -15,7 +15,6 @@ const ModalPop = styled.div`
   width: 50%;
   overflow-y: auto;
   z-index: 999;
-  font-family: Comfortaa;
 `;
 
 const ModalOverlay = styled.div`
@@ -27,7 +26,6 @@ const ModalOverlay = styled.div`
   background-color: #000;
   opacity: 0.75;
   z-index: 99;
-  font-family: Comfortaa;
 `;
 
 class ReviewModal extends React.Component {

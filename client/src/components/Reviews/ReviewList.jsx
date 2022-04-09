@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import ReviewListEntry from './ReviewListEntry.jsx';
 
-// ReviewList only receives the correct number of reviews (2, 4, etc.), but should have infinite scroll (y overflow) and set height through CSS at all times.
-
 const ListContainer = styled.div`
   grid-row-start: 2;
   height: 100%;
+  padding-right: 2%;
   overflow-y: auto;
 `;
 
