@@ -17,15 +17,18 @@ const ReviewsContainer = styled.div`
   display: grid;
   grid-template-columns: 33% 33% 33%;
   margin: 2% 20% 2% 20%;
+  font-family: Comfortaa;
 `;
 
 const LeftColumn = styled.div`
   grid-column-start: 1;
+  font-family: Comfortaa;
 `;
 
 const RightColumn = styled.div`
   grid-column-start: 2;
   grid-column-end: -1;
+  font-family: Comfortaa;
 `;
 
 class Reviews extends React.Component {
@@ -33,7 +36,7 @@ class Reviews extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      productId: this.props.currentId,
+      productId: null,
       sort: 'relevant',
       reviews: reviewData,
       meta: reviewMetaData,
@@ -56,24 +59,33 @@ class Reviews extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchMeta();
-    this.fetchReviews();
+    this.fetchMeta()
+      .then(() => {
+        this.fetchReviews();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.productId !== this.state.productId) {
-      this.fetchMeta();
-      this.fetchReviews();
+    if (prevProps.currentId !== this.props.currentId) {
+      this.fetchMeta()
+        .then(() => {
+          this.fetchReviews();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else if ( prevState.sort !== this.state.sort) {
       this.fetchReviews();
-    } else {
-      this.render();
     }
   }
 
   fetchReviews() {
-    axios.get(`/reviews/${this.state.productId}`, {
+    return axios.get(`/reviews/${this.props.currentId}`, {
       params: {
+        productId: this.props.currentId,
         count: this.state.count,
         sort: this.state.sort
       }
@@ -87,13 +99,14 @@ class Reviews extends React.Component {
   }
 
   fetchMeta() {
-    axios.get(`/reviews/meta/${this.state.productId}`)
+    return axios.get(`/reviews/meta/${this.props.currentId}`)
       .then(({data}) => {
         let count = 0;
         for (let key in data.ratings) {
           count += Number(data.ratings[key]);
         }
         this.setState({
+          productId: this.props.currentId,
           meta: data,
           count: count,
           loading: false

@@ -8,11 +8,11 @@ const ModalStyle = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #3d3c3c;
   padding: 50px;
   z-index: 1000;
-  overflow-y: auto;
   width: 35%;
+  height: 80%;
   border-radius: 12px;
 `;
 
@@ -54,7 +54,9 @@ const CartModal = (props) => {
   };
 
   return ReactDOM.createPortal(
-    <Overlay>
+    <Overlay onClick={() => {
+      props.onClose();
+    }}>
       <ModalStyle>
         <Button onClick={() => {
           props.onClose();

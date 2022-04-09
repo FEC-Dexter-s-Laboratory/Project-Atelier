@@ -28,6 +28,24 @@ class QandA extends React.Component {
         console.log('err: ', err);
       });
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentId !== this.props.currentId) {
+      axios.get('/qa/questions', {
+        params: {
+          product_id: this.props.currentId,
+        }
+      })
+        .then((res) => {
+          this.setState({
+            questionData: res.data
+          });
+        })
+        .catch((err) => {
+          console.log('err: ', err);
+        });
+    }
+
+  }
 
   handleChange (e) {
     e.preventDefault();
