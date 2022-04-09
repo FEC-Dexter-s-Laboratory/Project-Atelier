@@ -219,18 +219,6 @@ const Overview = (props) => {
     e.target.style.transform = 'scale(1.00)';
   };
 
-  // for highlighting selected thumbnail
-  const highlight = (e) => {
-    if (!isHighlighted) {
-      setIsHighlighted(true);
-      e.target.style.border = '2px ridge white';
-      displayImage(e);
-    } else {
-      setIsHighlighted(false);
-      e.target.style.border = null;
-    }
-  };
-
   // for all main image rendering, including when switching between images
   const displayImage = (e) => {
     let newImage = '';
@@ -262,6 +250,18 @@ const Overview = (props) => {
       }
     });
     setMainImage(newImage);
+  };
+
+  // for highlighting selected thumbnail
+  const highlight = (e) => {
+    if (!isHighlighted) {
+      setIsHighlighted(true);
+      e.target.style.border = '2px ridge white';
+      displayImage(e);
+    } else {
+      setIsHighlighted(false);
+      e.target.style.border = null;
+    }
   };
 
   const thumbUp = (e) => {
@@ -521,7 +521,7 @@ const Overview = (props) => {
     }
   };
 
-  const saveToCart = (sku, qty, name, style, size) => {
+  const saveToCart = (sku, qty, name, style, size, price) => {
     // AXIOS CALLS FOR CART: NOT BEING USED
     // axios.get('/cart')
     //   .then(({ data }) => {
@@ -571,10 +571,20 @@ const Overview = (props) => {
 
 
     console.log('skuzz me ', sku);
+    console.log('gettin items ', window.localStorage.getItem('cart'));
     if (window.localStorage.getItem('cart')) {
       // do stuff
       let items = JSON.parse(window.localStorage.getItem('cart'));
-      console.log('items be like', items);
+      if (items.length === 0) {
+        window.localStorage.setItem('cart', JSON.stringify([{
+          skuId: sku,
+          name: name,
+          style: style,
+          size: size,
+          count: Number(qty),
+          price: Number(price),
+        }]));
+      }
       for (let i = 0; i < items.length; i++) {
         let itemCount = items[i].count;
         itemCount = Number(itemCount);
@@ -583,34 +593,37 @@ const Overview = (props) => {
         if (items[i].skuId === sku) {
           console.log('inside if getitem')
           itemCount += Number(qty);
-          console.log('item count after ', itemCount)
           items[i].count = itemCount;
-          console.log('items i count after', items[i].count)
           window.localStorage.setItem('cart', JSON.stringify(items));
           break;
         } else {
-          console.log('inside get else')
           let newItem = items.slice();
-          newItem.push({skuId: sku, name: name, style: style, size: size, count: Number(qty)});
+          newItem.push({skuId: sku, name: name, style: style, size: size, count: Number(qty), price: Number(price)});
           window.localStorage.setItem('cart', JSON.stringify(newItem));
         }
       }
     } else {
-      console.log('inside set else')
       window.localStorage.setItem('cart', JSON.stringify([{
         skuId: sku,
         name: name,
         style: style,
         size: size,
         count: Number(qty),
+        price: Number(price),
       }]));
     }
   };
 
   const addToCart = (e) => {
+    let price;
     if (!inCart) {
+      if (salePrice) {
+        price = salePrice;
+      } else {
+        price = originalPrice;
+      }
       setInCart(true);
-      saveToCart(selectedItem, selectedQuantity, title, selectedStyle, selectedSize);
+      saveToCart(selectedItem, selectedQuantity, title, selectedStyle, selectedSize, price);
     } else {
       setInCart(false);
     }
