@@ -12,6 +12,7 @@ const Card = (props) => {
   const [mouseOn, setMouseOn] = useState(false);
   const [previewClicked, setPreviewClicked] = useState(false);
 
+
   // create star rating
   let ratings = product.ratings;
   let sumRatings = 0;
@@ -22,12 +23,7 @@ const Card = (props) => {
   }
   const averageRating = sumRatings / countRatings;
 
-  // onClick handler for preview pictures
-  let clickedPreview;
-  const previewClick = (event, url) => {
-    event.stopPropagation();
-    clickedPreview = url;
-  };
+
 
   // conditional rendering of outfit default card
   if (product.id === 'default') {
@@ -38,14 +34,26 @@ const Card = (props) => {
       </CardStyle>
     );
   } else {
+    const [currentImage, setCurrentImage] = useState(product.photos[0].thumbnail_url);
+    // onClick handler for preview pictures
+    let clickedPreview;
+    const previewClick = (event, url) => {
+      event.stopPropagation();
+      clickedPreview = url;
+    };
+    useEffect(() => {
+      function handlePreviewClick(clickedPreview) {
+        setCurrentImage(clickedPreview);
+      }
+      console.log(previewClicked)
+    }, [previewClicked]);
     let image;
     let price;
-    let source = clickedPreview || product.photos[0].thumbnail_url;
     if (product.photos[0].thumbnail_url === null) {
       image = <img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
     } else {
       // need to change this to change src if preview picture is clicked - need to send the url back to here
-      image = <img src={source} style={{display: 'block', width: '100%'}}/>;
+      image = <img src={currentImage} style={{display: 'block', width: '100%'}}/>;
     }
     if (product.sale_price === null) {
       price = <div>{product.original_price}</div>;

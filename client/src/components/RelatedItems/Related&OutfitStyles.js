@@ -110,22 +110,26 @@ const Arrow = styled.button`
 `;
 
 const PreviewContainer = styled.div`
-  width: 100%;
+  width: 340px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   font-family: Comfortaa;
-  z-index: 300;
+  z-index: 800;
+  overflow: hidden;
+  left: 20px;
 `;
 
 const PreviewImage = styled.div`
+  position: relative;
+  left: 10%;
   background: white;
   display: flex;
   flex-direction: row;
-  z-index: 100;
   padding: 2px;
   width: 25%;
   border: 1px solid grey;
   justify-content: center;
+  z-index: 800;
 `;
 
 // for cards
@@ -139,6 +143,7 @@ const Image = styled.div`
   align-items: center;
   height: 300px;
   width: 200px;
+  z-index: 20;
 `;
 
 const Preview = styled.div`

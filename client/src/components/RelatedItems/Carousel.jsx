@@ -19,12 +19,14 @@ const Carousel = (props) => {
   };
 
   const [previewIndex, setPreviewIndex] = useState(0);
-  const previewRight = () => {
+  const previewRight = (event) => {
+    event.stopPropagation();
     if (previewIndex < (images.length - 1)) {
       setPreviewIndex(previewIndex + 1);
     }
   };
-  const previewLeft = () => {
+  const previewLeft = (event) => {
+    event.stopPropagation();
     if (previewIndex > 0) {
       setPreviewIndex(previewIndex - 1);
     }
@@ -37,22 +39,22 @@ const Carousel = (props) => {
     return (
       <PreviewContainer>
         <CaroWrapper >
-          {previewIndex > 0 &&
-          <Arrow style={{left: '-40px', height: '30px', width: '30px'}} onClick={previewLeft}> &lt; </Arrow>
-          }
-          <ContentWrapper >
+          <PreviewContainer>
+            {previewIndex > 0 &&
+            <Arrow style={{left: '0', height: '100%', borderRadius: '0px', width: '30px', zIndex: '999'}} onClick={(e) => previewLeft(e)}> &lt; </Arrow>
+            }
             {images.map(image =>
               <PreviewImage style={{transform: `translateX(-${previewIndex * (100)}%)`}}>
                 <img src={image.thumbnail_url} onClick={(e) => {
                   props.previewClick(e, image.thumbnail_url);
                   props.previewState();
-                }} height="100%" style={{overflow: 'hidden'}}/>
+                }} width="70px" style={{overflow: 'hidden'}}/>
               </PreviewImage>
             )}
-          </ContentWrapper>
-          {previewIndex < (images.length - 1) &&
-          <Arrow style={{right: '70x', height: '30px', width: '30px'}} onClick={previewRight}> &gt; </Arrow>
-          }
+            {previewIndex < (images.length - 4) &&
+            <Arrow style={{right: '-5px', height: '100%', borderRadius: '0px', width: '30px', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
+            }
+          </PreviewContainer>
         </CaroWrapper>
       </PreviewContainer>
     );
