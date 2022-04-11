@@ -48,7 +48,6 @@ const Carousel = (props) => {
                 <img src={image.thumbnail_url} onClick={(event) => {
                   event.stopPropagation();
                   props.setCurrentImage(image.thumbnail_url);
-                  props.setPreviewClicked(true);
                 }} width="70px" style={{overflow: 'hidden'}}/>
               </PreviewImage>
             )}

@@ -12,12 +12,6 @@ const Card = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mouseOn, setMouseOn] = useState(false);
   const [currentImage, setCurrentImage] = useState('');
-  const [previewClicked, setPreviewClicked] = useState(false);
-
-  useEffect(() => {
-    imgSource = currentImage;
-    setPreviewClicked(false);
-  }, [previewClicked]);
 
   // create star rating
   let ratings = product.ratings;
@@ -88,7 +82,7 @@ const Card = (props) => {
           </Image>
           {mouseOn && (
             <Preview >
-              <Carousel setCurrentImage={setCurrentImage} setPreviewClicked={setPreviewClicked} images={product.photos}/>
+              <Carousel setCurrentImage={setCurrentImage} images={product.photos}/>
             </Preview>
           )}
           <div>{product.category}</div>
