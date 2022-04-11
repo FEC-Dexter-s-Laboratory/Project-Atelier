@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // for lists
 const DivContainer = styled.div`
   margin: auto;
-  width: 50%;
+  width: 60%;
   font-family: Comfortaa;
 `;
 
@@ -58,11 +58,16 @@ const GridHeader = styled.div`
   text-align: center;
   display: grid;
   font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: white;
 `;
 
 const GridItem = styled.div`
   text-align: center;
   border: 1px solid black;
+  z-index: 10;
 `;
 
 // for carousel

@@ -21,14 +21,19 @@ class RelatedItems extends React.Component {
     axios.get(`/products/${this.props.currentId}/related`)
       .then(({ data }) => {
         // for each id, GET product details
-        let relatedIds = data;
-        for (let i = 0; i < relatedIds.length; i++) {
+        // filter for duplicate related item
+        let relatedIds = {};
+        for (let i = 0; i < data.length; i++) {
+          relatedIds[data[i]] = true;
+        }
+        for (let key in relatedIds) {
           let product = {};
-          axios.get(`/products/${relatedIds[i]}`)
+          axios.get(`/products/${key}`)
             .then((response) => {
               let { data } = response;
               product.id = data.id.toString();
               product.name = data.name;
+              console.log(product)
               product.category = data.category;
             })
             .catch((err) => {
@@ -36,7 +41,7 @@ class RelatedItems extends React.Component {
             })
             .then(
               // get review ratings for each product
-              axios.get(`/reviews/meta/${relatedIds[i]}`)
+              axios.get(`/reviews/meta/${key}`)
                 .then((response) => {
                   let {data} = response;
                   product.ratings = data.ratings;
@@ -46,7 +51,7 @@ class RelatedItems extends React.Component {
                 })
                 .then(
                   // for each product, look up all styles to find default style for price check
-                  axios.get(`/products/${relatedIds[i]}/styles`)
+                  axios.get(`/products/${key}/styles`)
                     .then((response) => {
                       let { data } = response;
                       let styles = data.results;

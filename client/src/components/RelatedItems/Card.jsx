@@ -7,11 +7,18 @@ import {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign} from 
 
 const Card = (props) => {
   let {product} = props;
+  let imgSource;
 
   const [isOpen, setIsOpen] = useState(false);
   const [mouseOn, setMouseOn] = useState(false);
+  const [currentImage, setCurrentImage] = useState('');
   const [previewClicked, setPreviewClicked] = useState(false);
 
+  useEffect(() => {
+    console.log(currentImage)
+    imgSource = currentImage;
+    setPreviewClicked(false);
+  }, [previewClicked]);
 
   // create star rating
   let ratings = product.ratings;
@@ -23,8 +30,6 @@ const Card = (props) => {
   }
   const averageRating = sumRatings / countRatings;
 
-
-
   // conditional rendering of outfit default card
   if (product.id === 'default') {
     return (
@@ -34,26 +39,17 @@ const Card = (props) => {
       </CardStyle>
     );
   } else {
-    const [currentImage, setCurrentImage] = useState(product.photos[0].thumbnail_url);
     // onClick handler for preview pictures
-    let clickedPreview;
-    const previewClick = (event, url) => {
-      event.stopPropagation();
-      clickedPreview = url;
-    };
-    useEffect(() => {
-      function handlePreviewClick(clickedPreview) {
-        setCurrentImage(clickedPreview);
-      }
-      console.log(previewClicked)
-    }, [previewClicked]);
     let image;
+    if (!imgSource) {
+      imgSource = product.photos[0].thumbnail_url;
+    }
     let price;
     if (product.photos[0].thumbnail_url === null) {
-      image = <img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
+      image = <img style={{display: 'block', width: '100%', position: 'relative', left: '2%'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
     } else {
       // need to change this to change src if preview picture is clicked - need to send the url back to here
-      image = <img src={currentImage} style={{display: 'block', width: '100%'}}/>;
+      image = <img src={imgSource} alt={product.name} style={{display: 'block', width: '100%'}}/>;
     }
     if (product.sale_price === null) {
       price = <div>{product.original_price}</div>;
@@ -91,7 +87,7 @@ const Card = (props) => {
           </Image>
           {mouseOn && (
             <Preview >
-              <Carousel previewClick={previewClick} previewState={() => setPreviewClicked(true)} images={product.photos}/>
+              <Carousel setCurrentImage={setCurrentImage} setPreviewClicked={setPreviewClicked} images={product.photos}/>
             </Preview>
           )}
           <div>{product.category}</div>
