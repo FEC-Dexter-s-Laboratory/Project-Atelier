@@ -3,7 +3,6 @@ import Overview from './Overview/Overview.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import RelatedList from './RelatedItems/RelatedList.jsx';
 import OutfitList from './RelatedItems/OutfitList.jsx';
-import Search from './Search.jsx';
 import QandA from './QAndA.jsx';
 import axios from 'axios';
 
@@ -13,7 +12,6 @@ class App extends React.Component {
     this.state = {
       productId: '65633',
       qtys: {},
-      cart: {},
     };
     this.handleCardClick = this.handleCardClick.bind(this);
   }
@@ -34,7 +32,6 @@ class App extends React.Component {
         this.setState({
           productId: this.state.productId,
           qtys: res.data.results[0].skus,
-          cart: this.state.cart,
         });
       })
       .catch(err => console.error(err));
@@ -48,7 +45,6 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Search productId={this.state.productId} />
         <Overview productId={this.state.productId} qtys={this.state.qtys} />
         <RelatedList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
         <OutfitList currentId={this.state.productId} handleCardClick={this.handleCardClick} />

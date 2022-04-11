@@ -37,7 +37,7 @@ const Button = styled.button`
 `;
 
 const CartModal = (props) => {
-  let {open, onClose} = props;
+  let { open, onClose } = props;
   if (!open) {
     return null;
   }
@@ -64,7 +64,7 @@ const CartModal = (props) => {
         <CartItems productId={props.productId} />
       </ModalStyle>
     </Overlay>,
-    document.getElementById('compare_portal')
+    document.getElementById('cart_portal')
   );
 };
 

@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-
+import axios from 'axios';
 import StarButtons from '../library/StarButtons.jsx';
 
-const ModalPop = styled.div`
+const ModalPop = styled.form`
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
   padding: 1em;
-  height: 75%;
+  height: 85%;
   width: 50%;
   overflow-y: auto;
   z-index: 999;
@@ -27,8 +27,55 @@ const ModalOverlay = styled.div`
   background-color: #000;
   opacity: 0.75;
   z-index: 99;
-  font-family: Comfortaa;
 `;
+
+const Close = styled.button`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #d3d3d3;
+  &:hover {
+    color: teal;
+  }
+`;
+
+const Back = styled.button`
+  font-size: 15px;
+  background: none;
+  border: 1px solid #353935;
+  margin-right: 10px;
+  padding: 10px;
+  width: 100px;
+  cursor: pointer;
+  &:hover {
+    color: teal;
+  }
+`;
+
+const Submit = styled.input`
+  font-size: 15px;
+  background: none;
+  border: 1px solid #353935;
+  margin-right: 10px;
+  padding: 10px;
+  width: 100px;
+  cursor: pointer;
+  &:hover {
+    color: teal;
+  }
+`;
+
+const CharRadio = styled.input`
+  margin-right: 10px;
+`
+
+const CharLabel = styled.label`
+  font-size: 12px;
+`
 
 class ReviewModal extends React.Component {
 
@@ -49,6 +96,7 @@ class ReviewModal extends React.Component {
 
     this.setRating = this.setRating.bind(this);
     this.setRecommend = this.setRecommend.bind(this);
+    this.setCharacteristic = this.setCharacteristic.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -65,30 +113,47 @@ class ReviewModal extends React.Component {
     });
   }
 
+  setCharacteristic(e) {
+    let updatedChars = {...this.state.characteristics, [e.target.id]: Number(e.target.value)};
+    this.setState({
+      characteristics: updatedChars
+    });
+  }
+
   handleInputChange(e, field) {
     if (field === 'summary') {
       this.setState({
-        summary: e.target.value
+        summary: e.target.value.slice(0, 60)
       });
     }
     if (field === 'body') {
       this.setState({
-        body: e.target.value
+        body: e.target.value.slice(0, 1000)
       });
     }
     if (field === 'name') {
       this.setState({
-        name: e.target.value
+        name: e.target.value.slice(0, 60)
       });
     }
     if (field === 'email') {
       this.setState({
-        email: e.target.value
+        email: e.target.value.slice(0, 60)
       });
     }
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.state.rating === null) {
+      alert('Please select a star rating');
+      return;
+    }
+    if (this.state.body.length < 50) {
+      alert('Please write a longer review body (min 50 chars)');
+      return;
+    }
+
     const newReview = {
       product_id: this.productId,
       rating: this.state.rating,
@@ -101,11 +166,11 @@ class ReviewModal extends React.Component {
       characteristics: this.state.characteristics
     };
 
-    console.log(newReview); // console log here, implement API 'POST'
+    this.props.submitReview(newReview);
   }
 
   render() {
-    const {visible, toggleModal} = this.props;
+    const {meta, visible, toggleModal} = this.props;
 
     let parseRating = '';
     switch (this.state.rating) {
@@ -128,59 +193,104 @@ class ReviewModal extends React.Component {
       parseRating = '';
     }
 
-    const bodyCounter = this.state.body.length >= 50
-      ? <span>Minimum reached</span>
-      : <span>Minimum required characters left &#91;{50 - this.state.body.length}&#93;</span>;
+    const bodyCounter = this.state.body.length < 50
+      ? <span style={{fontSize: "12px"}}>
+        Minimum required characters left &#91;{50 - this.state.body.length}&#93;
+      </span>
+      : <span style={{fontSize: "12px"}}>Minimum reached</span>;
+
+    const charLabels = {
+      Size: ['a size too small', '1/2 size too small', 'perfect', '1/2 size too big', 'a size too big'],
+      Width: ['too narrow', 'slightly narrow', 'perfect', 'slightly wide', 'too wide'],
+      Comfort: ['uncomfortable', 'slightly uncomfortable', 'ok', 'comfortable', 'perfect'],
+      Quality: ['poor', 'below average', 'average', 'pretty great', 'perfect'],
+      Length: ['runs short', 'slightly short', 'perfect', 'slightly long', 'runs long'],
+      Fit: ['very tight', 'tight', 'perfect', 'loose', 'very loose']
+    };
+
+    let charsArray = [];
+    for (let char in meta.characteristics) {
+      charsArray.push({
+        name: char,
+        id: meta.characteristics[char].id,
+        labels: charLabels[char]
+      });
+    }
+
+    // TODO
+    // product name from API or App
+    // photos
+    // lock background scroll
 
     if (visible) {
       return ReactDOM.createPortal(
         <div className="add-review-modal">
           <ModalOverlay />
           <ModalPop role="dialog" aria-modal="true">
+            <Close onClick={toggleModal}>&times;</Close>
             <div>
-              <h3>Write Your Review</h3>
-              <span>About the **Product Name**</span>
+              <h2>Write Your Review</h2>
+              <strong>about the **Product Name**</strong>
             </div>
             <br/>
             <div>
-              <span>Overall Rating*</span>
-              <br/>
+              <strong>Overall Rating*</strong>
+              &nbsp;&nbsp;
               <StarButtons reportRating={this.setRating}/>
               <span>{parseRating}</span>
             </div>
             <br/>
             <div onChange={this.setRecommend}>
-              <span>Do You Recommend?*</span>
-              <br/>
-              <input type="radio" name="recommend" value="true"/>Yes
-              <input type="radio" name="recommend" value="false" />No
+              <strong>Do You Recommend?*</strong>
+              &nbsp;&nbsp;
+              <input type="radio" name="recommend" value="true" required/>Yes
+              <input type="radio" name="recommend" value="false" required/>No
             </div>
             <br/>
             <div>
-              <span>Characteristics*</span>
+              <strong>Characteristics*</strong>
+              <br/><br/>
+              {charsArray.map((char) => {
+                return (
+                  <div onChange={this.setCharacteristic}>
+                    <div>{char.name}</div>
+                    <div>
+                      <CharLabel>{char.labels[0]}</CharLabel>
+                      {[...Array(5)].map((button, index) => {
+                        index += 1;
+                        return (
+                          <CharRadio type="radio" key={index} id={char.id} value={index} required></CharRadio>
+                        );
+                      })}
+                      <CharLabel>{char.labels[4]}</CharLabel>
+                    </div>
+                    <br/>
+                  </div>
+                );
+              })}
             </div>
-            <br/>
             <div>
-              <span>Review Summary</span>
+              <strong>Review Summary</strong>
               <br/>
               <input
                 type="text"
-                placeholder="Example: Best purchase ever!"
                 size="60"
+                placeholder="Example: Best purchase ever!"
                 value={this.state.summary}
                 onChange={e => this.handleInputChange(e, 'summary')}
               />
             </div>
             <br/>
             <div>
-              <span>Review Body*</span>
+              <strong>Review Body*</strong>
               <br/>
               <textarea
+                required
                 placeholder="Why did you like the product or not?"
-                maxLength="1000"
                 wrap="soft"
-                cols="50"
-                rows="20"
+                cols="60"
+                rows="10"
+                style={{resize: "none", fontFamily: "Comfortaa"}}
                 value={this.state.body}
                 onChange={e => this.handleInputChange(e, 'body')}
               />
@@ -188,42 +298,40 @@ class ReviewModal extends React.Component {
             </div>
             <br/>
             <div>
-              <span>Upload Your Photos  </span>
+              <strong>Upload Your Photos  </strong>
               <button>upload</button>
             </div>
             <br/>
             <div>
-              <span>What is Your Nickname?*</span>
+              <strong>Nickname*</strong>
               <br/>
               <input
+                required
                 type="text"
-                placeholder="Example: jackson11!"
                 size="60"
+                placeholder="Example: jackson11!"
                 value={this.state.name}
                 onChange={e => this.handleInputChange(e, 'name')}
               />
             </div>
             <br/>
             <div>
-              <span>Your Email*</span>
+              <strong>Email*</strong>
+              <span style={{fontSize: "12px"}}>&nbsp;&nbsp;&#91;authentication purposes only, you will not be emailed&#93;</span>
               <br/>
               <input
+                required
                 type="email"
-                placeholder="Example: jackson11@email.com"
                 size="60"
+                placeholder="Example: jackson11@email.com"
                 value={this.state.email}
                 onChange={e => this.handleInputChange(e, 'email')}
               />
-              <br/>
-              <span>for authentication purposes only, you will not be emailed</span>
             </div>
             <br/>
-            <div>
-              <button type="button" onClick={this.handleSubmit}>Submit Review</button>
-              <button type="button" onClick={toggleModal}>Go Back</button>
-            </div>
+            <Submit type="submit" onClick={this.handleSubmit}/>
+            <Back type="button" onClick={toggleModal}>Back</Back>
           </ModalPop>
-
         </div>
         , document.body
       );
@@ -234,41 +342,3 @@ class ReviewModal extends React.Component {
 }
 
 export default ReviewModal;
-
-// TODO
-
-// Get product name from API?
-
-// Characteristics
-// loop through characteristics in metadata to render
-// 5 radio buttons - see picture for each characteristic (will need a conditional)
-// if characteristic is in characteristics, render radio button array with the correct labels
-
-// Photo uploads (new page?)
-
-// VALIDATE text fields on submit
-
-// optional: lock document scroll when in Modal
-
-// how should Characteristics look in our 'POST' body object?
-
-// MetaData:
-// {
-//   "product_id": "65632",
-//   "ratings": {
-//     "2": "1",
-//     "3": "1",
-//     "4": "2",
-//     "5": "9"
-//   },
-//   "recommended": {
-//     "false": "2",
-//     "true": "11"
-//   },
-//   "characteristics": {
-//     "Quality": {
-//       "id": 220234,
-//       "value": "4.2000000000000000"
-//     }
-//   }
-// }
