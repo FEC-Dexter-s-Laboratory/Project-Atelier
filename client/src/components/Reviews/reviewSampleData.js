@@ -1,7 +1,3 @@
-// results from GET  /reviews
-// count determines number of results per page
-
-// ** List does not include any reported reviews --??--
 export const reviewData = [
   {
     "review_id": 1136188,
@@ -29,7 +25,6 @@ export const reviewData = [
   }
 ];
 
-
 // results from GET  /reviews/meta
 export const reviewMetaData = {
   "product_id": "65632",
@@ -51,26 +46,6 @@ export const reviewMetaData = {
   }
 };
 
-// POST review to /reviews
-export const examplePost = {
-  product_id: 65632,
-  rating: 4,
-  summary: 'The very best!',
-  body: 'I really enjoyed this product, and I hope that everyone else will love it too!',
-  recommend: true,
-  name: 'kamasood',
-  email: 'yuss@gmail.com',
-  photos: [],
-  characteristics: {
-    id: 220234,
-    value: 4
-  }
-};
-
-// PUT to /reviews/:review_id/helpful (Mark review as helpful)
-
-// PUT to /reviews/:review_id/report (Report review)
-
 // Characteristics example:
 
 // "characteristics": {
@@ -91,3 +66,22 @@ export const examplePost = {
 //       "value": "4.7916666666666667"
 //   }
 // }
+
+const dummyBody = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.';
+
+const dummyPhotos = [...Array(5)].map((each) => {
+  return 'https://www.rd.com/wp-content/uploads/2021/03/pug-s-head-leaning-on-tabletop.jpg?resize=1536,1024';
+});
+
+export const fullFeatureReview = {
+  "review_id": 9999999,
+  "rating": 4,
+  "summary": dummyBody.substring(0, 60),
+  "recommend": true,
+  "response": dummyBody.substring(0, 250),
+  "body": dummyBody,
+  "date": "2019-03-12T00:00:00.000Z",
+  "reviewer_name": "best reviewer",
+  "helpfulness": 151,
+  "photos": dummyPhotos
+};
