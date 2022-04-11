@@ -32,7 +32,6 @@ class RelatedItems extends React.Component {
               let { data } = response;
               product.id = data.id.toString();
               product.name = data.name;
-              console.log(product)
               product.category = data.category;
             })
             .catch((err) => {

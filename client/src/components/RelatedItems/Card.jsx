@@ -40,8 +40,10 @@ const Card = (props) => {
   } else {
     // onClick handler for preview pictures
     let image;
-    if (!imgSource) {
+    if (currentImage === '') {
       imgSource = product.photos[0].thumbnail_url;
+    } else {
+      imgSource = currentImage;
     }
     let price;
     if (product.photos[0].thumbnail_url === null) {
