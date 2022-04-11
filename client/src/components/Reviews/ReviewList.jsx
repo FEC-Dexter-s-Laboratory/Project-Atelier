@@ -7,13 +7,16 @@ const ListContainer = styled.div`
   height: 100%;
   padding-right: 2%;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &:-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 `;
 
 const ReviewList = function ({ reviews }) {
 
-  if (reviews.length === 0) {
-    return null;
-  }
   return (
     <ListContainer className="review-list">
       {reviews.map((review) => {

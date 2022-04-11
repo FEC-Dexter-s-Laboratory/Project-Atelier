@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Rating from './Rating.jsx';
@@ -9,9 +9,8 @@ import ReviewList from './ReviewList.jsx';
 import ReviewNav from './ReviewNav.jsx';
 import ReviewModal from './ReviewModal.jsx';
 
-import StarButtons from '../library/StarButtons.jsx';
 import StarDisplay from '../library/StarDisplay.jsx';
-import { reviewData, reviewMetaData } from './reviewSampleData';
+import { fullFeatureReview } from './reviewSampleData.js';
 
 const ReviewsContainer = styled.div`
   display: grid;
@@ -47,8 +46,8 @@ class Reviews extends React.Component {
     this.state = {
       loading: true,
       productId: null,
-      meta: reviewMetaData,
-      reviews: reviewData,
+      meta: {},
+      reviews: [],
       count: null,
       reviewsToDisplay: 2,
       sort: 'relevant',
@@ -62,6 +61,7 @@ class Reviews extends React.Component {
     this.setSort = this.setSort.bind(this);
     this.filterReviewList = this.filterReviewList.bind(this);
     this.displayMoreReviews = this.displayMoreReviews.bind(this);
+    this.submitReview = this.submitReview.bind(this);
     this.toggleReviewFilters = this.toggleReviewFilters.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
@@ -127,6 +127,7 @@ class Reviews extends React.Component {
 
     if (this.state.currentFilters.length === 0) {
       return reviews.slice(0, this.state.reviewsToDisplay);
+      // return reviews.slice(0, this.state.reviewsToDisplay).concat(fullFeatureReview); // test review
     }
 
     for (let review of reviews) {
@@ -135,6 +136,7 @@ class Reviews extends React.Component {
       }
     }
     return filtered.slice(0, this.state.reviewsToDisplay);
+    // return filtered.slice(0, this.state.reviewsToDisplay).concat(fullFeatureReview); // test review
   }
 
   displayMoreReviews() {
@@ -142,6 +144,14 @@ class Reviews extends React.Component {
     this.setState({
       reviewsToDisplay: moreReviews
     });
+  }
+
+  submitReview(review) {
+    this.toggleModal();
+    axios.post('/reviews', review)
+      .then(() => (this.fetchMeta()))
+      .then(() => (this.fetchReviews()))
+      .catch(err => console.log(err));
   }
 
   toggleReviewFilters(stars) {
@@ -174,10 +184,24 @@ class Reviews extends React.Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return <span/>;
+
+    if (this.state.reviews.length === 0) {
+      return (
+        <ReviewsContainer className="reviews-module" id="reviews-module">
+          <ReviewNav
+            remainingReviews={false}
+            toggleModal={this.toggleModal}
+          />
+          <ReviewModal
+            productId={this.state.productId}
+            meta={this.state.meta}
+            visible={this.state.addReviewModal}
+            toggleModal={this.toggleModal} />
+        </ReviewsContainer>
+      );
     }
     return (
+
       <ReviewsContainer className="reviews-module" id="reviews-module">
         <h4>RATINGS &amp; REVIEWS</h4>
         <LeftColumn id="reviews-column-left">
@@ -203,7 +227,7 @@ class Reviews extends React.Component {
             reviews={this.filterReviewList(this.state.reviews)}
           />
           <ReviewNav
-            remainingReviews={this.state.count > this.state.reviewsToDisplay} // fix this conditional logic, since our total count can be greater than our available reviews from API
+            remainingReviews={this.state.reviews.length > this.state.reviewsToDisplay}
             displayMoreReviews={this.displayMoreReviews}
             toggleModal={this.toggleModal}
           />
@@ -212,7 +236,8 @@ class Reviews extends React.Component {
           productId={this.state.productId}
           meta={this.state.meta}
           visible={this.state.addReviewModal}
-          toggleModal={this.toggleModal} />
+          toggleModal={this.toggleModal}
+          submitReview={this.submitReview} />
       </ReviewsContainer>
     );
   }

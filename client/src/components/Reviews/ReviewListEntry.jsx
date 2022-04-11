@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import axios from 'axios';
 import StarDisplay from '../library/StarDisplay.jsx';
 import PhotoModal from './PhotoModal.jsx';
 
 const EntryContainer = styled.div`
   display: grid;
-  grid-template-rows: 5% 5% 10% 70% 5%;
-  height: 45%;
-  padding: 2.5% 0 2.5% 0;
+  grid-template-rows: 5% 5% 10% 75% 5%;
+  margin: 3% 0;
+  min-height: 45%;
   border-bottom: 1px solid #353935;
 `;
 
@@ -33,15 +34,9 @@ const Title = styled.div`
 
 const Body = styled.div`
   grid-row-start: 4;
+  grid-row-end: -2;
   font-size: 14px;
-  padding: 1% 2% 1% 1%;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  &:-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
+  margin: 1% 2% 5% 1%;
 `;
 
 const Response = styled.div`
@@ -50,9 +45,24 @@ const Response = styled.div`
   padding: 2% 2% 1% 2%;
 `;
 
+const Photos = styled.div`
+  margin-bottom: 5px;
+`;
+
+const Thumbnail = styled.img`
+  object-fit: contain;
+  height: 60px;
+  width: auto;
+  margin-right: 5px;
+  cursor: pointer;
+  border: .5px solid gray;
+`;
+
 const Footer = styled.div`
-  grid-row-start: -1;
+  grid-row-start: 5;
+  height: 12px;
   font-size: 12px;
+  text-align: right;
 `;
 
 const Button = styled.button`
@@ -68,18 +78,6 @@ const Button = styled.button`
   }
 `;
 
-const Photos = styled.div`
-`;
-
-const Thumbnail = styled.img`
-  object-fit: contain;
-  height: 70px;
-  width: auto;
-  margin-right: 5px;
-  cursor: pointer;
-`;
-
-
 class ReviewListEntry extends React.Component {
 
   constructor(props) {
@@ -87,11 +85,31 @@ class ReviewListEntry extends React.Component {
     this.state = {
       isBodyTruncated: true,
       photoModal: false,
-      photo: null
+      photo: null,
+      helpfulness: this.props.review.helpfulness,
+      reported: false
     };
 
+    this.markReviewHelpful = this.markReviewHelpful.bind(this);
+    this.reportReview = this.reportReview.bind(this);
     this.toggleTruncation = this.toggleTruncation.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  markReviewHelpful() {
+    axios.put(`/reviews/${this.props.review.review_id}/helpful`)
+      .catch(err => console.log(err));
+    this.setState({
+      helpfulness: this.state.helpfulness + 1
+    });
+  }
+
+  reportReview() {
+    axios.put(`/reviews/${this.props.review.review_id}/report`)
+      .catch(err => console.log(err));
+    this.setState({
+      reported: true
+    });
   }
 
   toggleTruncation() {
@@ -107,14 +125,11 @@ class ReviewListEntry extends React.Component {
     });
   }
 
+  // TODO
   // verified check, next to reviewer_name?
 
-  // Helpful?
-  // Yes link -> send API call
-  // (review.helpfulness) | Report link -> send API call
-
   render () {
-    const { review } = this.props;
+    let { review } = this.props;
 
     const reviewBody = this.state.isBodyTruncated
       ? review.body.substring(0, 250)
@@ -150,6 +165,13 @@ class ReviewListEntry extends React.Component {
       </Response>
       : null;
 
+    const reportReview = !this.state.reported
+      ? <span>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <Button onClick={this.reportReview}>report</Button>
+      </span>
+      : null;
+
     return (
       <EntryContainer className="review-list-entry">
         <Header>
@@ -172,9 +194,9 @@ class ReviewListEntry extends React.Component {
         </Body>
         <Footer>
           Helpful?&nbsp;&nbsp;
-          <Button>Yes</Button>
-          &nbsp;&nbsp;&#40;{review.helpfulness}&#41;&nbsp;&nbsp;|&nbsp;&nbsp;
-          <Button>report</Button>
+          <Button onClick={this.state.helpfulness === this.props.review.helpfulness ? this.markReviewHelpful : null}>Yes</Button>
+          <span>&nbsp;&nbsp;&#40;{this.state.helpfulness}&#41;</span>
+          {reportReview}
         </Footer>
         <PhotoModal
           photo={this.state.photo}

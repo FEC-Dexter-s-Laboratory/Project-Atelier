@@ -39,6 +39,7 @@ const Reset = styled.button`
 const Label = styled.button`
 font-family: Comfortaa;
 font-size: 1em;
+font-weight: bold;
 text-align: left;
 color: black;
 background: none;

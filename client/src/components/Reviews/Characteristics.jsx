@@ -44,7 +44,7 @@ const CharLabels = styled.div`
 
 const Characteristics = function({ chars }) {
 
-  let charLabels = {
+  const charLabels = {
     Size: ['runs small', 'true', 'runs big'],
     Width: ['narrow', 'normal', 'wide'],
     Comfort: ['less comfortable', 'comfortable', 'very comfortable'],
@@ -69,7 +69,7 @@ const Characteristics = function({ chars }) {
       {charsArray.map((char) => {
         return (
           <Characteristic key={char.name}>
-            <div>{char.name}</div>
+            <strong>{char.name}</strong>
             <SliderContainer>
               <Slider value={char.value / 5}>&#9660;</Slider>
             </SliderContainer>

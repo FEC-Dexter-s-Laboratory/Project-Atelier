@@ -11,6 +11,7 @@ const ModalPop = styled.div`
   padding: 1em;
   height: 75%;
   width: auto;
+  min-width: 25%;
   z-index: 999;
 `;
 
@@ -40,7 +41,7 @@ const Close = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  color: #f5f5f5;
+  color: #d3d3d3;
   &:hover {
     color: teal;
   }

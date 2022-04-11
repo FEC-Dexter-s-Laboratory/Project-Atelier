@@ -20,9 +20,6 @@ const Select = styled.select`
 
 const ReviewSort = function({ reviews, setSort }) {
 
-  if (reviews.length === 0) {
-    return null;
-  }
   return (
     <SortContainer className="sort-reviews">
       <label>{reviews.length} reviews, sorted by </label>
