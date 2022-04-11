@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import ExpandedView from './ExpandedView.jsx';
 
 // For images and thumbnails
 const ImageContainer = styled.div`
@@ -10,11 +11,22 @@ const ImageContainer = styled.div`
   height: 100vh;
 `;
 
+const ExpandIcon = styled.img`
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  z-index: 13;
+  top: 2%;
+  right: 18%;
+  cursor: pointer;
+`;
+
 const MainImage = styled.img`
   position: absolute;
   grid-column: 1;
-  width: 55vw;
+  width: 50vw;
   height: 100vh;
+  cursor: zoom-in;
 `;
 
 const ThumbDiv = styled.div`
@@ -60,6 +72,7 @@ const ThumbDownArrow = styled.button`
 `;
 
 const ImageContainerComponent = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
   let { styles, mainImage, isHighlighted, styleResults, setMainImage, setCurrentThumb, enterThumb, leaveThumb } = props;
   let stylesColCounter = 0;
   let stylesRowCounter = 0;
@@ -145,6 +158,8 @@ const ImageContainerComponent = (props) => {
       document.getElementById('4thumb').style.transform = 'translateY(-50%)';
       document.getElementById('4thumbDiv').style.display = 'flex';
       document.getElementById('4thumbDiv').style.alignItems = 'center';
+    } else if (document.getElementById('4thumb').style.border === '4px solid white') {
+      //
     }
   };
 
@@ -153,33 +168,39 @@ const ImageContainerComponent = (props) => {
   }, [props]);
 
   return (
-    <ImageContainer>
-      <ThumbUpArrow id="thumbUpArrow" onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={thumbUp}> 🔼 </ThumbUpArrow>
-      <ThumbDiv>
-        {
-          styles.map((style, index) => {
-            stylesRowCounter += 1;
-            stylesColCounter = 1;
-            if (stylesRowCounter === 5) {
-              thumbDisplay = 'none';
-            }
-            return (
-              <div key={index} style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}} id={`${style.id}thumbDiv`}>
-                <img
-                  style={{height: '100px', width: '100px', position: 'absolute', zIndex: '12', border: '1px solid black', float: 'right', border: index === 0 ? '4px solid white' : null, transition: '.2s'}}
-                  src={!style.srcThumb ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : style.srcThumb}
-                  alt="Thumb"
-                  className={style.id}
-                  id={`${style.id}thumb`}
-                  onClick={displayThumb} />
-              </div>
-            );
-          })
-        }
-      </ThumbDiv>
-      <ThumbDownArrow id="thumbDownArrow" onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={thumbDown}> 🔽 </ThumbDownArrow>
-      <MainImage src={!mainImage ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : mainImage} alt="Main" />
-    </ImageContainer>
+    <>
+      <ExpandedView mainImage={mainImage} open={isOpen} onClose={() => setIsOpen(false)} />
+      <ImageContainer>
+        <ThumbUpArrow id="thumbUpArrow" onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={thumbUp}> 🔼 </ThumbUpArrow>
+        <ThumbDiv>
+          {
+            styles.map((style, index) => {
+              stylesRowCounter += 1;
+              stylesColCounter = 1;
+              if (stylesRowCounter === 5) {
+                thumbDisplay = 'none';
+              }
+              return (
+                <div key={index} style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}} id={`${style.id}thumbDiv`}>
+                  <img
+                    style={{height: '100px', width: '100px', position: 'absolute', zIndex: '12', border: '1px solid black', float: 'right', border: index === 0 ? '4px solid white' : null, transition: '.2s', cursor: 'pointer'}}
+                    src={!style.srcThumb ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : style.srcThumb}
+                    alt="Thumb"
+                    className={style.id}
+                    id={`${style.id}thumb`}
+                    onClick={displayThumb} />
+                </div>
+              );
+            })
+          }
+        </ThumbDiv>
+        <ThumbDownArrow id="thumbDownArrow" onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={thumbDown}> 🔽 </ThumbDownArrow>
+        <ExpandIcon src="https://media.istockphoto.com/vectors/expand-view-icon-vector-id1171638614?k=20&m=1171638614&s=170667a&w=0&h=-TrQvj3L0_QQeqWgNRHOlpgtLp3vYkGLegLqDbj5aW8=" alt="Expand" onMouseEnter={enterThumb} onMouseLeave={leaveThumb}
+          onClick={() => { setIsOpen(true); }} />
+        <MainImage src={!mainImage ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : mainImage} alt="Main"
+          onClick={() => { setIsOpen(true); }} />
+      </ImageContainer>
+    </>
   );
 };
 

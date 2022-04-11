@@ -64,7 +64,7 @@ const CartModal = (props) => {
         <CartItems productId={props.productId} />
       </ModalStyle>
     </Overlay>,
-    document.getElementById('compare_portal')
+    document.getElementById('cart_portal')
   );
 };
 

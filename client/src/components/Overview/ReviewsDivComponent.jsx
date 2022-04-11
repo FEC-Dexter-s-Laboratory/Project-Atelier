@@ -15,12 +15,18 @@ const ReadReviewsLink = styled.a`
 
 const ReviewsDivComponent = (props) => {
   const { rating, totalReviews } = props;
+  let reviewDisplay;
+  if (totalReviews > 0) {
+    reviewDisplay = 'block';
+  } else {
+    reviewDisplay = 'none';
+  }
 
   return (
     <>
       <ReviewsDiv>
         <StarDisplay rating={rating} style={{gridColumn: '1'}} />
-        <ReadReviewsLink href="#reviews-module">{`Read All ${totalReviews} Reviews`}</ReadReviewsLink>
+        <ReadReviewsLink style={{display: reviewDisplay}} href="#reviews-module">{`Read All ${totalReviews} Reviews`}</ReadReviewsLink>
       </ReviewsDiv>
     </>
   );

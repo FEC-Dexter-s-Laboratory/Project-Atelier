@@ -58,6 +58,7 @@ const CartButton = styled.button`
   width: fit-content;
   transition: .2s;
   margin-left: 5%;
+  cursor: pointer;
   &:hover {
     transform: scale(1.25);
   }

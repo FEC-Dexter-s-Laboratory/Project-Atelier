@@ -306,3 +306,11 @@ for (const sku in skus) {
     setXxlQuantity(skus[sku].quantity);
   }
 }
+
+
+
+
+
+
+
+style={{backgroundImage: !mainImage ? 'url(https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg)' : `url(${mainImage})`}}

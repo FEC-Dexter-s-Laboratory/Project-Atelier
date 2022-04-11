@@ -52,11 +52,37 @@ const DescriptionDiv = styled.div`
 const DescriptionTitle = styled.h1`
   font-family: 'Lobster Two', cursive;
   color: #3d3c3c;
+  grid-row: 1;
+  grid-column: 1;
+  margin-left: 2%;
 `;
+
 
 const DescriptionSpan = styled.span`
   color: #3d3c3c;
   padding: 1%;
+  grid-row: 2;
+  grid-column: 1;
+  margin-left: 1%;
+  width: 45%;
+  `;
+
+const FeaturesDiv = styled.div`
+  grid-column: 2;
+  display: grid;
+`;
+
+const FeaturesTitle = styled.h1`
+  font-family: 'Lobster Two', cursive;
+  color: #3d3c3c;
+  grid-row: 1;
+  margin-left: 3%;
+`;
+
+const FeatureList = styled.ul`
+  font-family: 'Comfortaa';
+  color: #3d3c3c;
+  grid-row: 2;
 `;
 
 const Overview = (props) => {
@@ -71,6 +97,7 @@ const Overview = (props) => {
   const [isOnSale, setIsOnSale] = useState(false);
   const [slogan, setSlogan] = useState('Slogan');
   const [description, setDescription] = useState('Description');
+  const [features, setFeatures] = useState([]);
   const [mainImage, setMainImage] = useState('img');
   const [currentThumb, setCurrentThumb] = useState(0);
   const [selectedStyle, setSelectedStyle] = useState('Style 1');
@@ -317,12 +344,13 @@ const Overview = (props) => {
       url: `/products/${id}`,
       method: 'GET',
     })
-      .then(res => {
-        setCategory(res.data.category);
-        setTitle(res.data.name);
-        setOriginalPrice(res.data.default_price);
-        setSlogan(res.data.slogan);
-        setDescription(res.data.description);
+      .then(({ data }) => {
+        setCategory(data.category);
+        setTitle(data.name);
+        setOriginalPrice(data.default_price);
+        setSlogan(data.slogan);
+        setDescription(data.description);
+        setFeatures(data.features);
         setProductId(id);
       })
       .catch(err => console.error(err));
@@ -492,12 +520,26 @@ const Overview = (props) => {
         </SelectStyleDiv>
         <DescriptionDiv>
           <DescriptionTitle>
-            {slogan}
+            <u>{slogan}</u>
           </DescriptionTitle>
           <DescriptionSpan>
             {description}
           </DescriptionSpan>
         </DescriptionDiv>
+        <FeaturesDiv>
+          <FeaturesTitle>
+            <u>Features:</u>
+          </FeaturesTitle>
+          <FeatureList>
+            {
+              features.map((feature, i) => {
+                return (
+                  <li key={i}>{`${feature.feature}  |  ${feature.value}`}</li>
+                );
+              })
+            }
+          </FeatureList>
+        </FeaturesDiv>
       </DivContainer>
     </>
   );
