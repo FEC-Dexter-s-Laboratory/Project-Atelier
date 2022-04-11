@@ -15,7 +15,6 @@ const Card = (props) => {
   const [previewClicked, setPreviewClicked] = useState(false);
 
   useEffect(() => {
-    console.log(currentImage)
     imgSource = currentImage;
     setPreviewClicked(false);
   }, [previewClicked]);

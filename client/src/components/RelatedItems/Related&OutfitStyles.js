@@ -114,8 +114,10 @@ const Arrow = styled.button`
   z-index: 20;
 `;
 
+// width: 340px;
 const PreviewContainer = styled.div`
-  width: 340px;
+  width: 75%;
+  position: relative;
   display: flex;
   flex-direction: row;
   font-family: Comfortaa;
@@ -131,7 +133,7 @@ const PreviewImage = styled.div`
   display: flex;
   flex-direction: row;
   padding: 2px;
-  width: 25%;
+  width: 17%;
   border: 1px solid grey;
   justify-content: center;
   z-index: 800;
@@ -155,8 +157,10 @@ const Preview = styled.div`
   position: absolute;
   bottom: 20%;
   width: 400px;
-  left: -5px;
   z-index: 200;
+  display: flex;
+  left: 12%;
+  flex-direction: row;
 `;
 
 const CompareStar = styled.img`
