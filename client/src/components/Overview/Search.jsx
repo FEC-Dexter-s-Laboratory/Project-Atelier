@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import CartModal from './Overview/CartModal.jsx';
+import CartModal from './CartModal.jsx';
 
 // styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const NavContainer = styled.nav`
@@ -58,6 +58,7 @@ const CartButton = styled.button`
   width: fit-content;
   transition: .2s;
   margin-left: 5%;
+  cursor: pointer;
   &:hover {
     transform: scale(1.25);
   }
@@ -71,19 +72,10 @@ const CartImage = styled.img`
 const Search = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  let { setCurrentCartItem } = props;
 
 
   const submitSearch = (query) => {
-    // axios({
-    //   url: 'tbd',
-    //   method: 'POST',
-    //   data: {
-    //     query,
-    //   },
-    // })
-    //   .then((res) => console.log('Successful Search POST -> ', res))
-    //   .catch((err) => console.error('Submit Search Error -> ', err));
-
     window.open('http://google.com/search?q=' + searchTerm, 'searchTermwindow');
     setSearchTerm('');
   };
@@ -100,7 +92,7 @@ const Search = (props) => {
         <SearchButton onClick={submitSearch}>Search</SearchButton>
         <CartButton>
           <CartImage src="http://learnmongodbthehardway.com/images/originals/shopping_cart_racing.png" onClick={() => setIsOpen(true)} />
-          <CartModal productId={props.productId} open={isOpen} onClose={() => setIsOpen(false)} />
+          <CartModal productId={props.productId} open={isOpen} onClose={() => setIsOpen(false)} setCurrentCartItem={(boolean) => { setCurrentCartItem(boolean); }} />
         </CartButton>
       </SearchDiv>
     </NavContainer>

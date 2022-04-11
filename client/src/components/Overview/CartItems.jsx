@@ -60,7 +60,6 @@ const CartItems = (props) => {
   };
 
   const removeItem = (e) => {
-    console.log('cartItems be like ', cartItems);
     e.preventDefault();
     let id;
     let items = JSON.parse(window.localStorage.getItem('cart'));
@@ -93,10 +92,7 @@ const CartItems = (props) => {
     } else {
       for (let i = 0; i < items.length; i++) {
         total += items[i].price * items[i].count;
-        console.log('current price ', items[i].price);
-        console.log('current count ', items[i].count);
       }
-      console.log(total);
       setTotalPrice(total);
     }
   };
@@ -107,7 +103,7 @@ const CartItems = (props) => {
       getTotalPrice(items);
       getItemNames(items);
     }
-  }, [idToDelete, cartIsEmpty]);
+  }, [idToDelete, cartIsEmpty, window.localStorage.getItem('cart')]);
 
   return (
     <CartDiv>
@@ -118,7 +114,7 @@ const CartItems = (props) => {
             return (
               <div key={item.skuId}>
                 <li>
-                  <h2>{`${item.name}: Style > ${item.style} | Size: ${item.size}`}</h2>
+                  <h2>{`${item.name}: Style > ${item.style.name} | Size: ${item.size}`}</h2>
                   <h4>{`Count: ${item.count}`}</h4>
                   <hr />
                 </li>
