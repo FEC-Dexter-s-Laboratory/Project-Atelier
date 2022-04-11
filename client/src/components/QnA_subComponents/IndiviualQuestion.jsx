@@ -1,7 +1,7 @@
 import React from 'react';
-import moment from 'moment';
 import axios from 'axios';
-import { Linkbutton, Orderlist, Questiondiv, Innerquestiondiv} from './QnAStyledComponents.style.js';
+import { Listcontainer, Linkbutton, Orderlist, Questionlist, Questiondiv, Innerquestiondiv} from './QnAStyledComponents.style.js';
+import Answerlist from './Answerlist.jsx';
 import QuestionModal from './QuestionModal.jsx';
 import AnswerModal from './AnswerModal.jsx';
 
@@ -10,18 +10,25 @@ class IndividualQuestion extends React.Component {
     super(props);
     this.state = {
       questionCount: 2,
-      answerCount: 2,
       questions: [],
+      qhelpful: {},
       Qmodalactive: false,
       Amodalactive: false,
+      answerid: '',
     };
-    this.sortAnswers.bind(this);
-    this.sortQuestions.bind(this);
+    this.sortQuestions = this.sortQuestions.bind(this);
+    this.handleQClick = this.handleQClick.bind(this);
+    this.handleQhelp = this.handleQhelp.bind(this);
   }
 
   componentDidMount() {
     this.setState({
       questions: this.props.data.results,
+    });
+    this.props.data.results.map((obj) => {
+      let helpfulness = {};
+      helpfulness[obj.question_id] = obj.question_helpfulness;
+      this.setState(helpfulness);
     });
   }
 
@@ -44,27 +51,32 @@ class IndividualQuestion extends React.Component {
     }
   }
 
+  //event handlers
   handleQClick (e) {
     e.preventDefault();
     this.setState({questionCount: this.state.questionCount += 2});
   }
 
-  handleAClick (e) {
-    e.preventDefault();
-    this.setState({answerCount: this.state.answerCount += 2});
-  }
-
-  sortQuestions (questObj) {
-    return questObj.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
-  }
-
-  sortAnswers (ansObj) {
-    return Object.values(ansObj).sort((a, b) => {
-      if (a.answerer_name === 'Seller') {
-        return -1;
+  handleQhelp (qid) {
+    axios.put('/qa/questions/:question_id/helpful',
+      null,
+      {
+        params: {
+          question_id: qid
+        }
       }
-      return b.helpfulness - a.helpfulness;
-    });
+    )
+      .then(() => {
+        let helpObj = {};
+        helpObj[qid] = this.state[qid] += 1;
+        this.setState( helpObj );
+      });
+  }
+
+  //sorting
+  sortQuestions (questObj) {
+    let sortedQuest = questObj.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
+    return sortedQuest.slice(0, this.state.questionCount);
   }
 
   render() {
@@ -74,39 +86,29 @@ class IndividualQuestion extends React.Component {
       );
     } else {
       return (
-        <Orderlist>
-          {this.sortQuestions(this.state.questions).map((obj, index) =>{
-            while (index < this.state.questionCount) {
+        <Listcontainer>
+          <Orderlist>
+            {this.sortQuestions(this.state.questions).map((qobj, index) =>{
               return (
-                <li key={obj.question_id}>
-                  <Questiondiv>Q: {obj.question_body} <Innerquestiondiv>Helpful? <Linkbutton>Yes</Linkbutton> ({obj.question_helpfulness}) | <Linkbutton onClick={()=> this.setState({Amodalactive: true})}>Add Answer</Linkbutton></Innerquestiondiv></Questiondiv>
-                  {this.sortAnswers(obj.answers).map((obj, index) => {
-                    // while (index < this.state.answerCount) {
-                    return (
-                      <div key={obj.id}>
-                        A: {obj.body} <br />
-                        by {obj.answerer_name === 'Seller'
-                          ? (<b>{obj.answerer_name}</b>)
-                          : obj.answerer_name},
-                        {moment(obj.date).format('LL')}
-                        | Helpful?
-                        <Linkbutton>Yes</Linkbutton> ({obj.helpfulness}) | <Linkbutton>Report</Linkbutton>
-                      </div>
-                    );
-                    // }
-                  })}
-                </li>
+                <Questionlist key={qobj.question_id}>
+                  <Questiondiv>Q: {qobj.question_body}
+                    <Innerquestiondiv>Helpful? <Linkbutton onClick={() => { this.handleQhelp(qobj.question_id); }}>Yes</Linkbutton>
+                    ({this.state[qobj.question_id]})
+                    | <Linkbutton onClick={()=> this.setState({Amodalactive: true, answerid: qobj.question_id})}>Add Answer</Linkbutton>
+                    </Innerquestiondiv></Questiondiv>
+                  <Answerlist id={qobj.question_id} />
+                </Questionlist>
               );
+            })}{
+              this.state.questions.length > this.state.questionCount
+                ? <button onClick={this.handleQClick}>MORE ANSWERED QUESTIONS</button>
+                : <button hidden='hidden' onClick={this.handleQClick}>MORE ANSWERED QUESTIONS</button>
             }
-          })}{
-            this.state.questions.length > this.state.questionCount
-              ? <button onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
-              : <button hidden='hidden' onClick={this.handleQClick.bind(this)}>MORE ANSWERED QUESTIONS</button>
-          }
-          <button onClick={()=> this.setState({Qmodalactive: true})}>Add Question</button>
-          <QuestionModal active={this.state.Qmodalactive} close={() => this.setState({Qmodalactive: false})}/>
-          <AnswerModal active={this.state.Amodalactive} close={() => this.setState({Amodalactive: false})}/>
-        </Orderlist>
+            <QuestionModal active={this.state.Qmodalactive} close={() => this.setState({Qmodalactive: false})} id={this.props.productid} />
+            <AnswerModal active={this.state.Amodalactive} close={() => this.setState({Amodalactive: false})} id={this.state.answerid}/>
+          </Orderlist>
+          <button style={{float: 'right'}} onClick={()=> this.setState({Qmodalactive: true})}>Add Question</button>
+        </Listcontainer>
       );
     }
   }
