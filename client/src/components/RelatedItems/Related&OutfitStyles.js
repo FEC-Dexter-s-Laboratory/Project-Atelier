@@ -73,8 +73,8 @@ const GridItem = styled.div`
 // for carousel
 const CaroContainer = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
   font-family: Comfortaa;
 `;
 
@@ -96,6 +96,7 @@ const ContentStyle = styled.div`
   display: flex;
   transition: all 250ms linear;
   width: 35%;
+  height: 100%;
   flex-shrink: 0;
   flex-grow: 1;
   justify-content: center;
@@ -106,24 +107,23 @@ const Arrow = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
+  width: 30px;
+  height: 75px;
   background-color: white;
   border: 1px solid #ddd;
+  border-radius: 12px;
   z-index: 20;
 `;
 
-// width: 340px;
 const PreviewContainer = styled.div`
-  width: 75%;
+  width: 70%;
   position: relative;
   display: flex;
   flex-direction: row;
   font-family: Comfortaa;
   z-index: 800;
   overflow: hidden;
-  left: 20px;
+  left: 0%;
 `;
 
 const PreviewImage = styled.div`
@@ -135,7 +135,7 @@ const PreviewImage = styled.div`
   padding: 2px;
   width: 17%;
   border: 1px solid grey;
-  justify-content: center;
+  justify-content: start;
   z-index: 800;
 `;
 
@@ -143,8 +143,29 @@ const PreviewImage = styled.div`
 const CardStyle = styled.div`
   padding: 8;
   border: 1px solid black;
+  height: 99%;
+  width: 70%;
+  overflow: hidden;
+  cursor: pointer;
 `;
+
 const Image = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  height: 50%;
+  width: 100%;
+  z-index: 20;
+`;
+
+const DefaultCard = styled.div`
+padding: 8;
+border: 1px solid black;
+text-align: center;
+`;
+
+const DefaultImg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -181,6 +202,6 @@ const ButtonAlign = styled.div`
 `;
 
 export {DivContainer, ModalStyle, Overlay, ModalButton};
-export {CaroContainer, CaroWrapper, ContentWrapper, ContentStyle, Arrow, PreviewContainer, PreviewImage};
+export {CaroContainer, CaroWrapper, ContentWrapper, ContentStyle, Arrow, PreviewContainer, PreviewImage, DefaultImg, DefaultCard};
 export {Table, Grid, GridHeader, GridItem};
 export {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign};
