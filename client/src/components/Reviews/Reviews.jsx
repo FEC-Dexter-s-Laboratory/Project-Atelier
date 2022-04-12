@@ -184,7 +184,7 @@ class Reviews extends React.Component {
     if (this.state.reviews.length === 0) {
       return (
         <ReviewsContainer className="reviews-module" id="reviews-module">
-          <h4>RATINGS &amp; REVIEWS</h4>
+          <h3>RATINGS &amp; REVIEWS</h3>
           <ReviewNav
             remainingReviews={false}
             toggleModal={this.toggleModal}
@@ -201,7 +201,7 @@ class Reviews extends React.Component {
     return (
 
       <ReviewsContainer className="reviews-module" id="reviews-module">
-        <h4>RATINGS &amp; REVIEWS</h4>
+        <h3>RATINGS &amp; REVIEWS</h3>
         <LeftColumn id="reviews-column-left">
           <Rating
             ratings={this.state.meta.ratings}
