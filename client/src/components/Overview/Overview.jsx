@@ -145,8 +145,10 @@ const Overview = (props) => {
 
   // for all main image rendering, including when switching between images
   const displayImage = (e) => {
+    console.log('styleResults ', styleResults);
     let newImage = '';
     styleResults.forEach(style => {
+      console.log('style ', style)
       if (style.style_id === e) {
         newImage = style.photos[currentThumb].url;
       }
@@ -357,7 +359,7 @@ const Overview = (props) => {
   };
 
   // axios call for getting style data on selected product
-  const getStyles = (id, p, likes) => {
+  const getStyles = (id, p, likes, cart) => {
     axios({
       url: `/products/${id}/styles`,
       method: 'GET',
@@ -393,8 +395,33 @@ const Overview = (props) => {
           });
           index += 1;
         });
+        console.log('likes be like ', likes);
         if (likes !== undefined) {
-          setLikedStyles(likes);
+          let isNewProduct = false;
+          for (let i = 0; i < likes.length; i++) {
+            if (data.results[i] === undefined) {
+              break;
+            } else if (likes[i].styleId === data.results[i].style_id) {
+              isNewProduct = true;
+            }
+          }
+          if (isNewProduct) {
+            console.log('i\'s da same');
+            data.results.forEach(style => {
+              let like = {
+                liked: false,
+                name: style.name,
+                styleId: style.style_id,
+                productId: data.product_id,
+              };
+              likes.push(like);
+            });
+            window.localStorage.setItem('likes', JSON.stringify(likes));
+            setLikedStyles(likes);
+          } else {
+            console.log('i\'s not da same');
+            setLikedStyles(likes);
+          }
         } else {
           likes = [];
           data.results.forEach(style => {
@@ -489,12 +516,12 @@ const Overview = (props) => {
     if (likes) {
       if (likes.length > 0) {
         setCurrentLikedStyle(likes[0].liked);
-        getStyles(props.productId, props.qtys, likes);
+        getStyles(props.productId, props.qtys, likes, cart);
       } else {
-        getStyles(props.productId, props.qtys, likes);
+        getStyles(props.productId, props.qtys, likes, cart);
       }
     } else {
-      getStyles(props.productId, props.qtys);
+      getStyles(props.productId, props.qtys, undefined, cart);
     }
   }, [isClicked, props.qtys, props.productId, window.localStorage.getItem('cart')]);
 

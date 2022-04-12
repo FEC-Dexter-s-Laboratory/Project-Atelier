@@ -30,20 +30,22 @@ const Overlay = styled.div`
 `;
 
 const Button = styled.button`
-  position: fixed;
+  position: absolute;
   top: 2%;
   right: 2%;
   background-color: white;
   font-size: 20px;
   border: 2px ridge grey;
   border-radius: 12px;
-  z-index: 14;
+  z-index: 2000;
 `;
 
 const ExpandedImageDiv = styled.div`
   position: fixed;
   z-index: 1001;
-  overflow-y: auto;
+  /* overflow-y: auto; */
+  width: auto;
+  height: auto;
 `;
 
 const ExpandedImage = styled.img`

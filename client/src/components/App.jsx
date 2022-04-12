@@ -37,11 +37,6 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  addToCart(item) {
-    // add selected style to cart in state and localStorage
-  }
-
-
   render() {
     return (
       <>
