@@ -54,9 +54,7 @@ class IndividualAnswer extends React.Component {
     return (
       <Answerdiv key={this.props.id}>
       A: {this.props.body} <br />
-      by {this.props.name},
-        {moment(this.props.date).format('LL')}
-      | Helpful?<Linkbutton onClick={() => { this.handleAhelp(this.props.id); }} disabled={this.state.helpful}>Yes</Linkbutton>({this.state.helpCount})
+      by {this.props.name}, {moment(this.props.date).format('LL')} | Helpful?<Linkbutton onClick={() => { this.handleAhelp(this.props.id); }} disabled={this.state.helpful}>Yes</Linkbutton>({this.state.helpCount})
       | {
           this.state.report
             ? <Linkbutton>Reported</Linkbutton>

@@ -44,7 +44,7 @@ class App extends React.Component {
         <RelatedList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
         <OutfitList currentId={this.state.productId} handleCardClick={this.handleCardClick} /> */}
         <QandA currentId={this.state.productId}/>
-        {/* <Reviews currentId={this.state.productId} /> */}
+        <Reviews currentId={this.state.productId} />
       </>
     );
   }
