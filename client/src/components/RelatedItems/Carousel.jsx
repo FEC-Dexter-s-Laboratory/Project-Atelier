@@ -5,7 +5,6 @@ import {CaroContainer, CaroWrapper, ContentWrapper, ContentStyle, Arrow, Preview
 
 const Carousel = (props) => {
   const { products } = props;
-  console.log(products)
   const {images} = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const nextButton = () => {

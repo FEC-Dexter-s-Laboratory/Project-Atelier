@@ -26,7 +26,7 @@ const Card = (props) => {
   // conditional rendering of outfit default card
   if (product.id === 'default') {
     return (
-      <CardStyle onClick={props.handleDefaultClick}>
+      <CardStyle onClick={props.handleDefaultClick} style={{textAlign: 'center'}}>
         <Image><img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg" alt="Plus icon" /></Image>
         <b>Add to Outfit</b>
       </CardStyle>
@@ -41,7 +41,7 @@ const Card = (props) => {
     }
     let price;
     if (product.photos[0].thumbnail_url === null) {
-      image = <img style={{display: 'block', width: '100%', position: 'relative', left: '2%'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
+      image = <img style={{display: 'block', width: '100%', position: 'relative'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
     } else {
       // need to change this to change src if preview picture is clicked - need to send the url back to here
       image = <img src={imgSource} alt={product.name} style={{display: 'block', width: '100%'}}/>;
@@ -85,8 +85,8 @@ const Card = (props) => {
               <Carousel setCurrentImage={setCurrentImage} images={product.photos}/>
             </Preview>
           )}
-          <div>{product.category}</div>
-          <b>{product.name}</b>
+          <div style={{xOverflow: 'hidden'}}>{product.category}</div>
+          <b style={{xOverflow: 'hidden'}}>{product.name}</b>
           {price}
           <StarDisplay font={30} rating={averageRating}/>
         </div>

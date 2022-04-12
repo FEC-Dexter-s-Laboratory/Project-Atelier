@@ -114,7 +114,6 @@ const Arrow = styled.button`
   z-index: 20;
 `;
 
-// width: 340px;
 const PreviewContainer = styled.div`
   width: 75%;
   position: relative;
@@ -143,13 +142,15 @@ const PreviewImage = styled.div`
 const CardStyle = styled.div`
   padding: 8;
   border: 1px solid black;
+  height: 99%;
+  width: 65%;
+  x-overflow: hidden;
 `;
 const Image = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 200px;
+  display: relative;
+  top: 50%;
+  height: 50%;
+  width: 100%;
   z-index: 20;
 `;
 
