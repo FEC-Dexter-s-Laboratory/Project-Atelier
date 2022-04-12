@@ -27,6 +27,7 @@ const MainImage = styled.img`
   width: 50vw;
   height: 100vh;
   cursor: zoom-in;
+  object-fit: contain;
 `;
 
 const ThumbDiv = styled.div`
@@ -136,12 +137,13 @@ const ImageContainerComponent = (props) => {
       displayThumb(2);
     } else if (document.getElementById('4thumb').style.border === '4px solid white') {
       displayThumb(3);
+    } else if (document.getElementById('5thumb').style.border === '4px solid white') {
+      displayThumb(4);
     }
   };
 
   const thumbDown = (e) => {
     // move down through thumbnails
-    console.log('checking the style yo ', document.getElementById('0thumb').style.border);
     if (document.getElementById('0thumb').style.border === '4px solid white') {
       document.getElementById('thumbUpArrow').style.display = 'block';
       displayThumb(1);
@@ -152,6 +154,7 @@ const ImageContainerComponent = (props) => {
     } else if (document.getElementById('3thumb').style.border === '4px solid white') {
       displayThumb(4);
       document.getElementById('0thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('0thumb').style.display = 'none';
       document.getElementById('1thumb').style.transform = 'translateY(-120%)';
       document.getElementById('2thumb').style.transform = 'translateY(-120%)';
       document.getElementById('3thumb').style.transform = 'translateY(-120%)';
@@ -159,7 +162,16 @@ const ImageContainerComponent = (props) => {
       document.getElementById('4thumbDiv').style.display = 'flex';
       document.getElementById('4thumbDiv').style.alignItems = 'center';
     } else if (document.getElementById('4thumb').style.border === '4px solid white') {
-      //
+      displayThumb(5);
+      document.getElementById('0thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('1thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('1thumb').style.display = 'none';
+      document.getElementById('2thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('3thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('4thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('4thumb').style.transform = 'translateY(-50%)';
+      document.getElementById('5thumbDiv').style.display = 'flex';
+      document.getElementById('5thumbDiv').style.alignItems = 'center';
     }
   };
 

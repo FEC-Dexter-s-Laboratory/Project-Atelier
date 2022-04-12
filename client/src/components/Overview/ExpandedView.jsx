@@ -51,6 +51,7 @@ const ExpandedImage = styled.img`
   z-index:14;
   transition: .2s;
   top: 0;
+  object-fit: contain;
 `;
 
 const LeftButton = styled.button`
@@ -81,16 +82,16 @@ const ExpandedView = (props) => {
   const [width, setWidth] = useState(null);
   const [height, setHeight] = useState(null);
   const [top, setTop] = useState(null);
+  const [bottom, setBottom] = useState(null);
   const [left, setLeft] = useState(null);
+  const [right, setRight] = useState(null);
   const [element, setElement] = useState(null);
+  const [x, setX] = useState(null);
+  const [y, setY] = useState(null);
   let { open, onClose, mainImage } = props;
   if (!open) {
     return null;
   }
-
-  // useEffect(() => {
-  //   setElement(findDOMNode(this));
-  // });
 
   const enterButton = (e) => {
     e.target.style.transition = '.2s';
@@ -119,15 +120,45 @@ const ExpandedView = (props) => {
 
   const handleImgEnter = (e) => {
     console.log('onImageEnter ', e.clientX, e.clientY);
+    let bodyRect = document.getElementById('getExpandedImageCoords').getBoundingClientRect();
+    setWidth(bodyRect.width);
+    setHeight(bodyRect.height);
+    setTop(bodyRect.top);
+    setBottom(bodyRect.bottom);
+    setLeft(bodyRect.left);
+    setRight(bodyRect.right);
+    setElement(bodyRect);
   };
 
   const handleImgMove = (e) => {
     console.log('onImageMove ', e.nativeEvent.clientX, e.nativeEvent.clientY);
+    if (e.nativeEvent.clientX > x) {
+      // translate x
+      document.getElementById('getExpandedImageCoords').style.transform = 'translate-x(10%)';
+    } else if (e.nativeEvent.clientX < x) {
+      // translate x
+      document.getElementById('getExpandedImageCoords').style.transform = 'translate-x(-10%)';
+    }
+    if (e.nativeEvent.clientY > y) {
+      // translate y
+      document.getElementById('getExpandedImageCoords').style.transform = 'translate-y(10%)';
+    } else if (e.nativeEvent.clientY < y) {
+      // translate y
+      document.getElementById('getExpandedImageCoords').style.transform = 'translate-y(-10%)';
+    }
+    setX(e.nativeEvent.clientX);
+    setY(e.nativeEvent.clientY);
   };
 
   const handleImgLeave = (e) => {
     console.log('onImageLeave ', e.clientX, e.clientY);
   };
+
+  // useEffect(() => {
+  //   let bodyRect = document.getElementById('getExpandedImageCoords').getBoundingClientRect();
+  //   setWidth(bodyRect.width);
+  //   console.log('bodyReact width be like ', bodyRect.width)
+  // }, [props]);
 
   return ReactDOM.createPortal(
     <Overlay>
@@ -139,7 +170,11 @@ const ExpandedView = (props) => {
         </Button>
         <ExpandedImage src={!mainImage ? 'url(https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg)' : mainImage}
           style={{cursor: imageCursor}}
-          onClick={toggleZoom} />
+          onClick={toggleZoom}
+          onMouseMove={handleImgMove}
+          onMouseEnter={handleImgEnter}
+          onMouseLeave={handleImgLeave}
+          id="getExpandedImageCoords" />
         {/* <LeftButton> ⬅️ </LeftButton> */}
       </ModalStyle>
     </Overlay>,
