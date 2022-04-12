@@ -148,7 +148,6 @@ const Overview = (props) => {
     console.log('styleResults ', styleResults);
     let newImage = '';
     styleResults.forEach(style => {
-      console.log('style ', style)
       if (style.style_id === e) {
         newImage = style.photos[currentThumb].url;
       }
@@ -365,6 +364,7 @@ const Overview = (props) => {
       method: 'GET',
     })
       .then(({ data }) => {
+        //handle cart
         if (cart) {
           if (cart.length > 0) {
             cart.forEach(item => {
@@ -380,6 +380,8 @@ const Overview = (props) => {
             idx = i;
           }
         });
+
+        // handle images and style
         setMainImage(data.results[idx].photos[0].url);
         setSelectedStyle({
           styleId: data.results[idx].style_id,
@@ -395,7 +397,8 @@ const Overview = (props) => {
           });
           index += 1;
         });
-        console.log('likes be like ', likes);
+
+        // handle likes
         if (likes !== undefined) {
           let isNewProduct = false;
           for (let i = 0; i < likes.length; i++) {
@@ -405,9 +408,15 @@ const Overview = (props) => {
               isNewProduct = true;
             }
           }
-          if (isNewProduct) {
-            console.log('i\'s da same');
-            data.results.forEach(style => {
+          if (!isNewProduct) {
+            console.log('i\'s not da same');
+            data.results.forEach((style, index) => {
+              for (let i = 0; i < likes.length; i++) {
+                if (likes[i].styleId === style.style_id) {
+                  setCurrentLikedStyle(likes[i].liked);
+                  return;
+                }
+              }
               let like = {
                 liked: false,
                 name: style.name,
@@ -419,7 +428,8 @@ const Overview = (props) => {
             window.localStorage.setItem('likes', JSON.stringify(likes));
             setLikedStyles(likes);
           } else {
-            console.log('i\'s not da same');
+            console.log('i\'s da same');
+            setCurrentLikedStyle(likes[0].liked);
             setLikedStyles(likes);
           }
         } else {
@@ -435,9 +445,13 @@ const Overview = (props) => {
           });
           window.localStorage.setItem('likes', JSON.stringify(likes));
           setLikedStyles(likes);
+          setCurrentLikedStyle(likes[0].liked);
         }
+        console.log('likes be like ', likes);
         setStyles(styleArr);
         setStyleResults(data.results);
+
+        // handle price
         setOriginalPrice(data.results[idx].original_price);
         if (data.results[idx].sale_price) {
           setSalePrice(data.results[idx].sale_price);
@@ -460,7 +474,6 @@ const Overview = (props) => {
         }
         const averageRating = sumRatings / countRatings;
         setRating(averageRating);
-        // do something with averageRating here (return || setState || assign to global variable)
       })
       .catch((err) => {
         console.error(err);

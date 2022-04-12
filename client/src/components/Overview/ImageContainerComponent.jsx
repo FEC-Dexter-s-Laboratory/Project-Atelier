@@ -58,6 +58,7 @@ const ThumbUpArrow = styled.button`
   top: 5%;
   left: 5%;
   display: none;
+  cursor: pointer;
 `;
 
 const ThumbDownArrow = styled.button`
@@ -71,6 +72,7 @@ const ThumbDownArrow = styled.button`
   bottom: 11%;
   left: 5%;
   display: block;
+  cursor: pointer;
 `;
 
 const ImageContainerComponent = (props) => {
