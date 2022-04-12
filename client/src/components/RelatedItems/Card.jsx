@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Modal from './Modal.jsx';
 import StarDisplay from '../library/StarDisplay.jsx';
 import Carousel from './Carousel.jsx';
-import {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign} from './Related&OutfitStyles.js';
+import {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign, DefaultImg, DefaultCard} from './Related&OutfitStyles.js';
 
 const Card = (props) => {
   let {product} = props;
@@ -26,10 +26,10 @@ const Card = (props) => {
   // conditional rendering of outfit default card
   if (product.id === 'default') {
     return (
-      <CardStyle onClick={props.handleDefaultClick} style={{textAlign: 'center'}}>
-        <Image><img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg" alt="Plus icon" /></Image>
+      <DefaultCard onClick={props.handleDefaultClick}>
+        <DefaultImg><img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg" alt="Plus icon" /></DefaultImg>
         <b>Add to Outfit</b>
-      </CardStyle>
+      </DefaultCard>
     );
   } else {
     // onClick handler for preview pictures

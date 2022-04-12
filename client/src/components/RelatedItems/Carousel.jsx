@@ -34,7 +34,7 @@ const Carousel = (props) => {
 
   if (images) {
     if (images[0].thumbnail_url === null) {
-      return <div style={{position: 'fixed', left: '20%', bottom: '80px', background: 'white'}}>No preview images available.</div>;
+      return <div style={{position: 'fixed', left: '20%', bottom: '30%', background: 'white'}}>No preview images available.</div>;
     }
     return (
       <PreviewContainer>
@@ -52,7 +52,7 @@ const Carousel = (props) => {
               </PreviewImage>
             )}
             {previewIndex < (images.length - 4) &&
-            <Arrow style={{right: '-5px', height: '100%', borderRadius: '0px', width: '30px', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
+            <Arrow style={{right: '-5px', height: '100%', width: '30px', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
             }
           </PreviewContainer>
         </CaroWrapper>
