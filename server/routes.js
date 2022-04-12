@@ -76,7 +76,6 @@ router.get('/reviews/:product_id', (req, res) => {
       Authorization: process.env.AUTH_TOKEN
     },
     params: {
-      // eslint-disable-next-line camelcase
       product_id: req.params.product_id,
       count: req.query.count,
       sort: req.query.sort
@@ -92,7 +91,6 @@ router.get('/reviews/meta/:product_id', (req, res) => {
     headers: {
       Authorization: process.env.AUTH_TOKEN
     },
-    // eslint-disable-next-line camelcase
     params: {product_id: req.params.product_id}
   })
     .then(({data}) => {
@@ -103,6 +101,47 @@ router.get('/reviews/meta/:product_id', (req, res) => {
     });
 });
 
+// route to mark a review as helpful
+router.put('/reviews/:review_id/helpful', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/reviews/${req.params.review_id}/helpful`, null, {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN
+    }
+  })
+    .then((response) => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      res.sendStatus(401);
+    });
+});
+
+// route to report a review
+router.put('/reviews/:review_id/report', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/reviews/${req.params.review_id}/report`, null, {
+    headers: {
+      Authorization: process.env.AUTH_TOKEN
+    }
+  })
+    .then((response) => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      res.sendStatus(401);
+    });
+});
+
+// route to post a review
+router.post('/reviews', (req, res) => {
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/reviews',
+    req.body,
+    { headers: { Authorization: process.env.AUTH_TOKEN } }
+  )
+    .then(() => res.sendStatus(201))
+    .catch((err) => res.sendStatus(404));
+});
+
+// cart routes
 router.get('/cart', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/cart', {
     headers: {

@@ -1,34 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import RatingBreakdown from './RatingBreakdown.jsx';
-import StarFilter from './StarFilter.jsx';
-import ProductBreakdown from './ProductBreakdown.jsx';
-import SortReviews from './SortReviews.jsx';
+import Rating from './Rating.jsx';
+import Filters from './Filters.jsx';
+import Characteristics from './Characteristics.jsx';
+import ReviewSort from './ReviewSort.jsx';
 import ReviewList from './ReviewList.jsx';
 import ReviewNav from './ReviewNav.jsx';
 import ReviewModal from './ReviewModal.jsx';
 
-import StarButtons from '../library/StarButtons.jsx';
 import StarDisplay from '../library/StarDisplay.jsx';
-import { reviewData, reviewMetaData } from './reviewSampleData';
+import { fullFeatureReview } from './reviewSampleData.js';
 
 const ReviewsContainer = styled.div`
   display: grid;
   grid-template-columns: 33% 33% 33%;
-  margin: 2% 20% 2% 20%;
+  grid-template-rows: 5% 95%;
+  margin: 2% 15% 2% 15%;
   font-family: Comfortaa;
+  height: 95vh;
 `;
 
 const LeftColumn = styled.div`
   grid-column-start: 1;
-  font-family: Comfortaa;
+  grid-row-start: 2;
+  display: grid;
+  grid-template-rows: 15% 25% 60%;
+  margin: 2%;
+  height: 90vh;
 `;
 
 const RightColumn = styled.div`
   grid-column-start: 2;
   grid-column-end: -1;
-  font-family: Comfortaa;
+  grid-row-start: 2;
+  display: grid;
+  grid-template-rows: 5% 90% 5%;
+  margin: 2%;
+  height: 90vh;
 `;
 
 class Reviews extends React.Component {
@@ -37,65 +46,40 @@ class Reviews extends React.Component {
     this.state = {
       loading: true,
       productId: null,
-      sort: 'relevant',
-      reviews: reviewData,
-      meta: reviewMetaData,
-      addReview: false,
-      count: 2,
+      meta: {},
+      reviews: [],
+      count: null,
       reviewsToDisplay: 2,
-      filterReviews: [1, 2, 3, 4, 5],
-      resetFilters: false // temp state management
+      sort: 'relevant',
+      currentFilters: [],
+      addReviewModalModal: false
     };
 
-    this.fetchReviews = this.fetchReviews.bind(this);
     this.fetchMeta = this.fetchMeta.bind(this);
+    this.fetchReviews = this.fetchReviews.bind(this);
+
+    this.setSort = this.setSort.bind(this);
     this.filterReviewList = this.filterReviewList.bind(this);
     this.displayMoreReviews = this.displayMoreReviews.bind(this);
-    this.setSort = this.setSort.bind(this);
-    this.toggleFilterReviews = this.toggleFilterReviews.bind(this);
+    this.submitReview = this.submitReview.bind(this);
+    this.toggleReviewFilters = this.toggleReviewFilters.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
-
-
   }
 
   componentDidMount() {
     this.fetchMeta()
-      .then(() => {
-        this.fetchReviews();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(() => this.fetchReviews())
+      .catch(err => console.log(err));
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.currentId !== this.props.currentId) {
+    if (prevProps.currentId !== this.props.currentId) { // if passed in product id changes, fetch new metadata and reviews
       this.fetchMeta()
-        .then(() => {
-          this.fetchReviews();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if ( prevState.sort !== this.state.sort) {
+        .then(() => this.fetchReviews())
+        .catch(err => console.log(err));
+    } else if ( prevState.sort !== this.state.sort) { // if sort changes, fetch reviews with new sort parameter
       this.fetchReviews();
     }
-  }
-
-  fetchReviews() {
-    return axios.get(`/reviews/${this.props.currentId}`, {
-      params: {
-        productId: this.props.currentId,
-        count: this.state.count,
-        sort: this.state.sort
-      }
-    })
-      .then(({data}) => {
-        this.setState({
-          reviews: data.results
-        });
-      })
-      .catch(err => console.log(err));
   }
 
   fetchMeta() {
@@ -108,33 +92,27 @@ class Reviews extends React.Component {
         this.setState({
           productId: this.props.currentId,
           meta: data,
-          count: count,
+          count: count
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
+  fetchReviews() {
+    return axios.get(`/reviews/${this.props.currentId}`, {
+      params: {
+        productId: this.props.currentId,
+        count: this.state.count,
+        sort: this.state.sort
+      }
+    })
+      .then(({data}) => {
+        this.setState({
+          reviews: data.results,
           loading: false
         });
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  filterReviewList(reviews) {
-    let filtered = [];
-    for (let review of reviews) {
-      if (this.state.filterReviews.includes(review.rating)) {
-        filtered.push(review);
-      }
-    }
-    return filtered.slice(0, this.state.reviewsToDisplay);
-  }
-
-  displayMoreReviews() {
-    let more = this.state.reviewsToDisplay + 2;
-    this.setState({
-      reviewsToDisplay: more
-    });
-    if (this.state.reviews.length === 2) {
-      this.fetchReviews();
-    }
+      .catch(err => console.log(err));
   }
 
   setSort(e) {
@@ -144,106 +122,125 @@ class Reviews extends React.Component {
     });
   }
 
-  toggleFilterReviews(stars) {
+  filterReviewList(reviews) {
+    let filtered = [];
 
+    if (this.state.currentFilters.length === 0) {
+      return reviews.slice(0, this.state.reviewsToDisplay);
+      // return reviews.slice(0, this.state.reviewsToDisplay).concat(fullFeatureReview); // test review
+    }
+
+    for (let review of reviews) {
+      if (this.state.currentFilters.includes(review.rating)) {
+        filtered.push(review);
+      }
+    }
+    return filtered.slice(0, this.state.reviewsToDisplay);
+    // return filtered.slice(0, this.state.reviewsToDisplay).concat(fullFeatureReview); // test review
+  }
+
+  displayMoreReviews() {
+    let moreReviews = this.state.reviewsToDisplay + 2;
+    this.setState({
+      reviewsToDisplay: moreReviews
+    });
+  }
+
+  submitReview(review) {
+    this.toggleModal();
+    axios.post('/reviews', review)
+      .then(() => (this.fetchMeta()))
+      .then(() => (this.fetchReviews()))
+      .catch(err => console.log(err));
+  }
+
+  toggleReviewFilters(stars) {
     if (stars === 'reset') {
       this.setState({
-        filterReviews: [1, 2, 3, 4, 5],
+        currentFilters: [],
         resetFilters: false
       });
       return;
     }
 
-    let currentFilters = this.state.filterReviews.slice();
-    if (currentFilters.length === 5) {
-      currentFilters = [stars];
-    } else if (currentFilters.includes(stars)) {
+    const currentFilters = this.state.currentFilters.slice();
+    if (currentFilters.includes(stars)) {
       currentFilters.splice(currentFilters.indexOf(stars), 1);
     } else {
       currentFilters.push(stars);
     }
-    this.setState({
-      filterReviews: currentFilters,
-      resetFilters: true
-    });
 
-    // temp fix
-    if (this.state.reviews.length === 2) {
-      this.fetchReviews();
-    }
+    let resetFlag = currentFilters.length === 0 ? false : true;
+    this.setState({
+      currentFilters: currentFilters,
+      resetFilters: resetFlag
+    });
   }
 
   toggleModal() {
     this.setState({
-      addReview: !this.state.addReview
+      addReviewModal: !this.state.addReviewModal
     });
   }
 
   render() {
-    if (this.state.loading) {
-      return <span>Loading reviews...</span>;
-    }
 
-    return (
-      <div className="reviews-module" id="reviews-module">
-
-        <ReviewsContainer>
-          <div>Ratings &amp; Reviews</div>
-          <LeftColumn>
-            <RatingBreakdown
-              ratings={this.state.meta.ratings}
-              recommended={this.state.meta.recommended}
-            />
-            <StarFilter
-              toggleFilterReviews={this.toggleFilterReviews}
-              ratings={this.state.meta.ratings}
-              resetFilters={this.state.resetFilters}
-            />
-            <ProductBreakdown
-              chars={this.state.meta.characteristics}
-            />
-          </LeftColumn>
-          <RightColumn>
-            <SortReviews
-              count={this.state.count}
-              setSort={this.setSort}
-            />
-            <ReviewList
-              reviews={this.filterReviewList(this.state.reviews)}
-            />
-            <ReviewNav
-              remainingReviews={this.state.count > this.state.reviewsToDisplay}
-              displayMoreReviews={this.displayMoreReviews}
-              toggleModal={this.toggleModal}
-            />
-          </RightColumn>
+    if (this.state.reviews.length === 0) {
+      return (
+        <ReviewsContainer className="reviews-module" id="reviews-module">
+          <ReviewNav
+            remainingReviews={false}
+            toggleModal={this.toggleModal}
+          />
           <ReviewModal
             productId={this.state.productId}
             meta={this.state.meta}
-            visible={this.state.addReview}
+            visible={this.state.addReviewModal}
             toggleModal={this.toggleModal} />
         </ReviewsContainer>
-      </div>
+      );
+    }
+    return (
+
+      <ReviewsContainer className="reviews-module" id="reviews-module">
+        <h4>RATINGS &amp; REVIEWS</h4>
+        <LeftColumn id="reviews-column-left">
+          <Rating
+            ratings={this.state.meta.ratings}
+            recommended={this.state.meta.recommended}
+          />
+          <Filters
+            toggleReviewFilters={this.toggleReviewFilters}
+            ratings={this.state.meta.ratings}
+            currentFilters={this.state.currentFilters} // go fix this, removed filtersFlag and need to implement filter list
+          />
+          <Characteristics
+            chars={this.state.meta.characteristics}
+          />
+        </LeftColumn>
+        <RightColumn id="reviews-column-right">
+          <ReviewSort
+            reviews={this.state.reviews}
+            setSort={this.setSort}
+          />
+          <ReviewList
+            reviews={this.filterReviewList(this.state.reviews)}
+          />
+          <ReviewNav
+            remainingReviews={this.state.reviews.length > this.state.reviewsToDisplay}
+            displayMoreReviews={this.displayMoreReviews}
+            toggleModal={this.toggleModal}
+          />
+        </RightColumn>
+        <ReviewModal
+          productId={this.state.productId}
+          meta={this.state.meta}
+          visible={this.state.addReviewModal}
+          toggleModal={this.toggleModal}
+          submitReview={this.submitReview} />
+      </ReviewsContainer>
     );
   }
 }
 
 export default Reviews;
-
-// metadata request
-//
-// axios.get(`/reviews/meta/${productId}`)
-//   .then((response) => {
-//     let ratings = response.data.ratings;
-//     let sumRatings = 0;
-//     let countRatings = 0;
-//     for (let key in ratings) {
-//       sumRatings += Number(key) * Number(ratings[key]);
-//       countRatings += Number(ratings[key]);
-//     }
-//     const averageRating = sumRatings / countRatings;
-//     // do something with averageRating here (return || setState || assign to global variable)
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });

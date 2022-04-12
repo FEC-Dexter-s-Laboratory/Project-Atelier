@@ -1,14 +1,8 @@
-/* eslint-disable camelcase */
 import React from 'react';
 import Carousel from './Carousel.jsx';
 import styled from 'styled-components';
 import axios from 'axios';
-
-const DivContainer = styled.div`
-  margin: auto;
-  width: 50%;
-  font-family: Comfortaa;
-`;
+import {DivContainer} from './Related&OutfitStyles.js';
 
 class OutfitList extends React.Component {
   constructor(props) {
