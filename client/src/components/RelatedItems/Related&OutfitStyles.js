@@ -111,6 +111,7 @@ const Arrow = styled.button`
   height: 75px;
   background-color: white;
   border: 1px solid #ddd;
+  border-radius: 12px;
   z-index: 20;
 `;
 
@@ -145,6 +146,7 @@ const CardStyle = styled.div`
   height: 99%;
   width: 70%;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 const Image = styled.div`

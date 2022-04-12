@@ -118,7 +118,7 @@ class OutfitList extends React.Component {
   render() {
     return (
       <DivContainer>
-        <h3>Your Outfit</h3>
+        <h3>YOUR OUTFIT</h3>
         <Carousel products={this.state.outfits} handleDefaultClick={this.handleDefaultClick} use={this.state.use} handleOutfitClick={this.handleOutfitClick}
           handleCardClick={this.props.handleCardClick} />
       </DivContainer>
