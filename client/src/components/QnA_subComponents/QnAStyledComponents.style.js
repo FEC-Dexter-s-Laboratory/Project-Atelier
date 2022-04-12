@@ -43,7 +43,7 @@ const Innerquestiondiv = styled.div`
   margin-top: 20px;
 `;
 
-//Answerlist styled components
+//IndiviualAnswer styled components
 const Answerdiv = styled.div`
   margin-bottom: 10px;
 `;

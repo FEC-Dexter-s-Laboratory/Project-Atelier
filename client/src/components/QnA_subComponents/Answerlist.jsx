@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import moment from 'moment';
-import { Linkbutton, Answerdiv } from './QnAStyledComponents.style.js';
+import IndividualAnswer from './IndividualAnswer.jsx';
 
 class Answerlist extends React.Component {
   constructor(props) {
@@ -11,9 +10,7 @@ class Answerlist extends React.Component {
       answerCount: 2,
     };
     this.sortAnswers = this.sortAnswers.bind(this);
-    this.handleAreport = this.handleAreport.bind(this);
     this.handleAClick = this.handleAClick.bind(this);
-    this.handleAhelp = this.handleAhelp.bind(this);
   }
 
   componentDidMount() {
@@ -45,37 +42,6 @@ class Answerlist extends React.Component {
     this.setState({answerCount: this.state.answerCount += 2});
   }
 
-  handleAreport (aid) {
-    axios.put('/qa/answers/:answer_id/report',
-      null,
-      {
-        params: {
-          answer_id	: aid
-        }
-      }
-    )
-      .then(() => {
-        console.log('success');
-      });
-  }
-
-  handleAhelp (aid) {
-    axios.put('/qa/answers/:answer_id/helpful',
-      null,
-      {
-        params: {
-          answer_id: aid
-        }
-      }
-    )
-      .then(() => {
-        let helpObj = {};
-        helpObj[aid] = this.state[aid] += 1;
-        console.log(helpObj);
-        this.setState( helpObj );
-      });
-  }
-
   //sorting
   sortAnswers (ans) {
     let sortedAns = ans.sort((a, b) => {
@@ -90,15 +56,9 @@ class Answerlist extends React.Component {
 
   render() {
     return (
-      <div key={`a${this.props.id}`}>
+      <div key={`ab${this.props.id}`}>
         {this.sortAnswers(this.state.answersData).map((obj) => (
-          <Answerdiv key={obj.answer_id}>
-            A: {obj.body} <br />
-            by {obj.answerer_name},
-            {moment(obj.date).format('LL')}
-            | Helpful?<Linkbutton onClick={() => { this.handleAhelp(obj.answer_id); }}>Yes</Linkbutton> ({obj.helpfulness})
-            | <Linkbutton onClick={()=> { this.handleAreport(obj.answer_id); }}>Report</Linkbutton>
-          </Answerdiv>
+          <IndividualAnswer id={obj.answer_id} body={obj.body} name={obj.answerer_name} date={obj.date} help={obj.helpfulness}/>
         ))
         }{
           this.state.answersData.length > this.state.answerCount

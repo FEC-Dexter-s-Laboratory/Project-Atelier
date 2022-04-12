@@ -1,34 +1,28 @@
 import React from 'react';
 import axios from 'axios';
 import { Listcontainer, Linkbutton, Orderlist, Questionlist, Questiondiv, Innerquestiondiv} from './QnAStyledComponents.style.js';
+import IndividualQuestion from './IndividualQuestion.jsx';
 import Answerlist from './Answerlist.jsx';
 import QuestionModal from './QuestionModal.jsx';
 import AnswerModal from './AnswerModal.jsx';
 
-class IndividualQuestion extends React.Component {
+class QuestionList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       questionCount: 2,
       questions: [],
-      qhelpful: {},
       Qmodalactive: false,
       Amodalactive: false,
-      answerid: '',
     };
     this.sortQuestions = this.sortQuestions.bind(this);
     this.handleQClick = this.handleQClick.bind(this);
-    this.handleQhelp = this.handleQhelp.bind(this);
+    this.handleQModalClick = this.handleQModalClick.bind(this);
   }
 
   componentDidMount() {
     this.setState({
       questions: this.props.data.results,
-    });
-    this.props.data.results.map((obj) => {
-      let helpfulness = {};
-      helpfulness[obj.question_id] = obj.question_helpfulness;
-      this.setState(helpfulness);
     });
   }
 
@@ -51,26 +45,14 @@ class IndividualQuestion extends React.Component {
     }
   }
 
-  //event handlers
   handleQClick (e) {
     e.preventDefault();
     this.setState({questionCount: this.state.questionCount += 2});
   }
 
-  handleQhelp (qid) {
-    axios.put('/qa/questions/:question_id/helpful',
-      null,
-      {
-        params: {
-          question_id: qid
-        }
-      }
-    )
-      .then(() => {
-        let helpObj = {};
-        helpObj[qid] = this.state[qid] += 1;
-        this.setState( helpObj );
-      });
+  handleQModalClick (e) {
+    e.preventDefault();
+    this.setState({Qmodalactive: true});
   }
 
   //sorting
@@ -88,15 +70,11 @@ class IndividualQuestion extends React.Component {
       return (
         <Listcontainer>
           <Orderlist>
-            {this.sortQuestions(this.state.questions).map((qobj, index) =>{
+            {this.sortQuestions(this.state.questions).map((obj, index) =>{
               return (
-                <Questionlist key={qobj.question_id}>
-                  <Questiondiv>Q: {qobj.question_body}
-                    <Innerquestiondiv>Helpful? <Linkbutton onClick={() => { this.handleQhelp(qobj.question_id); }}>Yes</Linkbutton>
-                    ({this.state[qobj.question_id]})
-                    | <Linkbutton onClick={()=> this.setState({Amodalactive: true, answerid: qobj.question_id})}>Add Answer</Linkbutton>
-                    </Innerquestiondiv></Questiondiv>
-                  <Answerlist id={qobj.question_id} />
+                <Questionlist key={obj.question_id}>
+                  <IndividualQuestion body={obj.question_body} id={obj.question_id} help={obj.question_helpfulness} modalF={this.handleQModalClick} />
+                  <Answerlist id={obj.question_id} />
                 </Questionlist>
               );
             })}{
@@ -113,4 +91,4 @@ class IndividualQuestion extends React.Component {
     }
   }
 }
-export default IndividualQuestion;
+export default QuestionList;
