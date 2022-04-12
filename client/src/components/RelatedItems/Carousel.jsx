@@ -5,6 +5,7 @@ import {CaroContainer, CaroWrapper, ContentWrapper, ContentStyle, Arrow, Preview
 
 const Carousel = (props) => {
   const { products } = props;
+  console.log(products)
   const {images} = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const nextButton = () => {
@@ -64,7 +65,7 @@ const Carousel = (props) => {
     <CaroContainer>
       <CaroWrapper>
         {currentIndex > 0 &&
-        <Arrow style={{left: '-20px'}} onClick={backButton}> &lt; </Arrow>
+        <Arrow style={{left: '-1%'}} onClick={backButton}> &lt; </Arrow>
         }
         <ContentWrapper>
           {products.map(product =>
@@ -75,7 +76,7 @@ const Carousel = (props) => {
           )}
         </ContentWrapper>
         {currentIndex < (products.length - 3) &&
-        <Arrow style={{right: '-55px'}} onClick={nextButton}> &gt; </Arrow>
+        <Arrow style={{right: '-5%'}} onClick={nextButton}> &gt; </Arrow>
         }
       </CaroWrapper>
     </CaroContainer>

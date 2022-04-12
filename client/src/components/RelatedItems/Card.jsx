@@ -47,12 +47,12 @@ const Card = (props) => {
       image = <img src={imgSource} alt={product.name} style={{display: 'block', width: '100%'}}/>;
     }
     if (product.sale_price === null) {
-      price = <div>{product.original_price}</div>;
+      price = <div>{'$' + product.original_price}</div>;
     } else {
       price =
       <div>
-        <span style={{textDecoration: 'line-through'}}>{product.original_price}</span>{' '}
-        <span style={{color: 'red'}}><b>{product.sale_price}</b></span>
+        <span style={{textDecoration: 'line-through'}}>{'$' + product.original_price}</span>{' '}
+        <span style={{color: 'red'}}><b>{'$' + product.sale_price}</b></span>
       </div>;
     }
     // conditional rendering of related items or outfit action buttons (modal or X)
