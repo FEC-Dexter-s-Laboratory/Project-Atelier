@@ -89,16 +89,33 @@ class ReviewModal extends React.Component {
       name: '',
       email: '',
       photos: [],
-      characteristics: {}
+      characteristics: {},
     };
 
     this.productId = Number(props.productId);
 
+    this.setPhotos = this.setPhotos.bind(this);
     this.setRating = this.setRating.bind(this);
     this.setRecommend = this.setRecommend.bind(this);
     this.setCharacteristic = this.setCharacteristic.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  setPhotos(e) {
+    console.log(e.target.files);
+    let photos = [...e.target.files]
+    this.setState({
+      testPhoto: photos
+    }, () => {
+      console.log('testPhoto state:', this.state.testPhoto);
+
+      let formData = new FormData();
+      for (let photo of this.state.photos) {
+        formData.append(`${photo.name}`, photo);
+      }
+      console.log(...formData); // console log here
+    })
   }
 
   setRating(rating) {
@@ -149,8 +166,24 @@ class ReviewModal extends React.Component {
       alert('Please select a star rating');
       return;
     }
+    if (this.state.recommend === null) {
+      alert('Please provide your recommendation of this product');
+      return;
+    }
+    if (Object.keys(this.state.characteristics).length !== Object.keys(this.props.meta.characteristics).length) {
+      alert('Please rate all of the product characteristics');
+      return;
+    }
     if (this.state.body.length < 50) {
       alert('Please write a longer review body (min 50 chars)');
+      return;
+    }
+    if (this.state.name.length < 1) {
+      alert('Please provide your nickname');
+      return;
+    }
+    if (this.state.email.length < 1 || !this.state.email.includes('@')) {
+      alert('Please provide a valid email address');
       return;
     }
 
@@ -243,8 +276,8 @@ class ReviewModal extends React.Component {
             <div onChange={this.setRecommend}>
               <strong>Do You Recommend?*</strong>
               &nbsp;&nbsp;
-              <input type="radio" name="recommend" value="true" required/>Yes
-              <input type="radio" name="recommend" value="false" required/>No
+              <input type="radio" name="recommend" value="true" />Yes
+              <input type="radio" name="recommend" value="false" />No
             </div>
             <br/>
             <div>
@@ -259,7 +292,7 @@ class ReviewModal extends React.Component {
                       {[...Array(5)].map((button, index) => {
                         index += 1;
                         return (
-                          <CharRadio type="radio" key={index} id={char.id} value={index} required></CharRadio>
+                          <CharRadio type="radio" key={index} name={char.name} id={char.id} value={index}></CharRadio>
                         );
                       })}
                       <CharLabel>{char.labels[4]}</CharLabel>
@@ -285,7 +318,6 @@ class ReviewModal extends React.Component {
               <strong>Review Body*</strong>
               <br/>
               <textarea
-                required
                 placeholder="Why did you like the product or not?"
                 wrap="soft"
                 cols="60"
@@ -299,14 +331,13 @@ class ReviewModal extends React.Component {
             <br/>
             <div>
               <strong>Upload Your Photos  </strong>
-              <button>upload</button>
+              <input type="file" id="file" name="file" accept=".jpg,.png" onChange={this.setPhotos}/>
             </div>
             <br/>
             <div>
               <strong>Nickname*</strong>
               <br/>
               <input
-                required
                 type="text"
                 size="60"
                 placeholder="Example: jackson11!"
@@ -320,7 +351,6 @@ class ReviewModal extends React.Component {
               <span style={{fontSize: "12px"}}>&nbsp;&nbsp;&#91;authentication purposes only, you will not be emailed&#93;</span>
               <br/>
               <input
-                required
                 type="email"
                 size="60"
                 placeholder="Example: jackson11@email.com"
