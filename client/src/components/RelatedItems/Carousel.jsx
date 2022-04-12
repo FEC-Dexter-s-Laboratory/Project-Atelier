@@ -34,14 +34,14 @@ const Carousel = (props) => {
 
   if (images) {
     if (images[0].thumbnail_url === null) {
-      return <div style={{position: 'fixed', left: '20%', bottom: '80px', background: 'white'}}>No preview images available.</div>;
+      return <div style={{position: 'fixed', left: '20%', bottom: '30%', background: 'white'}}>No preview images available.</div>;
     }
     return (
       <PreviewContainer>
         <CaroWrapper >
           <PreviewContainer>
             {previewIndex > 0 &&
-            <Arrow style={{left: '0', height: '100%', borderRadius: '0px', width: '30px', zIndex: '999'}} onClick={(e) => previewLeft(e)}> &lt; </Arrow>
+            <Arrow style={{left: '0', height: '100%', borderRadius: '12px', width: '30px', zIndex: '999'}} onClick={(e) => previewLeft(e)}> &lt; </Arrow>
             }
             {images.map(image =>
               <PreviewImage key={image.thumbnail_url} style={{transform: `translateX(-${previewIndex * (100)}%)`}}>
@@ -52,7 +52,7 @@ const Carousel = (props) => {
               </PreviewImage>
             )}
             {previewIndex < (images.length - 4) &&
-            <Arrow style={{right: '-5px', height: '100%', borderRadius: '0px', width: '30px', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
+            <Arrow style={{right: '0', height: '100%', width: '30px', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
             }
           </PreviewContainer>
         </CaroWrapper>
@@ -64,7 +64,7 @@ const Carousel = (props) => {
     <CaroContainer>
       <CaroWrapper>
         {currentIndex > 0 &&
-        <Arrow style={{left: '-20px'}} onClick={backButton}> &lt; </Arrow>
+        <Arrow style={{left: '-1%'}} onClick={backButton}> &lt; </Arrow>
         }
         <ContentWrapper>
           {products.map(product =>
@@ -75,7 +75,7 @@ const Carousel = (props) => {
           )}
         </ContentWrapper>
         {currentIndex < (products.length - 3) &&
-        <Arrow style={{right: '-55px'}} onClick={nextButton}> &gt; </Arrow>
+        <Arrow style={{right: '-5%'}} onClick={nextButton}> &gt; </Arrow>
         }
       </CaroWrapper>
     </CaroContainer>
