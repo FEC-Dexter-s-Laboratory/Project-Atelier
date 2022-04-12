@@ -74,7 +74,6 @@ const GridItem = styled.div`
 const CaroContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
   font-family: Comfortaa;
 `;
 
@@ -96,6 +95,7 @@ const ContentStyle = styled.div`
   display: flex;
   transition: all 250ms linear;
   width: 35%;
+  height: 100%;
   flex-shrink: 0;
   flex-grow: 1;
   justify-content: center;

@@ -23,7 +23,9 @@ class RelatedItems extends React.Component {
         // filter for duplicate related item
         let relatedIds = {};
         for (let i = 0; i < data.length; i++) {
-          relatedIds[data[i]] = true;
+          if (data[i].toString() !== this.props.currentId) {
+            relatedIds[data[i]] = true;
+          }
         }
         for (let key in relatedIds) {
           let product = {};
