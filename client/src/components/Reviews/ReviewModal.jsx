@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import StarButtons from '../library/StarButtons.jsx';
+import getHostedURL from '../library/getHostedURL.js';
 
-const ModalPop = styled.form`
+const ModalPop = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -89,16 +90,27 @@ class ReviewModal extends React.Component {
       name: '',
       email: '',
       photos: [],
-      characteristics: {}
+      characteristics: {},
     };
 
-    this.productId = Number(props.productId);
-
+    this.setPhotos = this.setPhotos.bind(this);
     this.setRating = this.setRating.bind(this);
     this.setRecommend = this.setRecommend.bind(this);
     this.setCharacteristic = this.setCharacteristic.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  setPhotos(e) {
+    if (e.target.files.length > 5) {
+      alert('Please select up to 5 photos to upload');
+      e.target.value = '';
+      return;
+    }
+
+    this.setState({
+      photos: [...e.target.files]
+    });
   }
 
   setRating(rating) {
@@ -145,28 +157,56 @@ class ReviewModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
     if (this.state.rating === null) {
       alert('Please select a star rating');
+      return;
+    }
+    if (this.state.recommend === null) {
+      alert('Please provide your recommendation of this product');
+      return;
+    }
+    if (Object.keys(this.state.characteristics).length !== Object.keys(this.props.meta.characteristics).length) {
+      alert('Please rate all of the product characteristics');
       return;
     }
     if (this.state.body.length < 50) {
       alert('Please write a longer review body (min 50 chars)');
       return;
     }
+    if (this.state.name.length < 1) {
+      alert('Please provide your nickname');
+      return;
+    }
+    if (this.state.email.length < 1 || !this.state.email.includes('@')) {
+      alert('Please provide a valid email address');
+      return;
+    }
+
+    this.props.toggleModal();
 
     const newReview = {
-      product_id: this.productId,
+      product_id: Number(this.props.productId),
       rating: this.state.rating,
       summary: this.state.summary,
       body: this.state.body,
       recommend: this.state.recommend,
       name: this.state.name,
       email: this.state.email,
-      photos: this.state.photos,
+      photos: [],
       characteristics: this.state.characteristics
     };
 
-    this.props.submitReview(newReview);
+    let photoURLs = []
+    for (let photo of this.state.photos) {
+      photoURLs.push(getHostedURL(photo));
+    }
+
+    Promise.all(photoURLs)
+      .then((photoURLs) => {
+        newReview.photos = photoURLs;
+        this.props.submitReview(newReview);
+      });
   }
 
   render() {
@@ -217,9 +257,8 @@ class ReviewModal extends React.Component {
       });
     }
 
-    // TODO
+    // TODO:
     // product name from API or App
-    // photos
     // lock background scroll
 
     if (visible) {
@@ -243,8 +282,8 @@ class ReviewModal extends React.Component {
             <div onChange={this.setRecommend}>
               <strong>Do You Recommend?*</strong>
               &nbsp;&nbsp;
-              <input type="radio" name="recommend" value="true" required/>Yes
-              <input type="radio" name="recommend" value="false" required/>No
+              <input type="radio" name="recommend" value="true" />Yes
+              <input type="radio" name="recommend" value="false" />No
             </div>
             <br/>
             <div>
@@ -259,7 +298,7 @@ class ReviewModal extends React.Component {
                       {[...Array(5)].map((button, index) => {
                         index += 1;
                         return (
-                          <CharRadio type="radio" key={index} id={char.id} value={index} required></CharRadio>
+                          <CharRadio type="radio" key={index} name={char.name} id={char.id} value={index}></CharRadio>
                         );
                       })}
                       <CharLabel>{char.labels[4]}</CharLabel>
@@ -285,7 +324,6 @@ class ReviewModal extends React.Component {
               <strong>Review Body*</strong>
               <br/>
               <textarea
-                required
                 placeholder="Why did you like the product or not?"
                 wrap="soft"
                 cols="60"
@@ -299,14 +337,18 @@ class ReviewModal extends React.Component {
             <br/>
             <div>
               <strong>Upload Your Photos  </strong>
-              <button>upload</button>
+              <input
+                multiple
+                type="file"
+                accept=".jpg,.png"
+                onChange={this.setPhotos}
+              />
             </div>
             <br/>
             <div>
               <strong>Nickname*</strong>
               <br/>
               <input
-                required
                 type="text"
                 size="60"
                 placeholder="Example: jackson11!"
@@ -320,7 +362,6 @@ class ReviewModal extends React.Component {
               <span style={{fontSize: "12px"}}>&nbsp;&nbsp;&#91;authentication purposes only, you will not be emailed&#93;</span>
               <br/>
               <input
-                required
                 type="email"
                 size="60"
                 placeholder="Example: jackson11@email.com"

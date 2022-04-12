@@ -8,9 +8,7 @@ import ReviewSort from './ReviewSort.jsx';
 import ReviewList from './ReviewList.jsx';
 import ReviewNav from './ReviewNav.jsx';
 import ReviewModal from './ReviewModal.jsx';
-
 import StarDisplay from '../library/StarDisplay.jsx';
-import { fullFeatureReview } from './reviewSampleData.js';
 
 const ReviewsContainer = styled.div`
   display: grid;
@@ -92,7 +90,8 @@ class Reviews extends React.Component {
         this.setState({
           productId: this.props.currentId,
           meta: data,
-          count: count
+          count: count,
+          sort: 'relevant'
         });
       })
       .catch(err => console.log(err));
@@ -127,7 +126,6 @@ class Reviews extends React.Component {
 
     if (this.state.currentFilters.length === 0) {
       return reviews.slice(0, this.state.reviewsToDisplay);
-      // return reviews.slice(0, this.state.reviewsToDisplay).concat(fullFeatureReview); // test review
     }
 
     for (let review of reviews) {
@@ -136,7 +134,6 @@ class Reviews extends React.Component {
       }
     }
     return filtered.slice(0, this.state.reviewsToDisplay);
-    // return filtered.slice(0, this.state.reviewsToDisplay).concat(fullFeatureReview); // test review
   }
 
   displayMoreReviews() {
@@ -147,7 +144,6 @@ class Reviews extends React.Component {
   }
 
   submitReview(review) {
-    this.toggleModal();
     axios.post('/reviews', review)
       .then(() => (this.fetchMeta()))
       .then(() => (this.fetchReviews()))
@@ -188,6 +184,7 @@ class Reviews extends React.Component {
     if (this.state.reviews.length === 0) {
       return (
         <ReviewsContainer className="reviews-module" id="reviews-module">
+          <h4>RATINGS &amp; REVIEWS</h4>
           <ReviewNav
             remainingReviews={false}
             toggleModal={this.toggleModal}
@@ -196,7 +193,8 @@ class Reviews extends React.Component {
             productId={this.state.productId}
             meta={this.state.meta}
             visible={this.state.addReviewModal}
-            toggleModal={this.toggleModal} />
+            toggleModal={this.toggleModal}
+            submitReview={this.submitReview} />
         </ReviewsContainer>
       );
     }
@@ -212,7 +210,7 @@ class Reviews extends React.Component {
           <Filters
             toggleReviewFilters={this.toggleReviewFilters}
             ratings={this.state.meta.ratings}
-            currentFilters={this.state.currentFilters} // go fix this, removed filtersFlag and need to implement filter list
+            currentFilters={this.state.currentFilters}
           />
           <Characteristics
             chars={this.state.meta.characteristics}

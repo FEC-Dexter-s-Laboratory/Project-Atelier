@@ -46,7 +46,7 @@ const Response = styled.div`
 `;
 
 const Photos = styled.div`
-  margin-bottom: 5px;
+  margin: 10px 0;
 `;
 
 const Thumbnail = styled.img`
@@ -85,7 +85,7 @@ class ReviewListEntry extends React.Component {
     this.state = {
       isBodyTruncated: true,
       photoModal: false,
-      photo: null,
+      photo: {},
       helpfulness: this.props.review.helpfulness,
       reported: false
     };
@@ -129,7 +129,7 @@ class ReviewListEntry extends React.Component {
   // verified check, next to reviewer_name?
 
   render () {
-    let { review } = this.props;
+    const { review } = this.props;
 
     const reviewBody = this.state.isBodyTruncated
       ? review.body.substring(0, 250)
@@ -145,7 +145,7 @@ class ReviewListEntry extends React.Component {
           return (
             <Thumbnail
               key={index}
-              src={photo}
+              src={photo.url}
               onClick={() => this.toggleModal(photo)}
             >
             </Thumbnail>
