@@ -66,7 +66,7 @@ class QandA extends React.Component {
     } else {
       return (
         <QnAContainer>
-          <QnAHeader>QUESTIONS & ANSWERS</QnAHeader>
+          <QnAHeader>QUESTIONS &amp; ANSWERS</QnAHeader>
           <SearchInput type="search" onChange={this.handleChange.bind(this)} placeholder="Have a question? Search for answers…" />
           <QuestionList data={this.state.questionData} search={this.state.searchKey} productid={this.props.currentId} />
         </QnAContainer>
