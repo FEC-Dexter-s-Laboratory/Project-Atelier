@@ -13,7 +13,6 @@ class QandA extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.children);
     axios.get('/qa/questions', {
       params: {
         product_id: this.props.currentId,
