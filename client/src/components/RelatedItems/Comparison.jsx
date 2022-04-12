@@ -1,29 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import {Table, Grid, GridHeader, GridItem} from './Related&OutfitStyles.js';
 
-const Table = styled.div`
-  width: 100%;
-  margin: auto;
-  text-align: center;
-  font-family: Comfortaa;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-`;
-
-const GridHeader = styled.div`
-  text-align: center;
-  display: grid;
-  font-weight: bold;
-`;
-
-const GridItem = styled.div`
-  text-align: center;
-  border: 1px solid black;
-`;
 
 class Comparison extends React.Component {
   constructor(props) {

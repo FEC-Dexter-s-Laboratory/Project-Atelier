@@ -1,42 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Modal from './Modal.jsx';
 import StarDisplay from '../library/StarDisplay.jsx';
 import Carousel from './Carousel.jsx';
+import {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign} from './Related&OutfitStyles.js';
 
-const CardStyle = styled.div`
-  padding: 8;
-  border: 1px solid black;
-`;
-const Image = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 200px;
-`;
-
-const CompareStar = styled.img`
-  position: relative;
-  top: 0;
-  right: 0;
-`;
-
-const RemoveButton = styled.button`
-  font-weight: bold;
-  border: none;
-  background-color: white;
-`;
-
-const ButtonAlign = styled.div`
-  text-align: right;
-`;
-
-const RelatedCard = (props) => {
+const Card = (props) => {
   let {product} = props;
+  let imgSource;
 
   const [isOpen, setIsOpen] = useState(false);
   const [mouseOn, setMouseOn] = useState(false);
+  const [currentImage, setCurrentImage] = useState('');
 
   // create star rating
   let ratings = product.ratings;
@@ -57,12 +32,19 @@ const RelatedCard = (props) => {
       </CardStyle>
     );
   } else {
+    // onClick handler for preview pictures
     let image;
+    if (currentImage === '') {
+      imgSource = product.photos[0].thumbnail_url;
+    } else {
+      imgSource = currentImage;
+    }
     let price;
     if (product.photos[0].thumbnail_url === null) {
-      image = <img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
+      image = <img style={{display: 'block', width: '100%', position: 'relative', left: '2%'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
     } else {
-      image = <img src={product.photos[0].thumbnail_url} width="200"/>;
+      // need to change this to change src if preview picture is clicked - need to send the url back to here
+      image = <img src={imgSource} alt={product.name} style={{display: 'block', width: '100%'}}/>;
     }
     if (product.sale_price === null) {
       price = <div>{product.original_price}</div>;
@@ -98,11 +80,11 @@ const RelatedCard = (props) => {
           <Image onMouseEnter={() => setMouseOn(true)} >
             {image}
           </Image>
-          {/* {mouseOn && (
-            <div style={{position: 'fixed', bottom: '20%', left: '-10%', width: '100%'}}>
-              <Carousel images={product.photos}/>
-            </div>
-          )} */}
+          {mouseOn && (
+            <Preview >
+              <Carousel setCurrentImage={setCurrentImage} images={product.photos}/>
+            </Preview>
+          )}
           <div>{product.category}</div>
           <b>{product.name}</b>
           {price}
@@ -113,4 +95,4 @@ const RelatedCard = (props) => {
   }
 };
 
-export default RelatedCard;
+export default Card;
