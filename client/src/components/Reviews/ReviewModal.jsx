@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import StarButtons from '../library/StarButtons.jsx';
+import getHostedURL from '../library/getHostedURL.js';
 
-const ModalPop = styled.form`
+const ModalPop = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -92,8 +93,6 @@ class ReviewModal extends React.Component {
       characteristics: {},
     };
 
-    this.productId = Number(props.productId);
-
     this.setPhotos = this.setPhotos.bind(this);
     this.setRating = this.setRating.bind(this);
     this.setRecommend = this.setRecommend.bind(this);
@@ -103,19 +102,15 @@ class ReviewModal extends React.Component {
   }
 
   setPhotos(e) {
-    console.log(e.target.files);
-    let photos = [...e.target.files]
-    this.setState({
-      testPhoto: photos
-    }, () => {
-      console.log('testPhoto state:', this.state.testPhoto);
+    if (e.target.files.length > 5) {
+      alert('Please select up to 5 photos to upload');
+      e.target.value = '';
+      return;
+    }
 
-      let formData = new FormData();
-      for (let photo of this.state.photos) {
-        formData.append(`${photo.name}`, photo);
-      }
-      console.log(...formData); // console log here
-    })
+    this.setState({
+      photos: [...e.target.files]
+    });
   }
 
   setRating(rating) {
@@ -162,6 +157,7 @@ class ReviewModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
     if (this.state.rating === null) {
       alert('Please select a star rating');
       return;
@@ -187,19 +183,30 @@ class ReviewModal extends React.Component {
       return;
     }
 
+    this.props.toggleModal();
+
     const newReview = {
-      product_id: this.productId,
+      product_id: Number(this.props.productId),
       rating: this.state.rating,
       summary: this.state.summary,
       body: this.state.body,
       recommend: this.state.recommend,
       name: this.state.name,
       email: this.state.email,
-      photos: this.state.photos,
+      photos: [],
       characteristics: this.state.characteristics
     };
 
-    this.props.submitReview(newReview);
+    let photoURLs = []
+    for (let photo of this.state.photos) {
+      photoURLs.push(getHostedURL(photo));
+    }
+
+    Promise.all(photoURLs)
+      .then((photoURLs) => {
+        newReview.photos = photoURLs;
+        this.props.submitReview(newReview);
+      });
   }
 
   render() {
@@ -250,9 +257,8 @@ class ReviewModal extends React.Component {
       });
     }
 
-    // TODO
+    // TODO:
     // product name from API or App
-    // photos
     // lock background scroll
 
     if (visible) {
@@ -331,7 +337,12 @@ class ReviewModal extends React.Component {
             <br/>
             <div>
               <strong>Upload Your Photos  </strong>
-              <input type="file" id="file" name="file" accept=".jpg,.png" onChange={this.setPhotos}/>
+              <input
+                multiple
+                type="file"
+                accept=".jpg,.png"
+                onChange={this.setPhotos}
+              />
             </div>
             <br/>
             <div>

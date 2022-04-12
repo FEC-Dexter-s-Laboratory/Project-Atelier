@@ -55,7 +55,7 @@ const PhotoModal = function({ photo, visible, toggleModal }) {
         <ModalOverlay />
         <ModalPop role="dialog" aria-modal="true">
           <Close onClick={() => toggleModal()}>&times;</Close>
-          <Image src={photo}></Image>
+          <Image src={photo.url}></Image>
         </ModalPop>
       </div>
       , document.body
