@@ -112,9 +112,12 @@ const Arrow = styled.button`
   width: 30px;
   height: 75px;
   background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 12px;
+  border: 1px solid #353935;
+  border-radius: 30px;
   z-index: 20;
+  box-shadow: 1px 1px 5px #5d5d5d;
+  transition: 0.2s;
+  cursor: pointer;
 `;
 
 const PreviewContainer = styled.div`
