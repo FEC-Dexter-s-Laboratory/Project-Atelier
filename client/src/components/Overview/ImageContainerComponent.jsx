@@ -20,6 +20,7 @@ const ExpandIcon = styled.img`
   top: 2%;
   right: 18%;
   cursor: pointer;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const MainImage = styled.img`
@@ -47,6 +48,20 @@ const ThumbDiv = styled.div`
   margin-left: 1%;
 `;
 
+const Thumbnails = styled.img`
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  z-index: 12;
+  float: right;
+  transition: .2s;
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
+  &:hover {
+    transform: scale(1.20);
+  }
+`;
+
 const ThumbUpArrow = styled.button`
   font-size: 2rem;
   color: black;
@@ -59,6 +74,7 @@ const ThumbUpArrow = styled.button`
   left: 5%;
   display: none;
   cursor: pointer;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const ThumbDownArrow = styled.button`
@@ -73,6 +89,7 @@ const ThumbDownArrow = styled.button`
   left: 5%;
   display: block;
   cursor: pointer;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const ImageContainerComponent = (props) => {
@@ -197,8 +214,8 @@ const ImageContainerComponent = (props) => {
               }
               return (
                 <div key={index} style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}} id={`${style.id}thumbDiv`}>
-                  <img
-                    style={{height: '100px', width: '100px', position: 'absolute', zIndex: '12', border: '1px solid black', float: 'right', border: index === 0 ? '4px solid white' : null, transition: '.2s', cursor: 'pointer'}}
+                  <Thumbnails
+                    style={{border: index === 0 ? '4px solid white' : null}}
                     src={!style.srcThumb ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : style.srcThumb}
                     alt="Thumb"
                     className={style.id}

@@ -88,6 +88,7 @@ const FeatureList = styled.ul`
 const Overview = (props) => {
   // State variables and functions
   // * this is subject to change still, I will clean up my state and try useReducer *
+  const { setStyle } = props;
   const [isClicked, setIsClicked] = useState(false);
   const [productId, setProductId] = useState(0);
   const [category, setCategory] = useState('Category');
@@ -160,6 +161,7 @@ const Overview = (props) => {
     if (e.target) {
       e = Number(e.target.classList[0]);
     }
+    setStyle(e);
     for (let j = 0; j < likedStyles.length; j++) {
       if (likedStyles[j].styleId === e) {
         setCurrentLikedStyle(likedStyles[j].liked);

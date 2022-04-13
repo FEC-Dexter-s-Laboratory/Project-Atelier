@@ -38,6 +38,11 @@ const Button = styled.button`
   border: 2px ridge grey;
   border-radius: 12px;
   z-index: 2000;
+  box-shadow: 10px 5px 5px black;
+  transition: .2s;
+  &:hover {
+    transform: scale(1.25);
+  }
 `;
 
 const ExpandedImageDiv = styled.div`
@@ -94,17 +99,6 @@ const ExpandedView = (props) => {
   if (!open) {
     return null;
   }
-
-  const enterButton = (e) => {
-    e.target.style.transition = '.2s';
-    e.target.style.transform = 'scale(1.25)';
-    e.target.style.zIndex = '20';
-  };
-
-  const leaveButton = (e) => {
-    e.target.style.transition = '.2s';
-    e.target.style.transform = 'scale(1.00)';
-  };
 
   const toggleZoom = (e) => {
     if (!isZoomed) {
@@ -166,8 +160,8 @@ const ExpandedView = (props) => {
     <Overlay>
       <ModalStyle>
         <Button onClick={() => {
-          props.onClose();
-        }} onMouseEnter={enterButton} onMouseLeave={leaveButton}>
+          onClose();
+        }}>
           X
         </Button>
         <ExpandedImage src={!mainImage ? 'url(https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg)' : mainImage}
