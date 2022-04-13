@@ -23,7 +23,9 @@ class RelatedItems extends React.Component {
         // filter for duplicate related item
         let relatedIds = {};
         for (let i = 0; i < data.length; i++) {
-          relatedIds[data[i]] = true;
+          if (data[i].toString() !== this.props.currentId) {
+            relatedIds[data[i]] = true;
+          }
         }
         for (let key in relatedIds) {
           let product = {};
@@ -97,7 +99,7 @@ class RelatedItems extends React.Component {
   render() {
     return (
       <DivContainer>
-        <h3>Related Items</h3>
+        <h3>RELATED ITEMS</h3>
         <Carousel products={this.state.relatedList} use={this.state.use} handleCardClick={this.props.handleCardClick} mainId={this.props.currentId}/>
       </DivContainer>
     );

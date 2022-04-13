@@ -145,6 +145,7 @@ const Overview = (props) => {
 
   // for all main image rendering, including when switching between images
   const displayImage = (e) => {
+    console.log('styleResults ', styleResults);
     let newImage = '';
     styleResults.forEach(style => {
       if (style.style_id === e) {
@@ -357,12 +358,13 @@ const Overview = (props) => {
   };
 
   // axios call for getting style data on selected product
-  const getStyles = (id, p, likes) => {
+  const getStyles = (id, p, likes, cart) => {
     axios({
       url: `/products/${id}/styles`,
       method: 'GET',
     })
       .then(({ data }) => {
+        //handle cart
         if (cart) {
           if (cart.length > 0) {
             cart.forEach(item => {
@@ -378,6 +380,8 @@ const Overview = (props) => {
             idx = i;
           }
         });
+
+        // handle images and style
         setMainImage(data.results[idx].photos[0].url);
         setSelectedStyle({
           styleId: data.results[idx].style_id,
@@ -393,8 +397,41 @@ const Overview = (props) => {
           });
           index += 1;
         });
+
+        // handle likes
         if (likes !== undefined) {
-          setLikedStyles(likes);
+          let isNewProduct = false;
+          for (let i = 0; i < likes.length; i++) {
+            if (data.results[i] === undefined) {
+              break;
+            } else if (likes[i].styleId === data.results[i].style_id) {
+              isNewProduct = true;
+            }
+          }
+          if (!isNewProduct) {
+            console.log('i\'s not da same');
+            data.results.forEach((style, index) => {
+              for (let i = 0; i < likes.length; i++) {
+                if (likes[i].styleId === style.style_id) {
+                  setCurrentLikedStyle(likes[i].liked);
+                  return;
+                }
+              }
+              let like = {
+                liked: false,
+                name: style.name,
+                styleId: style.style_id,
+                productId: data.product_id,
+              };
+              likes.push(like);
+            });
+            window.localStorage.setItem('likes', JSON.stringify(likes));
+            setLikedStyles(likes);
+          } else {
+            console.log('i\'s da same');
+            setCurrentLikedStyle(likes[0].liked);
+            setLikedStyles(likes);
+          }
         } else {
           likes = [];
           data.results.forEach(style => {
@@ -408,9 +445,13 @@ const Overview = (props) => {
           });
           window.localStorage.setItem('likes', JSON.stringify(likes));
           setLikedStyles(likes);
+          setCurrentLikedStyle(likes[0].liked);
         }
+        console.log('likes be like ', likes);
         setStyles(styleArr);
         setStyleResults(data.results);
+
+        // handle price
         setOriginalPrice(data.results[idx].original_price);
         if (data.results[idx].sale_price) {
           setSalePrice(data.results[idx].sale_price);
@@ -433,7 +474,6 @@ const Overview = (props) => {
         }
         const averageRating = sumRatings / countRatings;
         setRating(averageRating);
-        // do something with averageRating here (return || setState || assign to global variable)
       })
       .catch((err) => {
         console.error(err);
@@ -489,12 +529,12 @@ const Overview = (props) => {
     if (likes) {
       if (likes.length > 0) {
         setCurrentLikedStyle(likes[0].liked);
-        getStyles(props.productId, props.qtys, likes);
+        getStyles(props.productId, props.qtys, likes, cart);
       } else {
-        getStyles(props.productId, props.qtys, likes);
+        getStyles(props.productId, props.qtys, likes, cart);
       }
     } else {
-      getStyles(props.productId, props.qtys);
+      getStyles(props.productId, props.qtys, undefined, cart);
     }
   }, [isClicked, props.qtys, props.productId, window.localStorage.getItem('cart')]);
 

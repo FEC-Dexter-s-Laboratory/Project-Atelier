@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Modal from './Modal.jsx';
 import StarDisplay from '../library/StarDisplay.jsx';
 import Carousel from './Carousel.jsx';
-import {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign} from './Related&OutfitStyles.js';
+import {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign, DefaultImg, DefaultCard} from './Related&OutfitStyles.js';
 
 const Card = (props) => {
   let {product} = props;
@@ -26,10 +26,10 @@ const Card = (props) => {
   // conditional rendering of outfit default card
   if (product.id === 'default') {
     return (
-      <CardStyle onClick={props.handleDefaultClick}>
-        <Image><img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg" alt="Plus icon" /></Image>
+      <DefaultCard onClick={props.handleDefaultClick}>
+        <DefaultImg><img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg" alt="Plus icon" /></DefaultImg>
         <b>Add to Outfit</b>
-      </CardStyle>
+      </DefaultCard>
     );
   } else {
     // onClick handler for preview pictures
@@ -41,18 +41,18 @@ const Card = (props) => {
     }
     let price;
     if (product.photos[0].thumbnail_url === null) {
-      image = <img style={{display: 'block', width: '100%', position: 'relative', left: '2%'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
+      image = <img style={{display: 'block', width: '100%', position: 'relative'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
     } else {
       // need to change this to change src if preview picture is clicked - need to send the url back to here
       image = <img src={imgSource} alt={product.name} style={{display: 'block', width: '100%'}}/>;
     }
     if (product.sale_price === null) {
-      price = <div>{product.original_price}</div>;
+      price = <div>{'$' + product.original_price}</div>;
     } else {
       price =
       <div>
-        <span style={{textDecoration: 'line-through'}}>{product.original_price}</span>{' '}
-        <span style={{color: 'red'}}><b>{product.sale_price}</b></span>
+        <span style={{textDecoration: 'line-through'}}>{'$' + product.original_price}</span>{' '}
+        <span style={{color: 'red'}}><b>{'$' + product.sale_price}</b></span>
       </div>;
     }
     // conditional rendering of related items or outfit action buttons (modal or X)
@@ -85,8 +85,8 @@ const Card = (props) => {
               <Carousel setCurrentImage={setCurrentImage} images={product.photos}/>
             </Preview>
           )}
-          <div>{product.category}</div>
-          <b>{product.name}</b>
+          <div style={{xOverflow: 'hidden'}}>{product.category}</div>
+          <b style={{xOverflow: 'hidden'}}>{product.name}</b>
           {price}
           <StarDisplay font={30} rating={averageRating}/>
         </div>
