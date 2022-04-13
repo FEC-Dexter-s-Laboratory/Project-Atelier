@@ -58,8 +58,10 @@ const Submit = styled.button`
   margin-bottom: 10px;
   width: 200px;
   cursor: pointer;
+  box-shadow: 1px 1px 5px #5d5d5d;
+  transition: 0.2s;
   &:hover {
-    color: teal;
+    transform: scale(1.05);
   }
 `;
 
@@ -267,7 +269,7 @@ class ReviewModal extends React.Component {
             <div>
               <strong>Overall Rating*</strong>
               &nbsp;&nbsp;
-              <StarButtons reportRating={this.setRating}/>
+              <StarButtons fontSize="20" reportRating={this.setRating}/>
               <span>{parseRating}</span>
             </div>
             <br/>
