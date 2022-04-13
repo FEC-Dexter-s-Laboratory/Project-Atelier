@@ -69,7 +69,7 @@ const Favorite = styled.button`
   &:hover {
     transform: scale(1.10);
   }
-`;
+h`;
 
 const DropdownDivComponent = (props) => {
   let { checkSkus, chooseQuantity, addToCart, toggleLike, qList, inCart, currentLikedStyle, currentCartItem, quantities, totalQuantities, addToCartDisplay } = props;

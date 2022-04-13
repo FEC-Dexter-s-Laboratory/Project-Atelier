@@ -51,10 +51,14 @@ class IndividualAnswer extends React.Component {
   }
 
   render() {
+    let yesbutton = <Linkbutton onClick={() => { this.handleAhelp(this.props.id); }}>Yes</Linkbutton>;
+    if (this.state.helpful) {
+      yesbutton = <span style={{textDecoration: 'underline'}} >Yes</span>;
+    }
     return (
-      <Answerdiv key={this.props.id}>
+      <Answerdiv>
       A: {this.props.body} <br />
-      by {this.props.name}, {moment(this.props.date).format('LL')} | Helpful?<Linkbutton onClick={() => { this.handleAhelp(this.props.id); }} disabled={this.state.helpful}>Yes</Linkbutton>({this.state.helpCount})
+      by {this.props.name}, {moment(this.props.date).format('LL')} | Helpful? {yesbutton}({this.state.helpCount})
       | {
           this.state.report
             ? <Linkbutton>Reported</Linkbutton>
