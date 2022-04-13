@@ -14,11 +14,13 @@ class QuestionList extends React.Component {
       questions: [],
       Qmodalactive: false,
       Amodalactive: false,
+      selectedQuestion: 0,
     };
     this.sortQuestions = this.sortQuestions.bind(this);
     this.handleQClick = this.handleQClick.bind(this);
     this.handleAModalClick = this.handleAModalClick.bind(this);
     this.handleQModalClick = this.handleQModalClick.bind(this);
+    this.submitAnswer = this.submitAnswer.bind(this);
   }
 
   componentDidMount() {
@@ -56,15 +58,37 @@ class QuestionList extends React.Component {
     this.setState({Qmodalactive: true});
   }
 
-  handleAModalClick (e) {
-    e.preventDefault();
-    this.setState({Amodalactive: true});
+  handleAModalClick (qid) {
+    this.setState({
+      Amodalactive: true,
+      selectedQuestion: qid,
+    });
   }
 
   //sorting
   sortQuestions (questObj) {
     let sortedQuest = questObj.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
     return sortedQuest.slice(0, this.state.questionCount);
+  }
+
+  //axios
+  submitAnswer (answer) {
+    axios.post('/qa/questions/:question_id/answers',
+      answer,
+      {
+        params: {
+          question_id: this.state.selectedQuestion
+        }
+      })
+      .then(() => {
+        this.setState({
+          Amodalactive: false
+        });
+        alert('successfully posted your answer');
+      })
+      .catch(() => {
+        alert('there was a problem with your request');
+      });
   }
 
   render() {
@@ -86,7 +110,7 @@ class QuestionList extends React.Component {
                 );
               })}
               <QuestionModal active={this.state.Qmodalactive} close={() => this.setState({Qmodalactive: false})} id={this.props.productid} />
-              <AnswerModal active={this.state.Amodalactive} close={() => this.setState({Amodalactive: false})} id={this.state.answerid}/>
+              <AnswerModal active={this.state.Amodalactive} close={() => this.setState({Amodalactive: false})} submitAnswer={this.submitAnswer} />
             </Orderlist>
           </Listcontainer>
           {
@@ -94,7 +118,7 @@ class QuestionList extends React.Component {
               ? <NavButton onClick={this.handleQClick}>MORE ANSWERED QUESTIONS</NavButton>
               : <button hidden='hidden' onClick={this.handleQClick}>MORE ANSWERED QUESTIONS</button>
           }
-          <NavButton style={{float: 'right'}} onClick={()=> this.setState({Qmodalactive: true})}>Add Question</NavButton>
+          <NavButton style={{float: 'right'}} onClick={()=> this.setState({Qmodalactive: true})}>ADD QUESTION</NavButton>
         </div>
       );
     }

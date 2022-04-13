@@ -37,14 +37,13 @@ class IndividualQuestion extends React.Component {
   render() {
     let yesbutton = <Linkbutton onClick={() => { this.handleQhelp(this.props.id); }}>Yes</Linkbutton>;
     if (this.state.helpful) {
-      yesbutton = null;
+      yesbutton = <span style={{textDecoration: 'underline'}} >Yes</span>;
     }
-
     return (
       <Questiondiv>Q: {this.props.body}
         <Innerquestiondiv>Helpful? {yesbutton}
           ({this.state.helpCount})
-          | <Linkbutton onClick={this.props.modalF}>Add Answer</Linkbutton>
+          | <Linkbutton onClick={() => this.props.modalF(this.props.id)}>Add Answer</Linkbutton>
         </Innerquestiondiv>
       </Questiondiv>
     );

@@ -10,7 +10,7 @@ class QuestionModal extends React.Component {
       body: '',
       name: '',
       email: '',
-      product_id: '',
+      product_id: null,
     };
     this.handleBChange = this.handleBChange.bind(this);
     this.handleNChange = this.handleNChange.bind(this);
@@ -19,7 +19,13 @@ class QuestionModal extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({product_id: this.props.id});
+    this.setState({product_id: Number(this.props.id)});
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.id !== this.props.id) {
+      this.setState({product_id: Number(this.props.id)});
+    }
   }
 
   handleBChange (e) {
