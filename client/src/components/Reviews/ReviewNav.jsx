@@ -8,11 +8,14 @@ const NavButton = styled.button`
   font-size: 15px;
   background: none;
   border: 1px solid #353935;
+  border-radius: 30px;
   margin-right: 10px;
   padding: 15px;
   cursor: pointer;
+  box-shadow: 1px 1px 5px #5d5d5d;
+  transition: 0.2s;
   &:hover {
-    color: teal;
+    transform: scale(1.05);
   }
 `;
 

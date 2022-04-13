@@ -21,16 +21,20 @@ const SliderContainer = styled.div`
   background-color: #ddd;
   height: 15px;
   border-radius: 10px;
+  box-shadow: 1px 1px 5px black;
+  margin: 10px 0;
 `;
 
 const Slider = styled.span`
   position: absolute;
   text-align: center;
   vertical-align: middle;
-  font-size: 20px;
+  font-size: 25px;
   transform: translateX(-50%);
   transform: translateY(-10%);
   left: ${props => props.value * 100}%;
+  color: #5d5d5d;
+  text-shadow: 1px 1px 1px black;
 `;
 
 const CharLabels = styled.div`
@@ -69,7 +73,7 @@ const Characteristics = function({ chars }) {
       {charsArray.map((char) => {
         return (
           <Characteristic key={char.name}>
-            <strong>{char.name}</strong>
+            <strong style={{marginLeft: '10px'}}>{char.name}</strong>
             <SliderContainer>
               <Slider value={char.value / 5}>&#9660;</Slider>
             </SliderContainer>

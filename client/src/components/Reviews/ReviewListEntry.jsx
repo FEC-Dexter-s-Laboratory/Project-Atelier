@@ -165,6 +165,10 @@ class ReviewListEntry extends React.Component {
       </Response>
       : null;
 
+    const helpfulYes = this.state.helpfulness === this.props.review.helpfulness
+      ? <Button onClick={this.markReviewHelpful}>Yes</Button>
+      : <span style={{textDecoration: 'underline'}}>Yes</span>;
+
     const reportReview = !this.state.reported
       ? <span>
         &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -194,7 +198,7 @@ class ReviewListEntry extends React.Component {
         </Body>
         <Footer>
           Helpful?&nbsp;&nbsp;
-          <Button onClick={this.state.helpfulness === this.props.review.helpfulness ? this.markReviewHelpful : null}>Yes</Button>
+          {helpfulYes}
           <span>&nbsp;&nbsp;&#40;{this.state.helpfulness}&#41;</span>
           {reportReview}
         </Footer>

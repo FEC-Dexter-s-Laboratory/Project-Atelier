@@ -58,6 +58,7 @@ const RatingBar = styled.progress`
   background-color: gray;
   margin: 2%;
   width: 95%;
+  box-shadow: 2px 2px 3px black;
   `;
 
 const Filters = function({ ratings, toggleReviewFilters, currentFilters }) {
