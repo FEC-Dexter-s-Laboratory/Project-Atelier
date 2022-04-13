@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 //IndividualQuestion styled components
 const NavButton = styled.button`
+  border-radius: 30px;
   font-size: 15px;
   background: none;
   border: 1px solid #353935;
@@ -20,6 +21,7 @@ margin-bottom: 15px;
 `;
 
 const Linkbutton = styled.button`
+  border-radius: 30px;
   font-family: Comfortaa;
   transition: .2s;
 	text-align: center;
@@ -84,9 +86,6 @@ const SearchInput = styled.input`
   width: 100%;
   height: 50px;
   font-weight: bold;
-  background-image: url(https://cdn2.hubspot.net/hubfs/4004166/bioticresearch_website_assets/images/search_icon.png);
-  background-repeat: no-repeat;
-  background-position: right center;
   border-radius: 6px;
 `;
 
@@ -110,8 +109,10 @@ const Modalform = styled.form`
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  display: block;
-  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 25px;
   font-family: Comfortaa;
 `;
@@ -122,6 +123,7 @@ const Titlelabel = styled.label`
   font-size: large;
   font-weight: bold;
   margin-top: 20px
+  margin-bottom: 5px;
 `;
 
 const Modaltitle = styled.h1`
@@ -140,6 +142,7 @@ const Disclaimer = styled.label`
 `;
 
 const Modalsubmit = styled.button`
+  border-radius: 30px;
   display: grid;
   margin-top: 40px;
 `;

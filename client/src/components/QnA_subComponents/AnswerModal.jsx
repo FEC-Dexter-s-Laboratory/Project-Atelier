@@ -45,7 +45,8 @@ class AnswerModal extends React.Component {
     this.setState({photos: [ ...e.target.files]});
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     let photoUrls = [];
     for (let photo of this.state.photos) {
       photoUrls.push(getHostedURL(photo));
@@ -60,20 +61,7 @@ class AnswerModal extends React.Component {
           photos: res,
         };
 
-        axios.post('/qa/questions/:question_id/answers',
-          inputData,
-          {
-            params: {
-              question_id: this.props.id,
-            }
-          })
-          .then(() => {
-            this.props.close();
-            alert('successfully posted your answer');
-          })
-          .catch(() => {
-            alert('there was a problem with your request');
-          });
+        this.props.submitAnswer(inputData);
       });
   }
 
@@ -94,8 +82,8 @@ class AnswerModal extends React.Component {
             <Titlelabel>Your email:</Titlelabel><br/>
             <Modalinput type='email' value={this.state.email} onChange={this.handleEChange} placeholder='Example: jack@email.com' required></Modalinput><br/>
             <Disclaimer>For authentication reasons, you will not be emailed</Disclaimer>
-            <label>Upload Photos</label>
-            <input type='file' multiple onChange={this.handlePChange} accept='.jpg,.png'></input>
+            <Titlelabel>Upload Photos</Titlelabel>
+            <Modalinput type='file' multiple onChange={this.handlePChange} accept='.jpg,.png'></Modalinput>
             <Modalsubmit onClick={this.handleSubmit}>Submit</Modalsubmit>
           </Modalform>
         </Modalbackground>,

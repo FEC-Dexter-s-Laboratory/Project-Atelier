@@ -209,7 +209,7 @@ router.get('/qa/questions/:question_id/answers', (req, res) => {
 
 //route to post questions
 router.post('/qa/questions', (req, res) => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/questions',
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/questions',
     req.body,
     {
       headers: {
