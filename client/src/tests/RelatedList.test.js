@@ -51,7 +51,7 @@ const testProd = {
 describe('RelatedList', () => {
   test('renders Related List component', () => {
     render(<RelatedList />);
-    expect(screen.getByRole('heading', {name: 'Related Items'})).toBeTrue;
+    expect(screen.getByRole('heading', {name: /Related Items/i})).toBeTrue;
   });
 });
 
@@ -59,7 +59,7 @@ describe('RelatedList', () => {
 describe('Card', () => {
   test('renders default card for outfit list', () => {
     render(<Card product={{id: 'default'}} />);
-    expect(screen.getByText('Add to Outfit').toBeTrue);
+    expect(screen.getByText(/Add to Outfit/i).toBeTrue);
   });
 
   test('renders image for a product card', () => {
@@ -80,13 +80,19 @@ describe('Card', () => {
 describe('OutfitList', () => {
   test('renders Outfit List component', () => {
     render(<OutfitList />);
-    expect(screen.getByRole('heading', {name: 'Your Outfit'})).toBeTrue;
+    expect(screen.getByRole('heading', {name: /Your Outfit/i})).toBeTrue;
   });
+
+  test('default card is in outfit list at render', () => {
+    render(<OutfitList />);
+    expect(screen.getByText(/Add to outfit/i)).toBeTrue;
+  });
+
 });
 
 // test if outfits display in order added
 
-// test if modal shows
+// test if modal component has a close button
 describe('ComparisonModal', () => {
   // test('modal shows the children and a close button', () => {
   //   // Arrange
@@ -111,8 +117,9 @@ describe('ComparisonModal', () => {
 
 // test if comparison table shows
 describe('Comparison Table', () => {
-  // test('renders comparison table', async() => {
-  //   render(<Comparison mainId={40344} comparedId={40350}/>);
-  //   expect(await screen.getByRole('heading', {name: 'Comparing'})).toExist;
+  // test('renders comparison table', async () => {
+  //   render(<Comparison mainId={65631} comparedId={40350}/>);
+  //   await expect(screen.getByText(/Comparing/i).toBeTrue);
+  // //   expect(await screen.getByRole('heading', {name: 'Comparing'})).toExist;
   // });
 });
