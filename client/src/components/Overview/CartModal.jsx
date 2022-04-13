@@ -8,9 +8,10 @@ const ModalStyle = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #3d3c3c;
+  background-color: #9f9f9f;
   padding: 50px;
   z-index: 1000;
+  opacity: 1;
   width: 35%;
   height: 80%;
   border-radius: 12px;
@@ -22,14 +23,16 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(128,128,128,0.7);
-  z-index: 1000;
+  /* background-color: rgba(128,128,128,0.7); */
+  background-color: #000;
+  opacity: 0.75;
+  z-index: 800;
 `;
 
 const Button = styled.button`
   position: fixed;
-  top: 2%;
-  right: 2%;
+  top: 5%;
+  right: 5%;
   background-color: white;
   font-size: 20px;
   border: 2px ridge grey;
@@ -56,16 +59,18 @@ const CartModal = (props) => {
   };
 
   return ReactDOM.createPortal(
-    <Overlay onClick={() => {
-      props.onClose();
-    }}>
+    <>
+      <Overlay onClick={() => {
+        props.onClose();
+      }}>
+      </Overlay>
       <ModalStyle>
         <Button onClick={() => {
           props.onClose();
         }} onMouseEnter={enterButton} onMouseLeave={leaveButton}>X</Button>
         <CartItems productId={props.productId} />
       </ModalStyle>
-    </Overlay>,
+    </>,
     document.getElementById('cart_portal')
   );
 };
