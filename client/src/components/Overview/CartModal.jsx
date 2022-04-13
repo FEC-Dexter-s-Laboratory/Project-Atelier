@@ -34,6 +34,8 @@ const Button = styled.button`
   font-size: 20px;
   border: 2px ridge grey;
   border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const CartModal = (props) => {
