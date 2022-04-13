@@ -27,8 +27,8 @@ const Card = (props) => {
   if (product.id === 'default') {
     return (
       <CardStyle onClick={props.handleDefaultClick} style={{textAlign: 'center'}}>
-        <Image><img style={{display: 'block', width: '100%', position: 'relative', top: '50%'}} src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg" alt="Plus icon" /></Image>
-        <b style={{position: 'relative', top: '30%'}}>Add to Outfit</b>
+        <Image><img style={{display: 'block', width: '100%'}} src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg" alt="Plus icon" /></Image>
+        <b>Add to Outfit</b>
       </CardStyle>
     );
   } else {

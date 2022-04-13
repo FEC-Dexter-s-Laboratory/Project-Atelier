@@ -98,7 +98,6 @@ const ContentStyle = styled.div`
   transition: all 250ms linear;
   width: 35%;
   height: 100%;
-  min-height: 50vh;
   flex-shrink: 0;
   flex-grow: 0;
   justify-content: center;
@@ -157,6 +156,7 @@ const Image = styled.div`
   align-items: center;
   top: 50%;
   height: 50%;
+  min-height: 40vh;
   width: 100%;
   z-index: 20;
 `;
