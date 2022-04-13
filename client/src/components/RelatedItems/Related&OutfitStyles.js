@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const DivContainer = styled.div`
   margin: auto;
   width: 60%;
+  height: 100%;
   font-family: Comfortaa;
 `;
 
@@ -97,8 +98,9 @@ const ContentStyle = styled.div`
   transition: all 250ms linear;
   width: 35%;
   height: 100%;
+  min-height: 50vh;
   flex-shrink: 0;
-  flex-grow: 1;
+  flex-grow: 0;
   justify-content: center;
   align-items: center;
 `;
@@ -159,21 +161,6 @@ const Image = styled.div`
   z-index: 20;
 `;
 
-const DefaultCard = styled.div`
-padding: 8;
-border: 1px solid black;
-text-align: center;
-`;
-
-const DefaultImg = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 200px;
-  z-index: 20;
-`;
-
 const Preview = styled.div`
   position: absolute;
   bottom: 20%;
@@ -202,6 +189,6 @@ const ButtonAlign = styled.div`
 `;
 
 export {DivContainer, ModalStyle, Overlay, ModalButton};
-export {CaroContainer, CaroWrapper, ContentWrapper, ContentStyle, Arrow, PreviewContainer, PreviewImage, DefaultImg, DefaultCard};
+export {CaroContainer, CaroWrapper, ContentWrapper, ContentStyle, Arrow, PreviewContainer, PreviewImage};
 export {Table, Grid, GridHeader, GridItem};
 export {CardStyle, Image, Preview, CompareStar, RemoveButton, ButtonAlign};
