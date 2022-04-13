@@ -7,6 +7,30 @@ const ChooseStyle = styled.div`
   margin-top: 5%;
 `;
 
+const StyleDivs = styled.div`
+  margin: 4%;
+  position: relative;
+  width: fit-content;
+`;
+
+const StyleImages = styled.img`
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
+`;
+
+const CheckMarks = styled.img`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  z-index: 30;
+  border-radius: 50%;
+`;
+
 const ChooseStyleComponent = (props) => {
   let { styleResults, changeStyle, enterThumb, leaveThumb } = props;
   let styleResultsColCounter = 0;
@@ -35,13 +59,12 @@ const ChooseStyleComponent = (props) => {
               checkStyle = 'none';
             }
             return (
-              <div key={style.style_id} style={{gridColumn: styleResultsColCounter, gridRow: styleResultsRowCounter, margin: '4%', position: 'relative', width: 'fit-content'}} onClick={(event) => changeStyle(style.style_id)} className={style.style_id}>
-                <img className={style.style_id}
+              <StyleDivs key={style.style_id} style={{gridColumn: styleResultsColCounter, gridRow: styleResultsRowCounter}} onClick={(event) => changeStyle(style.style_id)} className={style.style_id}>
+                <StyleImages className={style.style_id}
                   src={!style.photos[0].thumbnail_url ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : style.photos[0].thumbnail_url}
-                  style={{borderRadius: '50%', width: '80px', height: '80px', cursor: 'pointer'}}
                   onMouseEnter={enterThumb} onMouseLeave={leaveThumb} />
-                <img src="https://media.istockphoto.com/vectors/check-vector-id871478670?b=1&k=20&m=871478670&s=170667a&w=0&h=z-dZAr0bn8-IlGirxjJjqJcATVZWsHHr8UgEKxl1gtg=" style={{position: 'absolute', top: '0', right: '0', width: '30px', height: '30px', zIndex: '30', borderRadius: '50%', display: checkStyle}} id={style.style_id} />
-              </div>
+                <CheckMarks src="https://media.istockphoto.com/vectors/check-vector-id871478670?b=1&k=20&m=871478670&s=170667a&w=0&h=z-dZAr0bn8-IlGirxjJjqJcATVZWsHHr8UgEKxl1gtg=" style={{display: checkStyle}} id={style.style_id} />
+              </StyleDivs>
             );
           })
         }

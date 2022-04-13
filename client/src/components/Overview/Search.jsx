@@ -47,6 +47,7 @@ const SearchButton = styled.button`
   transition: .2s;
   margin-left: 2%;
   cursor: pointer;
+  box-shadow: 10px 5px 5px black;
   &:hover {
     transform: scale(1.25);
   }
@@ -60,6 +61,7 @@ const CartButton = styled.button`
   transition: .2s;
   margin-left: 5%;
   cursor: pointer;
+  box-shadow: 10px 5px 5px black;
   &:hover {
     transform: scale(1.25);
   }
