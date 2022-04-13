@@ -44,29 +44,24 @@ const Close = styled.button`
   }
 `;
 
-const Back = styled.button`
-  font-size: 15px;
-  background: none;
-  border: 1px solid #353935;
-  margin-right: 10px;
-  padding: 10px;
-  width: 100px;
-  cursor: pointer;
-  &:hover {
-    color: teal;
-  }
+const Footer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
-const Submit = styled.input`
-  font-size: 15px;
+const Submit = styled.button`
+  font-size: 20px;
   background: none;
   border: 1px solid #353935;
-  margin-right: 10px;
-  padding: 10px;
-  width: 100px;
+  border-radius: 40px;
+  padding: 15px;
+  margin-bottom: 10px;
+  width: 200px;
   cursor: pointer;
+  box-shadow: 1px 1px 5px #5d5d5d;
+  transition: 0.2s;
   &:hover {
-    color: teal;
+    transform: scale(1.05);
   }
 `;
 
@@ -268,14 +263,13 @@ class ReviewModal extends React.Component {
           <ModalPop role="dialog" aria-modal="true">
             <Close onClick={toggleModal}>&times;</Close>
             <div>
-              <h2>Write Your Review</h2>
-              <strong>about the **Product Name**</strong>
+              <h2>Submit A Review</h2>
             </div>
             <br/>
             <div>
               <strong>Overall Rating*</strong>
               &nbsp;&nbsp;
-              <StarButtons reportRating={this.setRating}/>
+              <StarButtons fontSize="20" reportRating={this.setRating}/>
               <span>{parseRating}</span>
             </div>
             <br/>
@@ -315,6 +309,7 @@ class ReviewModal extends React.Component {
                 type="text"
                 size="60"
                 placeholder="Example: Best purchase ever!"
+                style={{borderRadius: "3px"}}
                 value={this.state.summary}
                 onChange={e => this.handleInputChange(e, 'summary')}
               />
@@ -328,7 +323,7 @@ class ReviewModal extends React.Component {
                 wrap="soft"
                 cols="60"
                 rows="10"
-                style={{resize: "none", fontFamily: "Comfortaa"}}
+                style={{resize: "none", fontFamily: "Comfortaa", borderRadius: "5px"}}
                 value={this.state.body}
                 onChange={e => this.handleInputChange(e, 'body')}
               />
@@ -352,6 +347,7 @@ class ReviewModal extends React.Component {
                 type="text"
                 size="60"
                 placeholder="Example: jackson11!"
+                style={{borderRadius: "3px"}}
                 value={this.state.name}
                 onChange={e => this.handleInputChange(e, 'name')}
               />
@@ -365,13 +361,15 @@ class ReviewModal extends React.Component {
                 type="email"
                 size="60"
                 placeholder="Example: jackson11@email.com"
+                style={{borderRadius: "3px"}}
                 value={this.state.email}
                 onChange={e => this.handleInputChange(e, 'email')}
               />
             </div>
             <br/>
-            <Submit type="submit" onClick={this.handleSubmit}/>
-            <Back type="button" onClick={toggleModal}>Back</Back>
+            <Footer>
+              <Submit onClick={this.handleSubmit}>SUBMIT</Submit>
+            </Footer>
           </ModalPop>
         </div>
         , document.body
