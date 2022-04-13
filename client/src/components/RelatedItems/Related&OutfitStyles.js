@@ -19,7 +19,7 @@ const ModalStyle = styled.div`
   z-index: 1000;
   height: 200px;
   overflow-y: auto;
-  border-radius: 5px;
+  border-radius: 12px;
 `;
 
 const Overlay = styled.div`
@@ -34,10 +34,11 @@ const Overlay = styled.div`
 
 const ModalButton = styled.button`
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 3px;
+  right: 3px;
   background-color: white;
-  font-size: 20px;
+  font-size: 18px;
+  border: none;
 `;
 
 // for comparison table
@@ -156,7 +157,7 @@ const Image = styled.div`
   align-items: center;
   top: 50%;
   height: 50%;
-  min-height: 40vh;
+  min-height: 400px;
   width: 100%;
   z-index: 20;
 `;
@@ -164,7 +165,7 @@ const Image = styled.div`
 const Preview = styled.div`
   position: absolute;
   bottom: 20%;
-  width: 400px;
+  width: 30vw;
   z-index: 200;
   display: flex;
   left: 12%;
