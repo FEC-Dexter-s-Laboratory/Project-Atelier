@@ -8,6 +8,7 @@ const NavButton = styled.button`
   font-size: 15px;
   background: none;
   border: 1px solid #353935;
+  border-radius: 30px;
   margin-right: 10px;
   padding: 15px;
   cursor: pointer;
