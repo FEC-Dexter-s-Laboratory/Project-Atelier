@@ -20,27 +20,55 @@ const PleaseSelectSize = styled.h4`
 `;
 
 const SelectSize = styled.select`
+  font-family: 'Comfortaa';
+  border-radius: 12px;
   grid-column: 1;
   grid-row: 2;
   margin: 3%;
+  background-image: linear-gradient(to right, grey, #ebe9e9);
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const SelectQuantity = styled.select`
+  font-family: 'Comfortaa';
+  border-radius: 12px;
   grid-column: 2;
   grid-row: 2;
   margin: 3%;
+  background-image: linear-gradient(to right, grey, #ebe9e9);
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const AddToCart = styled.button`
+  font-family: 'Comfortaa';
+  border-radius: 12px;
   grid-column: 1;
   grid-row: 3;
   margin: 3%;
+  background-image: linear-gradient(to right, grey, #ebe9e9);
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
+  transition: .2s;
+  &:hover {
+    transform: scale(1.10);
+  }
 `;
 
 const Favorite = styled.button`
+  font-family: 'Comfortaa';
+  border-radius: 12px;
   grid-column: 2;
   grid-row: 3;
   margin: 3%;
+  background-image: linear-gradient(to right, grey, #ebe9e9);
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
+  transition: .2s;
+  &:hover {
+    transform: scale(1.10);
+  }
 `;
 
 const DropdownDivComponent = (props) => {

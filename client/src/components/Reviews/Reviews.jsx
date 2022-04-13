@@ -183,7 +183,7 @@ class Reviews extends React.Component {
 
     if (this.state.reviews.length === 0) {
       return (
-        <ReviewsContainer className="reviews-module" id="reviews-module">
+        <ReviewsContainer style={{display: 'block'}} className="reviews-module" id="reviews-module">
           <h3>RATINGS &amp; REVIEWS</h3>
           <ReviewNav
             remainingReviews={false}

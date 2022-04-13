@@ -10,6 +10,7 @@ const CartDiv = styled.div`
   height: 90%;
   width: 90%;
   overflow-y: auto;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const CartTitle = styled.h1`
@@ -31,6 +32,7 @@ const Remove = styled.button`
   &:hover {
     transform: scale(1.25);
   }
+  box-shadow: 10px 5px 5px black;
 `;
 
 const TotalDiv = styled.div`

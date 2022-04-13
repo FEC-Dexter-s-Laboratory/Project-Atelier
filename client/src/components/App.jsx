@@ -10,10 +10,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: '65633',
+      productId: '65631',
       qtys: {},
+      styleId: 404874,
     };
     this.handleCardClick = this.handleCardClick.bind(this);
+    this.setStyle = this.setStyle.bind(this);
   }
 
   handleCardClick(clickedId) {
@@ -37,10 +39,18 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  setStyle(id) {
+    this.setState({
+      productId: this.state.productId,
+      qtys: this.state.qtys,
+      styleId: id,
+    });
+  }
+
   render() {
     return (
       <>
-        <Overview productId={this.state.productId} qtys={this.state.qtys} />
+        <Overview setStyle={this.setStyle} productId={this.state.productId} qtys={this.state.qtys} />
         <RelatedList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
         <OutfitList currentId={this.state.productId} handleCardClick={this.handleCardClick} />
         <QandA currentId={this.state.productId}/>

@@ -17,7 +17,8 @@ const FilledStar = styled.span`
   position: absolute;
   width: ${ props => props.fill * 100 }%;
   overflow: hidden;
-  color: black;
+  color: #5d5d5d;
+  text-shadow: 1px 1px 2px black;
   z-index: 2;
   margin: 0 2px 0 2px;
 `;

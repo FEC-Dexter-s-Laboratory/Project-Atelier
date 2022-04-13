@@ -9,6 +9,7 @@ const ImageContainer = styled.div`
   grid-row: 1;
   width: 60vw;
   height: 100vh;
+  background-image: linear-gradient(to right, grey, #ebe9e9);
 `;
 
 const ExpandIcon = styled.img`
@@ -19,6 +20,7 @@ const ExpandIcon = styled.img`
   top: 2%;
   right: 18%;
   cursor: pointer;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const MainImage = styled.img`
@@ -27,6 +29,7 @@ const MainImage = styled.img`
   width: 50vw;
   height: 100vh;
   cursor: zoom-in;
+  object-fit: contain;
 `;
 
 const ThumbDiv = styled.div`
@@ -45,6 +48,20 @@ const ThumbDiv = styled.div`
   margin-left: 1%;
 `;
 
+const Thumbnails = styled.img`
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  z-index: 12;
+  float: right;
+  transition: .2s;
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
+  &:hover {
+    transform: scale(1.20);
+  }
+`;
+
 const ThumbUpArrow = styled.button`
   font-size: 2rem;
   color: black;
@@ -56,6 +73,8 @@ const ThumbUpArrow = styled.button`
   top: 5%;
   left: 5%;
   display: none;
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const ThumbDownArrow = styled.button`
@@ -69,6 +88,8 @@ const ThumbDownArrow = styled.button`
   bottom: 11%;
   left: 5%;
   display: block;
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const ImageContainerComponent = (props) => {
@@ -136,12 +157,13 @@ const ImageContainerComponent = (props) => {
       displayThumb(2);
     } else if (document.getElementById('4thumb').style.border === '4px solid white') {
       displayThumb(3);
+    } else if (document.getElementById('5thumb').style.border === '4px solid white') {
+      displayThumb(4);
     }
   };
 
   const thumbDown = (e) => {
     // move down through thumbnails
-    console.log('checking the style yo ', document.getElementById('0thumb').style.border);
     if (document.getElementById('0thumb').style.border === '4px solid white') {
       document.getElementById('thumbUpArrow').style.display = 'block';
       displayThumb(1);
@@ -152,6 +174,7 @@ const ImageContainerComponent = (props) => {
     } else if (document.getElementById('3thumb').style.border === '4px solid white') {
       displayThumb(4);
       document.getElementById('0thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('0thumb').style.display = 'none';
       document.getElementById('1thumb').style.transform = 'translateY(-120%)';
       document.getElementById('2thumb').style.transform = 'translateY(-120%)';
       document.getElementById('3thumb').style.transform = 'translateY(-120%)';
@@ -159,7 +182,16 @@ const ImageContainerComponent = (props) => {
       document.getElementById('4thumbDiv').style.display = 'flex';
       document.getElementById('4thumbDiv').style.alignItems = 'center';
     } else if (document.getElementById('4thumb').style.border === '4px solid white') {
-      //
+      displayThumb(5);
+      document.getElementById('0thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('1thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('1thumb').style.display = 'none';
+      document.getElementById('2thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('3thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('4thumb').style.transform = 'translateY(-120%)';
+      document.getElementById('4thumb').style.transform = 'translateY(-50%)';
+      document.getElementById('5thumbDiv').style.display = 'flex';
+      document.getElementById('5thumbDiv').style.alignItems = 'center';
     }
   };
 
@@ -182,8 +214,8 @@ const ImageContainerComponent = (props) => {
               }
               return (
                 <div key={index} style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}} id={`${style.id}thumbDiv`}>
-                  <img
-                    style={{height: '100px', width: '100px', position: 'absolute', zIndex: '12', border: '1px solid black', float: 'right', border: index === 0 ? '4px solid white' : null, transition: '.2s', cursor: 'pointer'}}
+                  <Thumbnails
+                    style={{border: index === 0 ? '4px solid white' : null}}
                     src={!style.srcThumb ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : style.srcThumb}
                     alt="Thumb"
                     className={style.id}

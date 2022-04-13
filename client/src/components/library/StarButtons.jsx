@@ -7,7 +7,8 @@ const Star = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-  color: ${props => props.className === 'on' ? '#000' : '#ccc'}
+  color: ${props => props.className === 'on' ? '#5d5d5d' : '#ccc'};
+  text-shadow: ${props => props.className === 'on' ? '1px 1px 2px black' : 'none'};
 `;
 
 const StarButtons = function({fontSize, reportRating}) {
