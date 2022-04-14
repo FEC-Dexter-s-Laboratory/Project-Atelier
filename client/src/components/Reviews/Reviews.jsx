@@ -91,7 +91,8 @@ class Reviews extends React.Component {
           productId: this.props.currentId,
           meta: data,
           count: count,
-          sort: 'relevant'
+          sort: 'relevant',
+          reviewsToDisplay: 2
         });
       })
       .catch(err => console.log(err));

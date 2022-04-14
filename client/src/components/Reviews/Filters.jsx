@@ -14,7 +14,7 @@ const Filter = styled.span`
   align-items: center;
   cursor: pointer;
   &:hover {
-    color: teal;
+    font-weight: bold;
   }
 `;
 
@@ -48,7 +48,7 @@ padding: 0;
 border: none;
 cursor: pointer;
 &:hover {
-  color: teal;
+  font-weight: bold;
 }
 `;
 
