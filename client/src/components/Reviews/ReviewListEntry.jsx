@@ -46,7 +46,7 @@ const Response = styled.div`
 `;
 
 const Photos = styled.div`
-  margin: 10px 0;
+  margin: 15px 0;
 `;
 
 const Thumbnail = styled.img`
