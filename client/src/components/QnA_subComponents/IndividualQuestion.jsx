@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Linkbutton, Questiondiv, Innerquestiondiv} from './QnAStyledComponents.style.js';
+import {Linkbutton, Questiondiv, Innerquestiondiv, Questionheader} from './QnAStyledComponents.style.js';
 
 class IndividualQuestion extends React.Component {
   constructor(props) {
@@ -8,8 +8,10 @@ class IndividualQuestion extends React.Component {
     this.state = {
       helpCount: 0,
       helpful: false,
+      report: false
     };
     this.handleQhelp = this.handleQhelp.bind(this);
+    this.handleQreport = this.handleQreport.bind(this);
   }
 
   componentDidMount() {
@@ -34,18 +36,38 @@ class IndividualQuestion extends React.Component {
       });
   }
 
+  handleQreport (qid) {
+    axios.put('/qa/questions/:question_id/report',
+      null,
+      {
+        params: {
+          question_id: qid
+        }
+      }
+    )
+      .then(() => {
+        this.setState({report: true});
+      });
+  }
+
   render() {
     let yesbutton = <Linkbutton onClick={() => { this.handleQhelp(this.props.id); }}>Yes</Linkbutton>;
     if (this.state.helpful) {
       yesbutton = <span style={{textDecoration: 'underline'}} >Yes</span>;
     }
     return (
-      <Questiondiv>Q: {this.props.body}
+      <Questionheader>
+        <Questiondiv>Q: {this.props.body} </Questiondiv>
         <Innerquestiondiv>Helpful? {yesbutton}
           ({this.state.helpCount})
           | <Linkbutton onClick={() => this.props.modalF(this.props.id)}>Add Answer</Linkbutton>
+          | {
+            this.state.report
+              ? <Linkbutton>Reported</Linkbutton>
+              : <Linkbutton onClick={() => this.handleQreport(this.props.id)}>Report</Linkbutton>
+          }
         </Innerquestiondiv>
-      </Questiondiv>
+      </Questionheader>
     );
   }
 }

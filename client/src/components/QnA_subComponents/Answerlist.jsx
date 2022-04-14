@@ -57,9 +57,9 @@ class Answerlist extends React.Component {
   render() {
     return (
       <div key={`a${this.props.id}`}>
-        {this.sortAnswers(this.state.answersData).map((obj) => (
-          <IndividualAnswer id={obj.answer_id} body={obj.body} name={obj.answerer_name} date={obj.date} help={obj.helpfulness} key={`1${obj.answer_id}`}/>
-        ))
+        {this.sortAnswers(this.state.answersData).map((obj) => {
+          return <IndividualAnswer photos={obj.photos} id={obj.answer_id} body={obj.body} name={obj.answerer_name} date={obj.date} help={obj.helpfulness} key={`1${obj.answer_id}`}/>
+        })
         }{
           this.state.answersData.length > this.state.answerCount
             ? <button onClick={this.handleAClick}>MORE ANSWERS</button>

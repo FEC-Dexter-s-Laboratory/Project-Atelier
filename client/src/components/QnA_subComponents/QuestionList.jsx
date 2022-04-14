@@ -44,6 +44,7 @@ class QuestionList extends React.Component {
     if (this.props.data !== prevProps.data) {
       this.setState({
         questions: this.props.data.results,
+        questionCount: 2
       });
     }
   }

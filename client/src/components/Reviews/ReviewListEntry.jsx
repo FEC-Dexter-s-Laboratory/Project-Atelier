@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import axios from 'axios';
 import StarDisplay from '../library/StarDisplay.jsx';
-import PhotoModal from './PhotoModal.jsx';
+import PhotoModal from '../library/PhotoModal.jsx';
 
 const EntryContainer = styled.div`
   display: grid;

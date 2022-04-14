@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { Linkbutton, Answerdiv } from './QnAStyledComponents.style.js';
+import { Linkbutton, Answerdiv, Answerphotos, Answerthumbnail, Byline} from './QnAStyledComponents.style.js';
+import PhotoModal from '../library/PhotoModal.jsx';
 
 class IndividualAnswer extends React.Component {
   constructor(props) {
@@ -10,9 +11,12 @@ class IndividualAnswer extends React.Component {
       report: false,
       helpful: false,
       helpCount: 0,
+      photoModal: false,
+      photo: {}
     };
     this.handleAreport = this.handleAreport.bind(this);
     this.handleAhelp = this.handleAhelp.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   componentDidMount() {
@@ -24,7 +28,7 @@ class IndividualAnswer extends React.Component {
       null,
       {
         params: {
-          answer_id	: aid
+          answer_id: aid
         }
       }
     )
@@ -50,22 +54,49 @@ class IndividualAnswer extends React.Component {
       });
   }
 
+  toggleModal (photo) {
+    this.setState({
+      photoModal: !this.state.photoModal,
+      photo: photo
+    });
+  }
+
   render() {
     let yesbutton = <Linkbutton onClick={() => { this.handleAhelp(this.props.id); }}>Yes</Linkbutton>;
     if (this.state.helpful) {
       yesbutton = <span style={{textDecoration: 'underline'}} >Yes</span>;
     }
-    return (
-      <Answerdiv>
-      A: {this.props.body} <br />
-      by {this.props.name}, {moment(this.props.date).format('LL')} | Helpful? {yesbutton}({this.state.helpCount})
-      | {
-          this.state.report
-            ? <Linkbutton>Reported</Linkbutton>
-            : <Linkbutton onClick={()=> { this.handleAreport(this.props.id); }}>Report</Linkbutton>
-        }
 
-      </Answerdiv>
+    const answerPhotos = this.props.photos.length > 0
+      ? <Answerphotos>
+        {this.props.photos.map((photo, index) => {
+          return (
+            <Answerthumbnail
+              key={index}
+              src={photo.url}
+              onClick={() => this.toggleModal(photo)}
+            >
+            </Answerthumbnail>
+          );
+        })}
+      </Answerphotos>
+      : null;
+
+    return (
+      <>
+        <Answerdiv>
+      A: {this.props.body} <br />
+          <Byline> by {this.props.name}, {moment(this.props.date).format('LL')}</Byline><br />
+          {answerPhotos}<br />
+         Helpful? {yesbutton}({this.state.helpCount})
+      | {
+            this.state.report
+              ? <Linkbutton>Reported</Linkbutton>
+              : <Linkbutton onClick={()=> { this.handleAreport(this.props.id); }}>Report</Linkbutton>
+          }
+        </Answerdiv>
+        <PhotoModal visible={this.state.photoModal} toggleModal={this.toggleModal} photo={this.state.photo}/>
+      </>
     );
   }
 }
