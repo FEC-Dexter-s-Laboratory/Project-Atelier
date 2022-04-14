@@ -14,12 +14,16 @@ const ModalStyle = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #9f9f9f;
+  opacity: 1;
   padding: 50px;
   z-index: 1000;
-  height: 200px;
+  height: 30%;
+  width: 40%;
   overflow-y: auto;
   border-radius: 12px;
+  display: flex;
+  justify-content: center;
 `;
 
 const Overlay = styled.div`
@@ -28,8 +32,9 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(128,128,128,0.7);
-  z-index: 1000;
+  background-color: #000;
+  opacity: 0.75;
+  z-index: 600;
 `;
 
 const ModalButton = styled.button`
@@ -47,13 +52,19 @@ const Table = styled.div`
   margin: auto;
   text-align: center;
   font-family: Comfortaa;
-  height: 200px;
+  height: 75%;
   overflow-y: auto;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 0 5%;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  background-color: white;
 `;
 
 const GridHeader = styled.div`
@@ -63,7 +74,7 @@ const GridHeader = styled.div`
   position: sticky;
   top: 0;
   z-index: 20;
-  background: white;
+  background-color: white;
 `;
 
 const GridItem = styled.div`
@@ -78,6 +89,8 @@ const CaroContainer = styled.div`
   height: 100%;
   display: flex;
   font-family: Comfortaa;
+  position: relative;
+  left: -5%;
 `;
 
 const CaroWrapper = styled.div`
@@ -115,7 +128,7 @@ const Arrow = styled.button`
   border: 1px solid #353935;
   border-radius: 30px;
   z-index: 20;
-  box-shadow: 1px 1px 5px #5d5d5d;
+  box-shadow: 10px 5px 5px black;
   transition: 0.2s;
   cursor: pointer;
 `;
@@ -152,6 +165,7 @@ const CardStyle = styled.div`
   width: 70%;
   overflow: hidden;
   cursor: pointer;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const Image = styled.div`

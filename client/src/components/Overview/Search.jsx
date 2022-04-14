@@ -17,6 +17,7 @@ const Logo = styled.h1`
   font-size: 3rem;
   color: white;
   margin-left: 4%;
+  text-shadow: 10px 5px 8px black;
 `;
 
 const SearchDiv = styled.div`
@@ -89,7 +90,7 @@ const Search = (props) => {
 
   return (
     <NavContainer>
-      <Logo><b>Project Atelier</b></Logo>
+      <Logo><b>Blue Steel Brand</b></Logo>
       <SearchDiv>
         <SearchInput onChange={handleInput} type="text" value={searchTerm} placeHolder="search here..." />
         <SearchButton onClick={submitSearch}>Search</SearchButton>
