@@ -23,7 +23,6 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  /* background-color: rgba(128,128,128,0.7); */
   background-color: #000;
   opacity: 0.75;
   z-index: 800;

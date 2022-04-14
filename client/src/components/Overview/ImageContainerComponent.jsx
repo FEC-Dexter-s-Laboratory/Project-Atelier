@@ -9,7 +9,6 @@ const ImageContainer = styled.div`
   grid-row: 1;
   width: 60vw;
   height: 100vh;
-  background-image: linear-gradient(to right, grey, #ebe9e9);
 `;
 
 const ExpandIcon = styled.img`
