@@ -15,7 +15,7 @@ const NavButton = styled.button`
 `;
 
 const Listcontainer = styled.div`
-height: 500px;
+height: 75vh;
 overflow-y: auto;
 margin-bottom: 15px;
 `;

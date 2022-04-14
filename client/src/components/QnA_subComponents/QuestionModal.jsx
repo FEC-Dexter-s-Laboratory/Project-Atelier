@@ -72,7 +72,7 @@ class QuestionModal extends React.Component {
             <Modalinput type='text' value={this.state.name} onChange={this.handleNChange} placeholder='Example: jackson11!' required></Modalinput><br/>
             <Disclaimer>For privacy reasons, do not use your full name or email address</Disclaimer><br/>
             <Titlelabel>Your email:</Titlelabel><br/>
-            <Modalinput type='email' value={this.state.email} onChange={this.handleEChange} placeholder='Why did you like the product or not?' required></Modalinput><br/>
+            <Modalinput type='email' value={this.state.email} onChange={this.handleEChange} placeholder='Example: jack@email.com' required></Modalinput><br/>
             <Disclaimer>For authentication reasons, you will not be emailed</Disclaimer>
             <Modalsubmit onClick={this.handleSubmit}>Submit</Modalsubmit>
           </Modalform>
