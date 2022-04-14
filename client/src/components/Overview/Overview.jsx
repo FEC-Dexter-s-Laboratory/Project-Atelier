@@ -13,7 +13,6 @@ import Search from './Search.jsx';
 // ALL STYLED COMPONENTS
 // Overview container
 const DivContainer = styled.div`
-  background-color: white;
   display: grid;
   margin-bottom: 5%;
 `;

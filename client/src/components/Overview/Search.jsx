@@ -6,7 +6,7 @@ import CartModal from './CartModal.jsx';
 // styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const NavContainer = styled.nav`
   width: 100%;
-  background-image: linear-gradient(to right, grey, #ebe9e9);
+  background-image: linear-gradient(to right, #b0c4de, #e1f7ff);
   display: flex;
   justify-content: space-between;
 `;
