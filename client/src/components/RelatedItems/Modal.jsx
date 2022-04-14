@@ -11,12 +11,13 @@ const Modal = (props) => {
     return null;
   }
   return ReactDOM.createPortal(
-    <Overlay>
+    <>
+      <Overlay />
       <ModalStyle>
         <ModalButton onClick={onClose} >X</ModalButton>
         <Comparison mainId={props.mainId} comparedId={props.comparedId} />
       </ModalStyle>
-    </Overlay>,
+    </>,
     document.getElementById('compare_portal')
   );
 };
