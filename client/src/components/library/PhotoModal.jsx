@@ -7,8 +7,9 @@ const ModalPop = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #f5f5f5;
-  padding: 1em;
+  background-color: #9f9f9f;
+  border-radius: 12px;
+  padding: 50px;
   height: 75%;
   width: auto;
   min-width: 25%;
@@ -31,19 +32,23 @@ const Image = styled.img`
   width: auto;
   justify-self: center;
   object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const Close = styled.button`
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  font-size: 30px;
-  background: none;
-  border: none;
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  font-size: 20px;
+  background-color: white;
+  border: 2px ridge grey;
+  border-radius: 12px;
   cursor: pointer;
-  color: #d3d3d3;
+  box-shadow: 10px 5px 5px black;
+  transition: 0.2s;
   &:hover {
-    color: teal;
+    transform: scale(1.25);
   }
 `;
 
@@ -54,7 +59,7 @@ const PhotoModal = function({ photo, visible, toggleModal }) {
       <div className="review-photo-modal">
         <ModalOverlay />
         <ModalPop role="dialog" aria-modal="true">
-          <Close onClick={() => toggleModal()}>&times;</Close>
+          <Close onClick={() => toggleModal()}>X</Close>
           <Image src={photo.url}></Image>
         </ModalPop>
       </div>
