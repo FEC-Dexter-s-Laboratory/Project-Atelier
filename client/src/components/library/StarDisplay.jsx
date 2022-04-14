@@ -11,13 +11,14 @@ const EmptyStar = styled.span`
   color: #ddd;
   z-index: 1;
   margin: 0 2px 0 2px;
+  text-shadow: 1px 1px 2px black;
 `;
 
 const FilledStar = styled.span`
   position: absolute;
   width: ${ props => props.fill * 100 }%;
   overflow: hidden;
-  color: #5d5d5d;
+  color: #f7cb4f;
   text-shadow: 1px 1px 2px black;
   z-index: 2;
   margin: 0 2px 0 2px;
