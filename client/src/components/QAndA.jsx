@@ -8,14 +8,14 @@ class QandA extends React.Component {
     super(props);
     this.state = {
       searchKey: '',
-      questionData: [],
+      questionData: []
     };
   }
 
   componentDidMount() {
     axios.get('/qa/questions', {
       params: {
-        product_id: this.props.currentId,
+        product_id: Number(this.props.currentId)
       }
     })
       .then((res) => {
@@ -31,7 +31,7 @@ class QandA extends React.Component {
     if (prevProps.currentId !== this.props.currentId) {
       axios.get('/qa/questions', {
         params: {
-          product_id: this.props.currentId,
+          product_id: Number(this.props.currentId)
         }
       })
         .then((res) => {

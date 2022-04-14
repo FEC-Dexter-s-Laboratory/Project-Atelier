@@ -50,23 +50,47 @@ const Questionlist = styled.li`
   min-height: 45%
 `;
 
-const Questiondiv = styled.div`
-  display: flex;
-  justify-content: space-between;
+const Questiondiv = styled.span`
+  width: 70%;
   font-weight: bold;
   font-size: large;
   margin-top: 10px;
   margin-bottom: 10px;
 `;
-const Innerquestiondiv = styled.div`
+const Innerquestiondiv = styled.span`
+  width: 30%
+  text-align: right;
   font-weight: lighter;
   font-size: small;
   margin-top: 20px;
 `;
 
+const Questionheader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 //IndiviualAnswer styled components
 const Answerdiv = styled.div`
   margin-bottom: 10px;
+`;
+
+const Answerphotos = styled.div`
+  margin: 10px 0;
+`;
+
+const Answerthumbnail = styled.img`
+  object-fit: contain;
+  height: 60px;
+  width: auto;
+  margin-right: 5px;
+  cursor: pointer;
+  border: .5px solid gray;
+`;
+
+const Byline = styled.div`
+  color: #565959;
+  margin-top: 10px;
 `;
 
 //QAndA styled components
@@ -158,8 +182,8 @@ const Xmodalbutton = styled.button`
 `;
 
 export {
-  NavButton, Listcontainer, Linkbutton, Orderlist, Questionlist, Questiondiv, Innerquestiondiv,
-  Answerdiv,
+  NavButton, Listcontainer, Linkbutton, Orderlist, Questionlist, Questiondiv, Innerquestiondiv, Questionheader,
+  Answerdiv, Answerphotos, Answerthumbnail, Byline,
   QnAContainer, QnAHeader, SearchInput,
   Modalbackground, Modalform, Titlelabel, Modaltitle, Modalinput, Disclaimer, Modalsubmit, Xmodalbutton
 };

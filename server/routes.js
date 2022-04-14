@@ -182,7 +182,11 @@ router.get('/qa/questions', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/questions', {
     headers: {
       Authorization: process.env.AUTH_TOKEN,
-    }, params: req.query
+    },
+    params: {
+      product_id: req.query.product_id,
+      count: 200
+    }
   })
     .then(({ data }) => {
       res.send(data);
@@ -197,7 +201,10 @@ router.get('/qa/questions/:question_id/answers', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/questions/${req.query.question_id}/answers`, {
     headers: {
       Authorization: process.env.AUTH_TOKEN,
-    }, params: req.query
+    },
+    params: {
+      count: 200
+    }
   })
     .then(({ data }) => {
       res.send(data);
@@ -216,7 +223,7 @@ router.post('/qa/questions', (req, res) => {
         Authorization: process.env.AUTH_TOKEN,
       }
     })
-    .then(() => {
+    .then((resp) => {
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -285,7 +292,7 @@ router.put('/qa/answers/:answer_id/helpful', (req, res) => {
     });
 });
 
-//route to report Question
+//route to report Answer
 router.put('/qa/answers/:answer_id/report', (req, res) => {
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/answers/${req.query.answer_id}/report`,
     null,
@@ -295,6 +302,27 @@ router.put('/qa/answers/:answer_id/report', (req, res) => {
       },
       params: {
         answer_id: req.query.answer_id,
+      }
+    })
+    .then ((resp) => {
+      res.sendStatus(204);
+    })
+    .catch ((err) => {
+      console.log(err);
+      res.sendStatus(400);
+    });
+});
+
+//route to report question
+router.put('/qa/questions/:question_id/report', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/questions/${req.query.question_id}/report`,
+    null,
+    {
+      headers: {
+        Authorization: process.env.AUTH_TOKEN,
+      },
+      params: {
+        question_id: req.query.question_id,
       }
     })
     .then ((resp) => {
