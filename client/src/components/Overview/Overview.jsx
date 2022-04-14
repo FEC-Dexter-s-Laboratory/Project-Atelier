@@ -99,7 +99,7 @@ const Overview = (props) => {
   const [slogan, setSlogan] = useState('Slogan');
   const [description, setDescription] = useState('Description');
   const [features, setFeatures] = useState([]);
-  const [mainImage, setMainImage] = useState('img');
+  const [mainImage, setMainImage] = useState('https://i0.wp.com/obeygiant.com/images/2016/02/Zoolander_Blue-Steel-18X24-01-602x800-1.jpg?fit=602%2C800&ssl=1');
   const [currentThumb, setCurrentThumb] = useState(0);
   const [selectedStyle, setSelectedStyle] = useState('Style 1');
   const [styles, setStyles] = useState([]);
@@ -110,12 +110,12 @@ const Overview = (props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [inCart, setInCart] = useState(false);
   const [skus, setSkus] = useState({});
-  const [xsQuantity, setXsQuantity] = useState(1);
-  const [sQuantity, setSQuantity] = useState(1);
-  const [mQuantity, setMQuantity] = useState(1);
-  const [lQuantity, setLQuantity] = useState(1);
-  const [xlQuantity, setXlQuantity] = useState(1);
-  const [xxlQuantity, setXxlQuantity] = useState(1);
+  // const [xsQuantity, setXsQuantity] = useState(1);
+  // const [sQuantity, setSQuantity] = useState(1);
+  // const [mQuantity, setMQuantity] = useState(1);
+  // const [lQuantity, setLQuantity] = useState(1);
+  // const [xlQuantity, setXlQuantity] = useState(1);
+  // const [xxlQuantity, setXxlQuantity] = useState(1);
   const [quantities, setQuantities] = useState([]);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [selectedSize, setSelectedSize] = useState('Select Size');
@@ -150,6 +150,8 @@ const Overview = (props) => {
     let newImage = '';
     styleResults.forEach(style => {
       if (style.style_id === e) {
+        console.log('one style be like ', style.photos);
+        console.log('currentThumb ', currentThumb);
         newImage = style.photos[currentThumb].url;
       }
     });
@@ -411,7 +413,6 @@ const Overview = (props) => {
             }
           }
           if (!isNewProduct) {
-            console.log('i\'s not da same');
             data.results.forEach((style, index) => {
               for (let i = 0; i < likes.length; i++) {
                 if (likes[i].styleId === style.style_id) {
@@ -430,7 +431,6 @@ const Overview = (props) => {
             window.localStorage.setItem('likes', JSON.stringify(likes));
             setLikedStyles(likes);
           } else {
-            console.log('i\'s da same');
             setCurrentLikedStyle(likes[0].liked);
             setLikedStyles(likes);
           }
@@ -449,7 +449,6 @@ const Overview = (props) => {
           setLikedStyles(likes);
           setCurrentLikedStyle(likes[0].liked);
         }
-        console.log('likes be like ', likes);
         setStyles(styleArr);
         setStyleResults(data.results);
 
