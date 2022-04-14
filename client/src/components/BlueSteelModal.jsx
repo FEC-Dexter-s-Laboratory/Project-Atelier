@@ -14,7 +14,8 @@ const ModalStyle = styled.div`
   width: 35%;
   height: 80%;
   border-radius: 12px;
-  display: grid;
+  display: flex;
+  justify-content: center;
 `;
 
 const Overlay = styled.div`
@@ -47,6 +48,8 @@ const BlueSteel = styled.img`
   grid-row: 2;
   margin-left: 10%;
   box-shadow: 10px 5px 5px black;
+  border: 1px solid black;
+  border-radius: 12px;
 `;
 
 const Title = styled.h1`
@@ -54,7 +57,13 @@ const Title = styled.h1`
   color: #3d3c3c;
   text-align: center;
   grid-row: 1;
-  text-shadow: 10px 5px 8px black;
+`;
+
+const ModalDiv = styled.div`
+  display: grid;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const BlueSteelModal = (props) => {
@@ -84,8 +93,10 @@ const BlueSteelModal = (props) => {
         <Button onClick={() => {
           onClose();
         }} onMouseEnter={enterButton} onMouseLeave={leaveButton}>X</Button>
-        <Title>Welcome to Blue Steel Brand</Title>
-        <BlueSteel src={modalImage} />
+        <ModalDiv>
+          <Title>Welcome to Blue Steel Brand</Title>
+          <BlueSteel src={modalImage} />
+        </ModalDiv>
       </ModalStyle>
     </>,
     document.getElementById('blue_steel_portal')
