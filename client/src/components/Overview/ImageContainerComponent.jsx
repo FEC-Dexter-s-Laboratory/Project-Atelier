@@ -214,8 +214,8 @@ const ImageContainerComponent = (props) => {
               }
               return (
                 <div key={index} style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}} id={`${style.id}thumbDiv`}>
-                  <Thumbnails
-                    style={{border: index === 0 ? '4px solid white' : null}}
+                  <img
+                    style={{border: index === 0 ? '4px solid white' : null, height: '100px', width: '100px', position: 'absolute', zIndex: '12', float: 'right', cursor: 'pointer', boxShadow: '10px 5px 5px black'}}
                     src={!style.srcThumb ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : style.srcThumb}
                     alt="Thumb"
                     className={style.id}
