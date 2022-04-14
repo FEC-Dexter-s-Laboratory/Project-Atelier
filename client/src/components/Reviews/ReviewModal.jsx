@@ -10,13 +10,13 @@ const ModalPop = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 1em;
+  background-color: #9f9f9f;
+  padding: 50px;
   height: 85%;
   width: 50%;
-  overflow-y: auto;
   z-index: 999;
   font-family: Comfortaa;
+  border-radius: 12px;
 `;
 
 const ModalOverlay = styled.div`
@@ -30,17 +30,30 @@ const ModalOverlay = styled.div`
   z-index: 99;
 `;
 
+const AddReview = styled.div`
+  border: 2px ridge grey;
+  border-radius: 12px;
+  padding: 5%;
+  background-color: white;
+  height: 90%;
+  width: 90%;
+  overflow-y: auto;
+  box-shadow: 10px 5px 5px black;
+`;
+
 const Close = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 30px;
-  background: none;
-  border: none;
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  font-size: 20px;
+  background-color: white;
+  border: 2px ridge grey;
+  border-radius: 12px;
   cursor: pointer;
-  color: #d3d3d3;
+  box-shadow: 10px 5px 5px black;
+  transition: 0.2s;
   &:hover {
-    color: teal;
+    transform: scale(1.25);
   }
 `;
 
@@ -261,115 +274,117 @@ class ReviewModal extends React.Component {
         <div className="add-review-modal">
           <ModalOverlay />
           <ModalPop role="dialog" aria-modal="true">
-            <Close onClick={toggleModal}>&times;</Close>
-            <div>
-              <h2>Submit A Review</h2>
-            </div>
-            <br/>
-            <div>
-              <strong>Overall Rating*</strong>
-              &nbsp;&nbsp;
-              <StarButtons fontSize="20" reportRating={this.setRating}/>
-              <span>{parseRating}</span>
-            </div>
-            <br/>
-            <div onChange={this.setRecommend}>
-              <strong>Do You Recommend?*</strong>
-              &nbsp;&nbsp;
-              <input type="radio" name="recommend" value="true" />Yes
-              <input type="radio" name="recommend" value="false" />No
-            </div>
-            <br/>
-            <div>
-              <strong>Characteristics*</strong>
-              <br/><br/>
-              {charsArray.map((char) => {
-                return (
-                  <div onChange={this.setCharacteristic}>
-                    <div>{char.name}</div>
-                    <div>
-                      <CharLabel>{char.labels[0]}</CharLabel>
-                      {[...Array(5)].map((button, index) => {
-                        index += 1;
-                        return (
-                          <CharRadio type="radio" key={index} name={char.name} id={char.id} value={index}></CharRadio>
-                        );
-                      })}
-                      <CharLabel>{char.labels[4]}</CharLabel>
+            <AddReview>
+              <Close onClick={toggleModal}>X</Close>
+              <div>
+                <h2>Submit A Review</h2>
+              </div>
+              <br/>
+              <div>
+                <strong>Overall Rating*</strong>
+                &nbsp;&nbsp;
+                <StarButtons fontSize="20" reportRating={this.setRating}/>
+                <span>{parseRating}</span>
+              </div>
+              <br/>
+              <div onChange={this.setRecommend}>
+                <strong>Do You Recommend?*</strong>
+                &nbsp;&nbsp;
+                <input type="radio" name="recommend" value="true" />Yes
+                <input type="radio" name="recommend" value="false" />No
+              </div>
+              <br/>
+              <div>
+                <strong>Characteristics*</strong>
+                <br/><br/>
+                {charsArray.map((char) => {
+                  return (
+                    <div onChange={this.setCharacteristic}>
+                      <div>{char.name}</div>
+                      <div>
+                        <CharLabel>{char.labels[0]}</CharLabel>
+                        {[...Array(5)].map((button, index) => {
+                          index += 1;
+                          return (
+                            <CharRadio type="radio" key={index} name={char.name} id={char.id} value={index}></CharRadio>
+                          );
+                        })}
+                        <CharLabel>{char.labels[4]}</CharLabel>
+                      </div>
+                      <br/>
                     </div>
-                    <br/>
-                  </div>
-                );
-              })}
-            </div>
-            <div>
-              <strong>Review Summary</strong>
+                  );
+                })}
+              </div>
+              <div>
+                <strong>Review Summary</strong>
+                <br/>
+                <input
+                  type="text"
+                  size="60"
+                  placeholder="Example: Best purchase ever!"
+                  style={{borderRadius: "3px"}}
+                  value={this.state.summary}
+                  onChange={e => this.handleInputChange(e, 'summary')}
+                />
+              </div>
               <br/>
-              <input
-                type="text"
-                size="60"
-                placeholder="Example: Best purchase ever!"
-                style={{borderRadius: "3px"}}
-                value={this.state.summary}
-                onChange={e => this.handleInputChange(e, 'summary')}
-              />
-            </div>
-            <br/>
-            <div>
-              <strong>Review Body*</strong>
+              <div>
+                <strong>Review Body*</strong>
+                <br/>
+                <textarea
+                  placeholder="Why did you like the product or not?"
+                  wrap="soft"
+                  cols="60"
+                  rows="10"
+                  style={{resize: "none", fontFamily: "Comfortaa", borderRadius: "5px"}}
+                  value={this.state.body}
+                  onChange={e => this.handleInputChange(e, 'body')}
+                />
+                <br/>{bodyCounter}
+              </div>
               <br/>
-              <textarea
-                placeholder="Why did you like the product or not?"
-                wrap="soft"
-                cols="60"
-                rows="10"
-                style={{resize: "none", fontFamily: "Comfortaa", borderRadius: "5px"}}
-                value={this.state.body}
-                onChange={e => this.handleInputChange(e, 'body')}
-              />
-              <br/>{bodyCounter}
-            </div>
-            <br/>
-            <div>
-              <strong>Upload Your Photos  </strong>
-              <input
-                multiple
-                type="file"
-                accept=".jpg,.png"
-                onChange={this.setPhotos}
-              />
-            </div>
-            <br/>
-            <div>
-              <strong>Nickname*</strong>
+              <div>
+                <strong>Upload Your Photos  </strong>
+                <input
+                  multiple
+                  type="file"
+                  accept=".jpg,.png"
+                  onChange={this.setPhotos}
+                />
+              </div>
               <br/>
-              <input
-                type="text"
-                size="60"
-                placeholder="Example: jackson11!"
-                style={{borderRadius: "3px"}}
-                value={this.state.name}
-                onChange={e => this.handleInputChange(e, 'name')}
-              />
-            </div>
-            <br/>
-            <div>
-              <strong>Email*</strong>
-              <span style={{fontSize: "12px"}}>&nbsp;&nbsp;&#91;authentication purposes only, you will not be emailed&#93;</span>
+              <div>
+                <strong>Nickname*</strong>
+                <br/>
+                <input
+                  type="text"
+                  size="60"
+                  placeholder="Example: jackson11!"
+                  style={{borderRadius: "3px"}}
+                  value={this.state.name}
+                  onChange={e => this.handleInputChange(e, 'name')}
+                />
+              </div>
               <br/>
-              <input
-                type="email"
-                size="60"
-                placeholder="Example: jackson11@email.com"
-                style={{borderRadius: "3px"}}
-                value={this.state.email}
-                onChange={e => this.handleInputChange(e, 'email')}
-              />
-            </div>
-            <br/>
-            <Footer>
-              <Submit onClick={this.handleSubmit}>SUBMIT</Submit>
-            </Footer>
+              <div>
+                <strong>Email*</strong>
+                <span style={{fontSize: "12px"}}>&nbsp;&nbsp;&#91;authentication purposes only, you will not be emailed&#93;</span>
+                <br/>
+                <input
+                  type="email"
+                  size="60"
+                  placeholder="Example: jackson11@email.com"
+                  style={{borderRadius: "3px"}}
+                  value={this.state.email}
+                  onChange={e => this.handleInputChange(e, 'email')}
+                />
+              </div>
+              <br/>
+              <Footer>
+                <Submit onClick={this.handleSubmit}>SUBMIT</Submit>
+              </Footer>
+            </AddReview>
           </ModalPop>
         </div>
         , document.body
