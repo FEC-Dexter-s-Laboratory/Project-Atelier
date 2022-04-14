@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import CartItems from './CartItems.jsx';
 
 const ModalStyle = styled.div`
   position: fixed;
@@ -15,6 +14,7 @@ const ModalStyle = styled.div`
   width: 35%;
   height: 80%;
   border-radius: 12px;
+  display: grid;
 `;
 
 const Overlay = styled.div`
@@ -41,9 +41,25 @@ const Button = styled.button`
   box-shadow: 10px 5px 5px black;
 `;
 
-const CartModal = (props) => {
-  let { open, onClose } = props;
-  if (!open) {
+const BlueSteel = styled.img`
+  height: 90%;
+  width: 80%;
+  grid-row: 2;
+  margin-left: 10%;
+  box-shadow: 10px 5px 5px black;
+`;
+
+const Title = styled.h1`
+  font-family: 'Lobster-Two', cursive;
+  color: #3d3c3c;
+  text-align: center;
+  grid-row: 1;
+  text-shadow: 10px 5px 8px black;
+`;
+
+const BlueSteelModal = (props) => {
+  let { modal, onClose, modalImage } = props;
+  if (!modal) {
     return null;
   }
   // Mouseover animation functions
@@ -61,18 +77,19 @@ const CartModal = (props) => {
   return ReactDOM.createPortal(
     <>
       <Overlay onClick={() => {
-        props.onClose();
+        onClose();
       }}>
       </Overlay>
       <ModalStyle>
         <Button onClick={() => {
-          props.onClose();
+          onClose();
         }} onMouseEnter={enterButton} onMouseLeave={leaveButton}>X</Button>
-        <CartItems productId={props.productId} />
+        <Title>Welcome to Blue Steel Brand</Title>
+        <BlueSteel src={modalImage} />
       </ModalStyle>
     </>,
     document.getElementById('blue_steel_portal')
   );
 };
 
-export default CartModal;
+export default BlueSteelModal;
