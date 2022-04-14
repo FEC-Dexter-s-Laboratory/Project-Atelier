@@ -165,6 +165,7 @@ const CardStyle = styled.div`
   width: 70%;
   overflow: hidden;
   cursor: pointer;
+  background-color: white;
   box-shadow: 10px 5px 5px black;
 `;
 
