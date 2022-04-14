@@ -7,13 +7,13 @@ const ModalStyle = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #3d3c3c;
+  background-color: #9f9f9f;
   padding: 50px;
   z-index: 1000;
-  width: 90%;
+  opacity: 1;
+  width: 80%;
   height: 80%;
   border-radius: 12px;
-  border: 12px ridge white;
   display: flex;
   justify-content: center;
   overflow-y: auto;
@@ -25,8 +25,9 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(128,128,128,0.7);
-  z-index: 1000;
+  background-color: #000;
+  opacity: 0.75;
+  z-index: 800;
 `;
 
 const Button = styled.button`
@@ -48,17 +49,16 @@ const Button = styled.button`
 const ExpandedImageDiv = styled.div`
   position: fixed;
   z-index: 1001;
-  /* overflow-y: auto; */
   width: auto;
   height: auto;
 `;
 
 const ExpandedImage = styled.img`
-  position: absolute;
+  position: relative;
   z-index:14;
   transition: .2s;
   top: 0;
-  object-fit: contain;
+  box-shadow: 10px 5px 5px black;
 `;
 
 const LeftButton = styled.button`
@@ -157,7 +157,9 @@ const ExpandedView = (props) => {
   // }, [props]);
 
   return ReactDOM.createPortal(
-    <Overlay>
+    <>
+      <Overlay>
+      </Overlay>
       <ModalStyle>
         <Button onClick={() => {
           onClose();
@@ -173,7 +175,7 @@ const ExpandedView = (props) => {
           id="getExpandedImageCoords" />
         {/* <LeftButton> ⬅️ </LeftButton> */}
       </ModalStyle>
-    </Overlay>,
+    </>,
     document.getElementById('expanded_view_portal')
   );
 };
