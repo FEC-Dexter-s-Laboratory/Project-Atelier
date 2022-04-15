@@ -7,6 +7,7 @@ const RatingContainer = styled.div`
   display: grid;
   grid-template-columns: 25% 75%;
   grid-template-rows: 70% 30%;
+  color: #393433;
 `;
 
 const Average = styled.div`
@@ -47,7 +48,7 @@ const Rating = function({ ratings, recommended }) {
   return (
     <RatingContainer className="rating-breakdown">
       <Average>{averageRating ? averageRating.toFixed(1) : null}</Average>
-      <StarDisplay fontSize={20} rating={averageRating} />
+      <StarDisplay fontSize="25" rating={averageRating} />
       <Recommended>{(totalRecommended * 100).toFixed(0)}% of reviews recommend this product</Recommended>
     </RatingContainer>
   );

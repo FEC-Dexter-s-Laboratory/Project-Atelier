@@ -25,14 +25,14 @@ const List = styled.span`
 const Reset = styled.button`
   font-family: Comfortaa;
 	text-align: center;
-	color: blue;
+	color: #1151AB;
 	background: none;
 	margin: 0;
 	padding: 0;
 	border: none;
 	cursor: pointer;
   &:hover {
-    color: teal;
+    color: #98a2cc;
   }
 `;
 
@@ -53,12 +53,22 @@ cursor: pointer;
 `;
 
 const RatingBar = styled.progress`
+  appearance: none;
   height: 15px;
+
   grid-column-start: 2;
-  background-color: gray;
   margin: 2%;
   width: 95%;
-  box-shadow: 2px 2px 3px black;
+  ::-webkit-progress-bar {
+    border-radius: 5px;
+    background-color: #ddd;
+    box-shadow: 2px 2px 3px black;
+  }
+  ::-webkit-progress-value {
+    border-radius: 5px;
+    background-color: #1151AB;
+    box-shadow: 1px 1px 2px black;
+  }
   `;
 
 const Filters = function({ ratings, toggleReviewFilters, currentFilters }) {
@@ -87,7 +97,8 @@ const Filters = function({ ratings, toggleReviewFilters, currentFilters }) {
         return (
           <Filter key={`${star}-star-filter`} onClick={() => toggleReviewFilters(star)}>
             <Label>{star} Stars </Label>
-            <RatingBar max="1" value={ ratings[`${star}`] / countReviews || 0 } />
+            <RatingBar max="1" value={ ratings[`${star}`] / countReviews || 0 }>
+            </RatingBar>
             <Label> { ratings[`${star}`] || 0 }</Label>
           </Filter>
         );
