@@ -74,7 +74,7 @@ class AnswerModal extends React.Component {
           <Modalbackground></Modalbackground>
           <Modalborder>
             <Modalform onSubmit={this.handleSubmit}>
-              <Xmodalbutton onClick={this.props.close}>X</Xmodalbutton>
+              <Xmodalbutton onClick={this.props.close} aria-label='Closs the Answer Modal'>X</Xmodalbutton>
               <Modaltitle>Submit your Answer</Modaltitle><br/>
               <Titlelabel>Your Answer:</Titlelabel><br/>
               <Modalinput type='text' value={this.state.body} onChange={this.handleBChange} required></Modalinput><br/>

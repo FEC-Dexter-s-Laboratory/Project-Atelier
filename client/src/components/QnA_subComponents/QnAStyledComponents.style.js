@@ -1,26 +1,43 @@
 import styled from 'styled-components';
 
 //IndividualQuestion styled components
-const NavButton = styled.button`
+const Answernav = styled.button`
 font-family: Comfortaa;
-font-weight: bold;
-font-size: 15px;
-background-color: #bfc5e8;
-border-radius: 30px;
-margin-right: 10px;
-padding: 15px;
-cursor: pointer;
-box-shadow: 1px 1px 5px #5d5d5d;
-transition: 0.3s;
-&:hover {
-  background-color: #98a2cc;
+  font-weight: bolder;
+  font-size: 10px;
+  background-color: #bfc5e8;
+  border-radius: 30px;
+  margin-right: 10px;
+  padding: 5px;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px #5d5d5d;
+  transition: 0.3s;
+  &:hover {
+    background-color: #98a2cc;
+  }
 }
 `;
 
+const NavButton = styled.button`
+  font-family: Comfortaa;
+  font-weight: bold;
+  font-size: 15px;
+  background-color: #bfc5e8;
+  border-radius: 30px;
+  margin-right: 10px;
+  padding: 15px;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px #5d5d5d;
+  transition: 0.3s;
+  &:hover {
+    background-color: #98a2cc;
+  }
+`;
+
 const Listcontainer = styled.div`
-height: 75vh;
-overflow-y: auto;
-margin-bottom: 15px;
+  height: 75vh;
+  overflow-y: auto;
+  margin-bottom: 15px;
 `;
 
 const Linkbutton = styled.button`
@@ -206,7 +223,7 @@ const Xmodalbutton = styled.button`
 `;
 
 export {
-  NavButton, Listcontainer, Linkbutton, Orderlist, Questionlist, Questiondiv, Innerquestiondiv, Questionheader,
+  Answernav, NavButton, Listcontainer, Linkbutton, Orderlist, Questionlist, Questiondiv, Innerquestiondiv, Questionheader,
   Answerdiv, Answerphotos, Answerthumbnail, Byline,
   QnAContainer, QnAHeader, SearchInput,
   Modalbackground, Modalform, Titlelabel, Modaltitle, Modalinput, Disclaimer, Modalsubmit, Xmodalbutton, Modalborder
