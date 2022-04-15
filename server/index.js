@@ -1,8 +1,12 @@
 const express = require('express');
 const path = require('path');
 const router = require('./routes');
+const compression = require('compression');
 
 const app = express();
+
+// compression of files
+app.use(compression());
 
 // serve static files
 app.use(express.static(path.join(__dirname, '../client/dist')));
