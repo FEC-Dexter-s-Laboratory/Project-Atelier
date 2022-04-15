@@ -14,7 +14,7 @@ const ModalStyle = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #9f9f9f;
+  background-color: #b0c4de;
   opacity: 1;
   padding: 50px;
   z-index: 1000;
@@ -123,7 +123,7 @@ const Arrow = styled.button`
   top: 50%;
   width: 3%;
   height: 15%;
-  background-color: white;
+  background-color: #bfc5e8;
   border: 1px solid #353935;
   border-radius: 30px;
   z-index: 20;
@@ -132,10 +132,9 @@ const Arrow = styled.button`
   cursor: pointer;
   &:hover {
     transform: scale(1.25);
+    background-color: #98a2cc;
   }
 `;
-
-// const previewArrows =
 
 const PreviewContainer = styled.div`
   width: 70%;
@@ -145,7 +144,7 @@ const PreviewContainer = styled.div`
   font-family: Comfortaa;
   z-index: 800;
   overflow: hidden;
-  left: 0%;
+  left: 1%;
 `;
 
 const PreviewImage = styled.div`
@@ -197,14 +196,20 @@ const Preview = styled.div`
 const CompareStar = styled.img`
   position: relative;
   top: 0;
-  right: 0;
+  right: 1%;
   height: 20px;
+  &:hover {
+    transform: scale(1.25);
+  }
 `;
 
 const RemoveButton = styled.button`
   font-size: 20px;
   border: none;
-  background-color: white;
+  background-color: transparent;
+  &:hover {
+    transform: scale(1.25);
+  }
 `;
 
 const ButtonAlign = styled.div`
