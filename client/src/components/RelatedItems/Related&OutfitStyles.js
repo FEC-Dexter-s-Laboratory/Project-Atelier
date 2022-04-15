@@ -155,6 +155,7 @@ const PreviewImage = styled.div`
   flex-direction: row;
   padding: 2px;
   width: 17%;
+  height: 80%;
   border: 1px solid grey;
   justify-content: start;
   z-index: 800;
@@ -198,6 +199,7 @@ const CompareStar = styled.img`
   top: 0;
   right: 1%;
   height: 20px;
+  width: 20px;
   &:hover {
     transform: scale(1.25);
   }
