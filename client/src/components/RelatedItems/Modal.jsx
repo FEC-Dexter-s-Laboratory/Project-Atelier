@@ -14,7 +14,7 @@ const Modal = (props) => {
     <>
       <Overlay />
       <ModalStyle>
-        <ModalButton onClick={onClose} >X</ModalButton>
+        <ModalButton aria-label='Comparison close button' onClick={onClose} >X</ModalButton>
         <Comparison mainId={props.mainId} comparedId={props.comparedId} />
       </ModalStyle>
     </>,

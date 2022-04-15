@@ -41,7 +41,7 @@ const Carousel = (props) => {
         <CaroWrapper >
           <PreviewContainer>
             {previewIndex > 0 &&
-            <Arrow style={{left: '0', top: '0', height: '100%', width: '10%', zIndex: '999'}} onClick={(e) => previewLeft(e)}> &lt; </Arrow>
+            <Arrow aria-label='Left scroll button' style={{left: '0', top: '0', height: '100%', width: '10%', zIndex: '999'}} onClick={(e) => previewLeft(e)}> &lt; </Arrow>
             }
             {images.map(image =>
               <PreviewImage key={image.thumbnail_url} style={{transform: `translateX(-${previewIndex * (100)}%)`}}>
@@ -52,7 +52,7 @@ const Carousel = (props) => {
               </PreviewImage>
             )}
             {previewIndex < (images.length - 4) &&
-            <Arrow style={{right: '0', top: '0', height: '100%', width: '10%', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
+            <Arrow aria-label='Right scroll button' style={{right: '0', top: '0', height: '100%', width: '10%', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
             }
           </PreviewContainer>
         </CaroWrapper>
@@ -64,7 +64,7 @@ const Carousel = (props) => {
     <CaroContainer>
       <CaroWrapper>
         {currentIndex > 0 &&
-        <Arrow style={{left: '-1%'}} onClick={backButton}> &lt; </Arrow>
+        <Arrow aria-label='Left scroll button' style={{left: '-1%'}} onClick={backButton}> &lt; </Arrow>
         }
         <ContentWrapper>
           {products.map(product =>
@@ -75,7 +75,7 @@ const Carousel = (props) => {
           )}
         </ContentWrapper>
         {currentIndex < (products.length - 3) &&
-        <Arrow style={{right: '-5%'}} onClick={nextButton}> &gt; </Arrow>
+        <Arrow aria-label='Right scroll button' style={{right: '-5%'}} onClick={nextButton}> &gt; </Arrow>
         }
       </CaroWrapper>
     </CaroContainer>
