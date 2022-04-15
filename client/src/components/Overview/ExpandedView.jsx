@@ -146,7 +146,7 @@ const ExpandedView = (props) => {
       <ModalStyle>
         <Button onClick={() => {
           onClose();
-        }} ariaLabel="Close Expanded Image View">
+        }} aria-label="Close Expanded Image View">
           X
         </Button>
         <ExpandedImage src={!mainImage ? 'url(https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg)' : mainImage}
@@ -154,9 +154,8 @@ const ExpandedView = (props) => {
           onClick={toggleZoom}
           onMouseMove={handleImgMove}
           onMouseEnter={handleImgEnter}
-          onMouseLeave={handleImgLeave}
           id="getExpandedImageCoords"
-          ariaLabel="Zoom In and Zoom Out Main Image" />
+          aria-label="Zoom In and Zoom Out Main Image" />
       </ModalStyle>
     </>,
     document.getElementById('expanded_view_portal')

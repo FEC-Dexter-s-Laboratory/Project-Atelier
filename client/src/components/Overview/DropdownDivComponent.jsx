@@ -32,6 +32,7 @@ const SelectSize = styled.select`
   }
   cursor: pointer;
   box-shadow: 10px 5px 5px black;
+  height: 28px;
 `;
 
 const SelectQuantity = styled.select`
@@ -47,6 +48,7 @@ const SelectQuantity = styled.select`
   }
   cursor: pointer;
   box-shadow: 10px 5px 5px black;
+  height: 28px;
 `;
 
 const AddToCart = styled.button`
@@ -55,7 +57,6 @@ const AddToCart = styled.button`
   grid-column: 1;
   grid-row: 3;
   margin: 3%;
-  /* background-image: linear-gradient(to right, #bfc5e8, #ebe9e9); */
   background-color: #bfc5e8;
   cursor: pointer;
   box-shadow: 10px 5px 5px black;
@@ -72,7 +73,6 @@ const Favorite = styled.button`
   grid-column: 2;
   grid-row: 3;
   margin: 3%;
-  /* background-image: linear-gradient(to right, #bfc5e8, #ebe9e9); */
   background-color: #bfc5e8;
   cursor: pointer;
   box-shadow: 10px 5px 5px black;
@@ -107,12 +107,12 @@ const DropdownDivComponent = (props) => {
         <PleaseSelectSizeDiv>
           <PleaseSelectSize id={'pleaseSelectSizeDiv'}>Please Select A Size</PleaseSelectSize>
         </PleaseSelectSizeDiv>
-        <SelectSize ariaLabel="Select Size" id={'checkSelectSize'} onChange={checkSkus}>
+        <SelectSize aria-label="Select Size" id={'checkSelectSize'} onChange={checkSkus}>
           {
             sizeList
           }
         </SelectSize>
-        <SelectQuantity ariaLabel="Select Quantity" id={'checkSelectQuantity'} onChange={chooseQuantity}>
+        <SelectQuantity aria-label="Select Quantity" id={'checkSelectQuantity'} onChange={chooseQuantity}>
           {
             qList.map((q, index) => {
               return (
@@ -121,10 +121,10 @@ const DropdownDivComponent = (props) => {
             })
           }
         </SelectQuantity>
-        <AddToCart style={{display: addToCartDisplay}} onClick={addToCart} ariaLabel="Add To Cart">
+        <AddToCart style={{display: addToCartDisplay}} onClick={addToCart} aria-label="Add To Cart">
           {!currentCartItem ? 'Add To Cart ➕ ' : 'Added To Cart ✅ '}
         </AddToCart>
-        <Favorite onClick={toggleLike} ariaLabel="Like or Favorite">
+        <Favorite onClick={toggleLike} aria-label="Like or Favorite">
           {!currentLikedStyle ? '  ⭐  ' : '  ❤️  '}
         </Favorite>
       </DropdownDiv>
