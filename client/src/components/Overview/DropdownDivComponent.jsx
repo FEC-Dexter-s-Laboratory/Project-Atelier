@@ -25,7 +25,11 @@ const SelectSize = styled.select`
   grid-column: 1;
   grid-row: 2;
   margin: 3%;
-  background-image: linear-gradient(to right, grey, #ebe9e9);
+  /* background-image: linear-gradient(to right, #bfc5e8, #ebe9e9); */
+  background-color: #bfc5e8;
+  &:hover {
+    background-color: #98a2cc;
+  }
   cursor: pointer;
   box-shadow: 10px 5px 5px black;
 `;
@@ -36,7 +40,11 @@ const SelectQuantity = styled.select`
   grid-column: 2;
   grid-row: 2;
   margin: 3%;
-  background-image: linear-gradient(to right, grey, #ebe9e9);
+  /* background-image: linear-gradient(to right, #bfc5e8, #ebe9e9); */
+  background-color: #bfc5e8;
+  &:hover {
+    background-color: #98a2cc;
+  }
   cursor: pointer;
   box-shadow: 10px 5px 5px black;
 `;
@@ -47,12 +55,14 @@ const AddToCart = styled.button`
   grid-column: 1;
   grid-row: 3;
   margin: 3%;
-  background-image: linear-gradient(to right, grey, #ebe9e9);
+  /* background-image: linear-gradient(to right, #bfc5e8, #ebe9e9); */
+  background-color: #bfc5e8;
   cursor: pointer;
   box-shadow: 10px 5px 5px black;
   transition: .2s;
   &:hover {
     transform: scale(1.10);
+    background-color: #98a2cc;
   }
 `;
 
@@ -62,12 +72,14 @@ const Favorite = styled.button`
   grid-column: 2;
   grid-row: 3;
   margin: 3%;
-  background-image: linear-gradient(to right, grey, #ebe9e9);
+  /* background-image: linear-gradient(to right, #bfc5e8, #ebe9e9); */
+  background-color: #bfc5e8;
   cursor: pointer;
   box-shadow: 10px 5px 5px black;
   transition: .2s;
   &:hover {
     transform: scale(1.10);
+    background-color: #98a2cc;
   }
 h`;
 

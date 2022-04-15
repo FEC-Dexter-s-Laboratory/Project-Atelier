@@ -39,11 +39,18 @@ const Overlay = styled.div`
 
 const ModalButton = styled.button`
   position: fixed;
-  top: 3px;
-  right: 3px;
+  top: 70px;
+  right: 40px;
   background-color: white;
-  font-size: 18px;
-  border: none;
+  font-size: 20px;
+  border: 2px ridge grey;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 10px 5px 5px black;
+  transition: 0.2s;
+  &:hover {
+    transform: scale(1.25);
+  }
 `;
 
 // for comparison table

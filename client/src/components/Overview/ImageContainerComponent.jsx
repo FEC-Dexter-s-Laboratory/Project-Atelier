@@ -146,6 +146,7 @@ const ImageContainerComponent = (props) => {
     } else if (document.getElementById('2thumb').style.border === '4px solid white') {
       displayThumb(1);
       document.getElementById('0thumb').style.transform = 'translateY(10%)';
+      document.getElementById('0thumb').style.display = 'flex';
       document.getElementById('1thumb').style.transform = 'translateY(10%)';
       document.getElementById('2thumb').style.transform = 'translateY(10%)';
       document.getElementById('3thumb').style.transform = 'translateY(10%)';
@@ -220,7 +221,7 @@ const ImageContainerComponent = (props) => {
                     className={style.id}
                     id={`${style.id}thumb`}
                     onClick={displayThumb}
-                    ariaLabel={`Thumbnail: ${styleResults[index].name}`} />
+                    ariaLabel={`Thumbnail${index}`} />
                 </div>
               );
             })

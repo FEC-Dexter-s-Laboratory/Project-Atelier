@@ -41,6 +41,7 @@ const SearchInput = styled.input`
 
 // styles need adjusting, search input and button still on left despite using flexbox, needs to be adjusted, low priority
 const SearchButton = styled.button`
+  background-color: #bfc5e8;
   border: 1px solid grey;
   border-radius: 12px;
   height: fit-content;
@@ -51,12 +52,15 @@ const SearchButton = styled.button`
   box-shadow: 10px 5px 5px black;
   &:hover {
     transform: scale(1.25);
+    background-color: #98a2cc;
   }
 `;
 
 const CartButton = styled.button`
+  background-color: #bfc5e8;
   border: 1px solid grey;
   border-radius: 12px;
+  padding: 2%;
   height: fit-content;
   width: fit-content;
   transition: .2s;
@@ -65,12 +69,14 @@ const CartButton = styled.button`
   box-shadow: 10px 5px 5px black;
   &:hover {
     transform: scale(1.25);
+    background-color: #98a2cc;
   }
 `;
 
 const CartImage = styled.img`
   width: 100px;
   height: 70px;
+  border-radius: 12px;
 `;
 
 const Search = (props) => {

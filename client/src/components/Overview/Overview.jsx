@@ -391,7 +391,6 @@ const Overview = (props) => {
             srcThumb: photo.thumbnail_url,
             srcUrl: photo.url,
             id: index,
-            name: data.results[idx].name, // for  now
           });
           index += 1;
         });
