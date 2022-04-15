@@ -8,9 +8,11 @@ import PhotoModal from '../library/PhotoModal.jsx';
 const EntryContainer = styled.div`
   display: grid;
   grid-template-rows: 5% 5% 10% 75% 5%;
-  margin: 3% 0;
-  min-height: 45%;
-  border-bottom: 1px solid #353935;
+  padding: 3%;
+  margin: 2% 0;
+  min-height: 40%;
+  background-color: rgba(255, 255, 255, .25);
+  border-radius: 20px;
 `;
 
 const Header = styled.div`
@@ -157,6 +159,7 @@ class ReviewListEntry extends React.Component {
               key={index}
               src={photo.url}
               onClick={() => this.toggleModal(photo)}
+              onError={(e) => e.target.style.display = 'none'}
             >
             </Thumbnail>
           );

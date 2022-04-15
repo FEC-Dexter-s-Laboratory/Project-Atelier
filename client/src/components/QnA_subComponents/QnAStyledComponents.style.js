@@ -46,11 +46,14 @@ const Orderlist = styled.ol`
   font-family: Comfortaa;
 `;
 
-const Questionlist = styled.li`
+const Questionlist = styled.div`
   overflow-y: auto;
-  border-bottom: 1px solid black;
   margin-bottom: 10px;
-  min-height: 45%
+  min-height: 45%;
+  background-color: rgba(255, 255, 255, .25);
+  padding: 3%;
+  margin: 2% 0;
+  border-radius: 20px;
 `;
 
 const Questiondiv = styled.span`
@@ -58,7 +61,6 @@ const Questiondiv = styled.span`
   font-weight: bold;
   font-size: large;
   margin-top: 10px;
-  margin-bottom: 10px;
 `;
 const Innerquestiondiv = styled.span`
   width: 30%
@@ -76,6 +78,10 @@ const Questionheader = styled.div`
 //IndiviualAnswer styled components
 const Answerdiv = styled.div`
   margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, .25);
+  padding: 2%;
+  margin: 2% 0;
+  border-radius: 20px;
 `;
 
 const Answerphotos = styled.div`

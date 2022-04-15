@@ -86,6 +86,13 @@ const CharLabel = styled.label`
   font-size: 12px;
 `
 
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
 class ReviewModal extends React.Component {
 
   constructor(props) {
@@ -276,9 +283,7 @@ class ReviewModal extends React.Component {
           <ModalPop role="dialog" aria-modal="true">
             <AddReview>
               <Close onClick={toggleModal}>X</Close>
-              <div>
-                <h2>Submit A Review</h2>
-              </div>
+              <Title>Submit A Review</Title>
               <br/>
               <div>
                 <strong>Overall Rating*</strong>
@@ -286,14 +291,12 @@ class ReviewModal extends React.Component {
                 <StarButtons fontSize="20" reportRating={this.setRating}/>
                 <span>&nbsp;{parseRating}</span>
               </div>
-              <br/>
               <div onChange={this.setRecommend}>
                 <strong>Do You Recommend?*</strong>
                 &nbsp;&nbsp;
                 <input type="radio" name="recommend" value="true" />Yes
                 <input type="radio" name="recommend" value="false" />No
               </div>
-              <br/>
               <div>
                 <strong>Characteristics*</strong>
                 <br/><br/>
@@ -336,7 +339,7 @@ class ReviewModal extends React.Component {
                   placeholder="Why did you like the product or not?"
                   wrap="soft"
                   cols="60"
-                  rows="10"
+                  rows="5"
                   style={{resize: "none", fontFamily: "Comfortaa", borderRadius: "5px"}}
                   value={this.state.body}
                   onChange={e => this.handleInputChange(e, 'body')}
