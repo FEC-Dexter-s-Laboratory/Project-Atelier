@@ -88,8 +88,8 @@ class IndividualAnswer extends React.Component {
       A: {this.props.body} <br />
           <Byline> by {this.props.name}, {moment(this.props.date).format('LL')}</Byline><br />
           {answerPhotos}<br />
-         Helpful? {yesbutton}({this.state.helpCount})
-      | {
+         Helpful? {yesbutton}&nbsp;&nbsp;({this.state.helpCount})&nbsp;&nbsp;
+      | &nbsp;{
             this.state.report
               ? <Linkbutton>Reported</Linkbutton>
               : <Linkbutton onClick={()=> { this.handleAreport(this.props.id); }}>Report</Linkbutton>
