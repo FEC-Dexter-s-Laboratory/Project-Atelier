@@ -33,8 +33,8 @@ const Slider = styled.span`
   transform: translateX(-50%);
   transform: translateY(-10%);
   left: ${props => props.value * 100}%;
-  color: #8592bb;
-  text-shadow: 2px 2px 1px black;
+  color: #1151AB;
+  text-shadow: 1px 1px 2px black;
 `;
 
 const CharLabels = styled.div`
@@ -50,11 +50,11 @@ const Characteristics = function({ chars }) {
 
   const charLabels = {
     Size: ['runs small', 'true', 'runs big'],
-    Width: ['narrow', 'normal', 'wide'],
+    Width: ['narrow', 'standard', 'wide'],
     Comfort: ['less comfortable', 'comfortable', 'very comfortable'],
     Quality: ['poor', 'good', 'great'],
-    Length: ['runs short', 'normal', 'runs long'],
-    Fit: ['slim', 'normal', 'loose']
+    Length: ['runs short', 'standard', 'runs long'],
+    Fit: ['slim', 'standard', 'loose']
   };
 
   let charsArray = [];

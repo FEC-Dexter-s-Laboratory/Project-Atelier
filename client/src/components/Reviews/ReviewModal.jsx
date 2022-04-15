@@ -223,7 +223,7 @@ class ReviewModal extends React.Component {
     let parseRating = '';
     switch (this.state.rating) {
     case 5:
-      parseRating = 'great';
+      parseRating = 'great!';
       break;
     case 4:
       parseRating = 'good';
@@ -284,7 +284,7 @@ class ReviewModal extends React.Component {
                 <strong>Overall Rating*</strong>
                 &nbsp;&nbsp;
                 <StarButtons fontSize="20" reportRating={this.setRating}/>
-                <span>{parseRating}</span>
+                <span>&nbsp;{parseRating}</span>
               </div>
               <br/>
               <div onChange={this.setRecommend}>

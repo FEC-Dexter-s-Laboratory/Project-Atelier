@@ -35,7 +35,7 @@ const Title = styled.div`
 const Body = styled.div`
   grid-row-start: 4;
   grid-row-end: -2;
-  font-size: 14px;
+  font-size: 15px;
   margin: 1% 2% 5% 1%;
 `;
 
@@ -74,9 +74,22 @@ const Button = styled.button`
 	border: none;
 	cursor: pointer;
   &:hover {
-    color: teal;
+    color: #98a2cc;
   }
 `;
+
+const DeadButton = styled.button`
+  font-family: Comfortaa;
+	text-align: center;
+	background: none;
+	margin: 0;
+	padding: 0;
+	border: none;
+	text-decoration: underline;
+  color: #98a2cc;
+`;
+
+
 
 class ReviewListEntry extends React.Component {
 
@@ -125,9 +138,6 @@ class ReviewListEntry extends React.Component {
     });
   }
 
-  // TODO
-  // verified check, next to reviewer_name?
-
   render () {
     const { review } = this.props;
 
@@ -167,7 +177,7 @@ class ReviewListEntry extends React.Component {
 
     const helpfulYes = this.state.helpfulness === this.props.review.helpfulness
       ? <Button onClick={this.markReviewHelpful}>Yes</Button>
-      : <span style={{textDecoration: 'underline'}}>Yes</span>;
+      : <DeadButton>Yes</DeadButton>;
 
     const reportReview = !this.state.reported
       ? <span>
@@ -179,7 +189,7 @@ class ReviewListEntry extends React.Component {
     return (
       <EntryContainer className="review-list-entry">
         <Header>
-          <StarDisplay rating={review.rating} />
+          <StarDisplay fontSize="20" rating={review.rating} />
           <span style={{textAlign: 'right'}}>
             {review.reviewer_name}, {moment(review.date).format('LL')}
           </span>
