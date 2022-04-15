@@ -13,6 +13,7 @@ const EntryContainer = styled.div`
   min-height: 40%;
   background-color: rgba(255, 255, 255, .25);
   border-radius: 20px;
+  overflow-wrap: auto;
 `;
 
 const Header = styled.div`
