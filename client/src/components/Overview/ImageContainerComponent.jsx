@@ -203,7 +203,7 @@ const ImageContainerComponent = (props) => {
     <>
       <ExpandedView mainImage={mainImage} open={isOpen} onClose={() => setIsOpen(false)} />
       <ImageContainer>
-        <ThumbUpArrow id="thumbUpArrow" onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={thumbUp}> 🔼 </ThumbUpArrow>
+        <ThumbUpArrow aria-label="Up Arrow" id="thumbUpArrow" onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={thumbUp}> 🔼 </ThumbUpArrow>
         <ThumbDiv>
           {
             styles.map((style, index) => {
@@ -221,13 +221,13 @@ const ImageContainerComponent = (props) => {
                     className={style.id}
                     id={`${style.id}thumb`}
                     onClick={displayThumb}
-                    ariaLabel={`Thumbnail${index}`} />
+                    aria-label={`Thumbnail${index}`} />
                 </div>
               );
             })
           }
         </ThumbDiv>
-        <ThumbDownArrow id="thumbDownArrow" onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={thumbDown}> 🔽 </ThumbDownArrow>
+        <ThumbDownArrow aria-label="Down Arrow" id="thumbDownArrow" onMouseEnter={enterThumb} onMouseLeave={leaveThumb} onClick={thumbDown}> 🔽 </ThumbDownArrow>
         <ExpandIcon src="https://media.istockphoto.com/vectors/expand-view-icon-vector-id1171638614?k=20&m=1171638614&s=170667a&w=0&h=-TrQvj3L0_QQeqWgNRHOlpgtLp3vYkGLegLqDbj5aW8=" alt="Expand" onMouseEnter={enterThumb} onMouseLeave={leaveThumb}
           onClick={() => { setIsOpen(true); }} />
         <MainImage src={!mainImage ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : mainImage} alt="Main"

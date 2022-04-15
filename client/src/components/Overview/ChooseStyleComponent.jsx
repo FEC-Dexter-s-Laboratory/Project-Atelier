@@ -64,7 +64,7 @@ const ChooseStyleComponent = (props) => {
                   src={!style.photos[0].thumbnail_url ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : style.photos[0].thumbnail_url}
                   onMouseEnter={enterThumb} onMouseLeave={leaveThumb}
                   alt={`Style${style.style_id}`}
-                  ariaLabel={`Style: ${styleResults[index].name}`} />
+                  aria-label={`Style: ${styleResults[index].name}`} />
                 <CheckMarks src="https://media.istockphoto.com/vectors/check-vector-id871478670?b=1&k=20&m=871478670&s=170667a&w=0&h=z-dZAr0bn8-IlGirxjJjqJcATVZWsHHr8UgEKxl1gtg=" style={{display: checkStyle}} id={style.style_id} alt="Checkmark: Currently Selected" />
               </StyleDivs>
             );
