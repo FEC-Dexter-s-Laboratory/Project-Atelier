@@ -18,7 +18,7 @@ transition: 0.3s;
 `;
 
 const Listcontainer = styled.div`
-height: 500px;
+height: 75vh;
 overflow-y: auto;
 margin-bottom: 15px;
 `;
@@ -110,6 +110,8 @@ const QnAHeader = styled.h3`
 `;
 
 const SearchInput = styled.input`
+  background-color: white;
+  opacity: 0.50;
   width: 100%;
   height: 50px;
   font-weight: bold;
@@ -127,21 +129,33 @@ const Modalbackground = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(128,128,128,0.7);
-  z-index: 1000;
+  background-color: #000;
+  opacity: 0.75;
 `;
 
-const Modalform = styled.form`
-  width: 500px;
-  height: 500px;
-  border-radius: 12px;
-  background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+const Modalborder = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 25px;
+  background-color: #b0c4de;
+  padding: 50px;
+  height: 600px;
+  width: 600px;
+  z-index: 999;
+  font-family: Comfortaa;
+  border-radius: 12px;
+`;
+
+const Modalform = styled.form`
+  width: 90%;
+  height: 90%;
+  border: 2px ridge grey;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 10px 5px 5px black;
+  overflow-y: auto;
+  padding: 5%;
   font-family: Comfortaa;
 `;
 
@@ -176,18 +190,24 @@ const Modalsubmit = styled.button`
 `;
 
 const Xmodalbutton = styled.button`
-  display: flex;
-  justify-content: flex-end;
-  background: none;
-  border: none;
-  margin: 0;
-  padding: 0;
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  font-size: 20px;
+  background-color: white;
+  border: 2px ridge grey;
+  border-radius: 12px;
   cursor: pointer;
+  box-shadow: 10px 5px 5px black;
+  transition: 0.2s;
+  &:hover {
+    transform: scale(1.25);
+  }
 `;
 
 export {
   NavButton, Listcontainer, Linkbutton, Orderlist, Questionlist, Questiondiv, Innerquestiondiv, Questionheader,
   Answerdiv, Answerphotos, Answerthumbnail, Byline,
   QnAContainer, QnAHeader, SearchInput,
-  Modalbackground, Modalform, Titlelabel, Modaltitle, Modalinput, Disclaimer, Modalsubmit, Xmodalbutton
+  Modalbackground, Modalform, Titlelabel, Modaltitle, Modalinput, Disclaimer, Modalsubmit, Xmodalbutton, Modalborder
 };
