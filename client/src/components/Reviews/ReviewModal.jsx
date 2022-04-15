@@ -10,7 +10,7 @@ const ModalPop = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #9f9f9f;
+  background-color: #b0c4de;
   padding: 50px;
   height: 85%;
   width: 50%;
