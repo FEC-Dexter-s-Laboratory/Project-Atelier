@@ -146,6 +146,7 @@ const ImageContainerComponent = (props) => {
     } else if (document.getElementById('2thumb').style.border === '4px solid white') {
       displayThumb(1);
       document.getElementById('0thumb').style.transform = 'translateY(10%)';
+      document.getElementById('0thumb').style.display = 'flex';
       document.getElementById('1thumb').style.transform = 'translateY(10%)';
       document.getElementById('2thumb').style.transform = 'translateY(10%)';
       document.getElementById('3thumb').style.transform = 'translateY(10%)';
@@ -216,10 +217,11 @@ const ImageContainerComponent = (props) => {
                   <img
                     style={{border: index === 0 ? '4px solid white' : null, height: '100px', width: '100px', position: 'absolute', zIndex: '12', float: 'right', cursor: 'pointer', boxShadow: '10px 5px 5px black'}}
                     src={!style.srcThumb ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : style.srcThumb}
-                    alt="Thumb"
+                    alt={`Thumbnail${index}`}
                     className={style.id}
                     id={`${style.id}thumb`}
-                    onClick={displayThumb} />
+                    onClick={displayThumb}
+                    ariaLabel={`Thumbnail${index}`} />
                 </div>
               );
             })
