@@ -95,12 +95,12 @@ const DropdownDivComponent = (props) => {
         <PleaseSelectSizeDiv>
           <PleaseSelectSize id={'pleaseSelectSizeDiv'}>Please Select A Size</PleaseSelectSize>
         </PleaseSelectSizeDiv>
-        <SelectSize id={'checkSelectSize'} onChange={checkSkus}>
+        <SelectSize ariaLabel="Select Size" id={'checkSelectSize'} onChange={checkSkus}>
           {
             sizeList
           }
         </SelectSize>
-        <SelectQuantity id={'checkSelectQuantity'} onChange={chooseQuantity}>
+        <SelectQuantity ariaLabel="Select Quantity" id={'checkSelectQuantity'} onChange={chooseQuantity}>
           {
             qList.map((q, index) => {
               return (
@@ -109,8 +109,12 @@ const DropdownDivComponent = (props) => {
             })
           }
         </SelectQuantity>
-        <AddToCart style={{display: addToCartDisplay}} onClick={addToCart}>{!currentCartItem ? 'Add To Cart ➕ ' : 'Added To Cart ✅ '}</AddToCart>
-        <Favorite onClick={toggleLike}>{!currentLikedStyle ? '  ⭐  ' : '  ❤️  '}</Favorite>
+        <AddToCart style={{display: addToCartDisplay}} onClick={addToCart} ariaLabel="Add To Cart">
+          {!currentCartItem ? 'Add To Cart ➕ ' : 'Added To Cart ✅ '}
+        </AddToCart>
+        <Favorite onClick={toggleLike} ariaLabel="Like or Favorite">
+          {!currentLikedStyle ? '  ⭐  ' : '  ❤️  '}
+        </Favorite>
       </DropdownDiv>
     </>
   );

@@ -109,12 +109,6 @@ const Overview = (props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [inCart, setInCart] = useState(false);
   const [skus, setSkus] = useState({});
-  // const [xsQuantity, setXsQuantity] = useState(1);
-  // const [sQuantity, setSQuantity] = useState(1);
-  // const [mQuantity, setMQuantity] = useState(1);
-  // const [lQuantity, setLQuantity] = useState(1);
-  // const [xlQuantity, setXlQuantity] = useState(1);
-  // const [xxlQuantity, setXxlQuantity] = useState(1);
   const [quantities, setQuantities] = useState([]);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [selectedSize, setSelectedSize] = useState('Select Size');
@@ -397,6 +391,7 @@ const Overview = (props) => {
             srcThumb: photo.thumbnail_url,
             srcUrl: photo.url,
             id: index,
+            name: data.results[idx].name, // for  now
           });
           index += 1;
         });
