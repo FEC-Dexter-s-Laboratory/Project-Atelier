@@ -61,14 +61,14 @@ const Card = (props) => {
     if (props.use === 'compare') {
       modal =
       <ButtonAlign>
-        <CompareStar src="https://upload.wikimedia.org/wikipedia/commons/7/71/Blank_star_%28fixed_width%29.svg" onClick={() => setIsOpen(true)}/>
+        <CompareStar aria-label='Comparison open button' src="https://upload.wikimedia.org/wikipedia/commons/7/71/Blank_star_%28fixed_width%29.svg" onClick={() => setIsOpen(true)}/>
         <Modal open={isOpen} onClose={() => setIsOpen(false)} comparedId={product.id} mainId={props.mainId} />
       </ButtonAlign>;
     }
     if (props.use === 'outfit') {
       removeOutfit =
       <ButtonAlign>
-        <RemoveButton onClick={(e) => props.handleOutfitClick(e, product.id)} >X</RemoveButton>
+        <RemoveButton aria-label='Remove outfit button' onClick={(e) => props.handleOutfitClick(e, product.id)} >X</RemoveButton>
       </ButtonAlign>;
     }
 
