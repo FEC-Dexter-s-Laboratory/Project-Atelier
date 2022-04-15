@@ -43,7 +43,6 @@ const Card = (props) => {
     if (product.photos[0].thumbnail_url === null) {
       image = <img style={{display: 'block', width: '100%', position: 'relative'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
     } else {
-      // need to change this to change src if preview picture is clicked - need to send the url back to here
       image = <img src={imgSource} alt={product.name} style={{display: 'block', width: '100%'}}/>;
     }
     if (product.sale_price === null) {
@@ -55,7 +54,7 @@ const Card = (props) => {
         <span style={{color: 'red'}}><b>{'$' + product.sale_price}</b></span>
       </div>;
     }
-    // conditional rendering of related items or outfit action buttons (modal or X)
+    // conditional rendering of comparison star or outfit action buttons (modal or X)
     let modal;
     let removeOutfit;
     if (props.use === 'compare') {

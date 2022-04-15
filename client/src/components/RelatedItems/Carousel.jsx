@@ -7,17 +7,21 @@ const Carousel = (props) => {
   const { products } = props;
   const {images} = props;
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // next and back buttons for carousels
   const nextButton = () => {
     if (currentIndex < (products.length - 1)) {
       setCurrentIndex(currentIndex + 1);
     }
   };
+
   const backButton = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
   };
 
+  // next and back cuttons for preview carousels
   const [previewIndex, setPreviewIndex] = useState(0);
   const previewRight = (event) => {
     event.stopPropagation();
@@ -25,6 +29,7 @@ const Carousel = (props) => {
       setPreviewIndex(previewIndex + 1);
     }
   };
+
   const previewLeft = (event) => {
     event.stopPropagation();
     if (previewIndex > 0) {
@@ -32,6 +37,7 @@ const Carousel = (props) => {
     }
   };
 
+  // if we get images as props, render preview carousel
   if (images) {
     if (images[0].thumbnail_url === null) {
       return <div style={{position: 'fixed', left: '20%', bottom: '30%', background: 'white'}}>No preview images available.</div>;
@@ -60,6 +66,7 @@ const Carousel = (props) => {
     );
   }
 
+  // else return normal carousel
   return (
     <CaroContainer>
       <CaroWrapper>
