@@ -83,6 +83,7 @@ const Innerquestiondiv = styled.span`
   font-weight: lighter;
   font-size: small;
   margin-top: 20px;
+  margin-right: 1px;
 `;
 
 const Questionheader = styled.div`
@@ -115,6 +116,7 @@ const Byline = styled.div`
 
 //QAndA styled components
 const QnAContainer = styled.div`
+  margin-top: 45px;
   margin-left: 15%;
   margin-right: 15%;
   display: grid;

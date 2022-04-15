@@ -53,19 +53,18 @@ class IndividualQuestion extends React.Component {
   render() {
     let yesbutton = <Linkbutton onClick={() => { this.handleQhelp(this.props.id); }}>Yes</Linkbutton>;
     if (this.state.helpful) {
-      yesbutton = <span style={{textDecoration: 'underline'}} >Yes</span>;
+      yesbutton = <span style={{textDecoration: 'underline', color: 'teal'}} >Yes</span>;
     }
     return (
       <Questionheader>
         <Questiondiv>Q: {this.props.body} </Questiondiv>
-        <Innerquestiondiv>Helpful? {yesbutton}
-          ({this.state.helpCount})
+        <Innerquestiondiv>Helpful? {yesbutton} ({this.state.helpCount})
           | <Linkbutton onClick={() => this.props.modalF(this.props.id)}>Add Answer</Linkbutton>
           | {
-            this.state.report
-              ? <Linkbutton>Reported</Linkbutton>
-              : <Linkbutton onClick={() => this.handleQreport(this.props.id)}>Report</Linkbutton>
-          }
+          this.state.report
+            ? <Linkbutton>Reported</Linkbutton>
+            : <Linkbutton onClick={() => this.handleQreport(this.props.id)}>Report</Linkbutton>
+        }
         </Innerquestiondiv>
       </Questionheader>
     );

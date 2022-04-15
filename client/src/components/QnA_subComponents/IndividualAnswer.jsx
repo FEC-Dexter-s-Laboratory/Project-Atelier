@@ -64,7 +64,7 @@ class IndividualAnswer extends React.Component {
   render() {
     let yesbutton = <Linkbutton onClick={() => { this.handleAhelp(this.props.id); }}>Yes</Linkbutton>;
     if (this.state.helpful) {
-      yesbutton = <span style={{textDecoration: 'underline'}} >Yes</span>;
+      yesbutton = <span style={{textDecoration: 'underline', color: 'teal'}} >Yes</span>;
     }
 
     const answerPhotos = this.props.photos.length > 0
@@ -88,7 +88,7 @@ class IndividualAnswer extends React.Component {
       A: {this.props.body} <br />
           <Byline> by {this.props.name}, {moment(this.props.date).format('LL')}</Byline><br />
           {answerPhotos}<br />
-         Helpful? {yesbutton}({this.state.helpCount})
+         Helpful? {yesbutton} ({this.state.helpCount})
       | {
             this.state.report
               ? <Linkbutton>Reported</Linkbutton>
