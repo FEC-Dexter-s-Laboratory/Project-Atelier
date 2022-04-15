@@ -15,7 +15,7 @@ const Select = styled.select`
   cursor: pointer;
   background: transparent;
   &:hover {
-    color: #98a2cc;
+    color: #1151AB;
   }
 `;
 

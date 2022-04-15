@@ -74,7 +74,7 @@ const Button = styled.button`
 	border: none;
 	cursor: pointer;
   &:hover {
-    color: #98a2cc;
+    color: #1151AB;
   }
 `;
 
@@ -86,7 +86,7 @@ const DeadButton = styled.button`
 	padding: 0;
 	border: none;
 	text-decoration: underline;
-  color: #98a2cc;
+  color: #1151AB;
 `;
 
 
