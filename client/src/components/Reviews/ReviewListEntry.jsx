@@ -55,7 +55,7 @@ const Thumbnail = styled.img`
   width: auto;
   margin-right: 5px;
   cursor: pointer;
-  border: .5px solid gray;
+  box-shadow: 2px 2px 2px black;
 `;
 
 const Footer = styled.div`
