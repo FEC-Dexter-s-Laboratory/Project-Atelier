@@ -47,8 +47,10 @@ margin: 0;
 padding: 0;
 border: none;
 cursor: pointer;
+transition: 0.5s;
 &:hover {
-  font-weight: bold;
+  color: #1151AB;
+  transform: rotate(-5deg) translateX(-1px);
 }
 `;
 
