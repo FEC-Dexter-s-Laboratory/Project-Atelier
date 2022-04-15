@@ -64,7 +64,7 @@ const Footer = styled.div`
 
 const Submit = styled.button`
   font-size: 20px;
-  background: none;
+  background-color: #bfc5e8;
   border: 1px solid #353935;
   border-radius: 40px;
   padding: 15px;
@@ -74,7 +74,7 @@ const Submit = styled.button`
   box-shadow: 1px 1px 5px #5d5d5d;
   transition: 0.2s;
   &:hover {
-    transform: scale(1.05);
+    background-color: #98a2cc;
   }
 `;
 
