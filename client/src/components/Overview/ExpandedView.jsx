@@ -78,11 +78,6 @@ const ImageDiv = styled.div`
   width: fit-content;
 `;
 
-// const LeftArrow = styled.span`
-//   height: 150px;
-//   width: 50px;
-// `;
-
 const ExpandedView = (props) => {
   const [isZoomed, setIsZoomed] = useState(false);
   const [imageCursor, setImageCursor] = useState('zoom-in');
@@ -115,7 +110,6 @@ const ExpandedView = (props) => {
   };
 
   const handleImgEnter = (e) => {
-    console.log('onImageEnter ', e.clientX, e.clientY);
     let bodyRect = document.getElementById('getExpandedImageCoords').getBoundingClientRect();
     setWidth(bodyRect.width);
     setHeight(bodyRect.height);
@@ -127,7 +121,6 @@ const ExpandedView = (props) => {
   };
 
   const handleImgMove = (e) => {
-    console.log('onImageMove ', e.nativeEvent.clientX, e.nativeEvent.clientY);
     if (e.nativeEvent.clientX > x) {
       // translate x
       document.getElementById('getExpandedImageCoords').style.transform = 'translate-x(10%)';
@@ -145,16 +138,6 @@ const ExpandedView = (props) => {
     setX(e.nativeEvent.clientX);
     setY(e.nativeEvent.clientY);
   };
-
-  const handleImgLeave = (e) => {
-    console.log('onImageLeave ', e.clientX, e.clientY);
-  };
-
-  // useEffect(() => {
-  //   let bodyRect = document.getElementById('getExpandedImageCoords').getBoundingClientRect();
-  //   setWidth(bodyRect.width);
-  //   console.log('bodyReact width be like ', bodyRect.width)
-  // }, [props]);
 
   return ReactDOM.createPortal(
     <>
@@ -174,7 +157,6 @@ const ExpandedView = (props) => {
           onMouseLeave={handleImgLeave}
           id="getExpandedImageCoords"
           ariaLabel="Zoom In and Zoom Out Main Image" />
-        {/* <LeftButton> ⬅️ </LeftButton> */}
       </ModalStyle>
     </>,
     document.getElementById('expanded_view_portal')

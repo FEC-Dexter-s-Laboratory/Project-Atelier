@@ -139,12 +139,9 @@ const Overview = (props) => {
 
   // for all main image rendering, including when switching between images
   const displayImage = (e) => {
-    console.log('styleResults ', styleResults);
     let newImage = '';
     styleResults.forEach(style => {
       if (style.style_id === e) {
-        console.log('one style be like ', style.photos);
-        console.log('currentThumb ', currentThumb);
         newImage = style.photos[currentThumb].url;
       }
     });
