@@ -8,7 +8,7 @@ class Answerlist extends React.Component {
     super(props);
     this.state = {
       answersData: [],
-      answerCount: 2,
+      answerCount: 1,
     };
     this.sortAnswers = this.sortAnswers.bind(this);
     this.handleAClick = this.handleAClick.bind(this);
@@ -40,7 +40,7 @@ class Answerlist extends React.Component {
   //event handlers
   handleAClick (e) {
     e.preventDefault();
-    this.setState({answerCount: this.state.answerCount += 2});
+    this.setState({answerCount: this.state.answerCount += 1});
   }
 
   //sorting

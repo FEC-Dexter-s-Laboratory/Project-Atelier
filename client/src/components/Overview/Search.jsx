@@ -98,9 +98,9 @@ const Search = (props) => {
     <NavContainer>
       <Logo><b>Blue Steel Brand</b></Logo>
       <SearchDiv>
-        <SearchInput ariaLabel="Search Input" onChange={handleInput} type="text" value={searchTerm} placeHolder="search here..." />
-        <SearchButton ariaLabel="Search" onClick={submitSearch}>Search</SearchButton>
-        <CartButton ariaLabel="Cart">
+        <SearchInput aria-label="Search Input" onChange={handleInput} type="text" value={searchTerm} placeHolder="search here..." />
+        <SearchButton aria-label="Search" onClick={submitSearch}>Search</SearchButton>
+        <CartButton aria-label="Cart">
           <CartImage src="http://learnmongodbthehardway.com/images/originals/shopping_cart_racing.png" onClick={() => setIsOpen(true)} />
           <CartModal productId={props.productId} open={isOpen} onClose={() => setIsOpen(false)} setCurrentCartItem={(boolean) => { setCurrentCartItem(boolean); }} />
         </CartButton>
