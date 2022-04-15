@@ -12,7 +12,7 @@ const ModalPop = styled.div`
   transform: translate(-50%, -50%);
   background-color: #b0c4de;
   padding: 50px;
-  height: 85%;
+  height: 90%;
   width: 50%;
   z-index: 999;
   font-family: Comfortaa;
@@ -63,9 +63,10 @@ const Footer = styled.div`
 `;
 
 const Submit = styled.button`
+  font-family: Comfortaa;
+  font-weight: bold;
   font-size: 20px;
   background-color: #bfc5e8;
-  border: 1px solid #353935;
   border-radius: 40px;
   padding: 15px;
   margin-bottom: 10px;
@@ -85,6 +86,13 @@ const CharRadio = styled.input`
 const CharLabel = styled.label`
   font-size: 12px;
 `
+
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+`;
 
 class ReviewModal extends React.Component {
 
@@ -276,9 +284,7 @@ class ReviewModal extends React.Component {
           <ModalPop role="dialog" aria-modal="true">
             <AddReview>
               <Close onClick={toggleModal}>X</Close>
-              <div>
-                <h2>Submit A Review</h2>
-              </div>
+              <Title>Submit A Review</Title>
               <br/>
               <div>
                 <strong>Overall Rating*</strong>
@@ -290,7 +296,7 @@ class ReviewModal extends React.Component {
               <div onChange={this.setRecommend}>
                 <strong>Do You Recommend?*</strong>
                 &nbsp;&nbsp;
-                <input type="radio" name="recommend" value="true" />Yes
+                <input type="radio" name="recommend" value="true" />Yes&nbsp;
                 <input type="radio" name="recommend" value="false" />No
               </div>
               <br/>
@@ -336,7 +342,7 @@ class ReviewModal extends React.Component {
                   placeholder="Why did you like the product or not?"
                   wrap="soft"
                   cols="60"
-                  rows="10"
+                  rows="5"
                   style={{resize: "none", fontFamily: "Comfortaa", borderRadius: "5px"}}
                   value={this.state.body}
                   onChange={e => this.handleInputChange(e, 'body')}
@@ -380,7 +386,7 @@ class ReviewModal extends React.Component {
                   onChange={e => this.handleInputChange(e, 'email')}
                 />
               </div>
-              <br/>
+              <br/><br/><br/>
               <Footer>
                 <Submit onClick={this.handleSubmit}>SUBMIT</Submit>
               </Footer>
