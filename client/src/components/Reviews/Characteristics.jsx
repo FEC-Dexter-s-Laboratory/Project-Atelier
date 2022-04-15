@@ -33,8 +33,8 @@ const Slider = styled.span`
   transform: translateX(-50%);
   transform: translateY(-10%);
   left: ${props => props.value * 100}%;
-  color: #5d5d5d;
-  text-shadow: 1px 1px 1px black;
+  color: #8592bb;
+  text-shadow: 2px 2px 1px black;
 `;
 
 const CharLabels = styled.div`

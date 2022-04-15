@@ -5,17 +5,18 @@ const NavContainer = styled.div`
 `;
 
 const NavButton = styled.button`
+  font-family: Comfortaa;
+  font-weight: bold;
   font-size: 15px;
-  background: none;
-  border: 1px solid #353935;
+  background-color: #bfc5e8;
   border-radius: 30px;
   margin-right: 10px;
   padding: 15px;
   cursor: pointer;
   box-shadow: 1px 1px 5px #5d5d5d;
-  transition: 0.2s;
+  transition: 0.3s;
   &:hover {
-    transform: scale(1.05);
+    background-color: #98a2cc;
   }
 `;
 

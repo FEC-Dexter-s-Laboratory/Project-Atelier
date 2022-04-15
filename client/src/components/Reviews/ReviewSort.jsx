@@ -13,8 +13,9 @@ const Select = styled.select`
   height: 30px;
   border: none;
   cursor: pointer;
+  background: transparent;
   &:hover {
-    color: teal;
+    color: grey;
   }
 `;
 

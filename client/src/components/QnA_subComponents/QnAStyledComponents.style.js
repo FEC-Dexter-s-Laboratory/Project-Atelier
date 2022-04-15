@@ -2,17 +2,19 @@ import styled from 'styled-components';
 
 //IndividualQuestion styled components
 const NavButton = styled.button`
-  border-radius: 30px;
-  font-size: 15px;
-  font-family: Comfortaa;
-  background: none;
-  border: 1px solid #353935;
-  margin-right: 10px;
-  padding: 15px;
-  cursor: pointer;
-  &:hover {
-    color: teal;
-  }
+font-family: Comfortaa;
+font-weight: bold;
+font-size: 15px;
+background-color: #bfc5e8;
+border-radius: 30px;
+margin-right: 10px;
+padding: 15px;
+cursor: pointer;
+box-shadow: 1px 1px 5px #5d5d5d;
+transition: 0.3s;
+&:hover {
+  background-color: #98a2cc;
+}
 `;
 
 const Listcontainer = styled.div`
@@ -86,7 +88,7 @@ const Answerthumbnail = styled.img`
   width: auto;
   margin-right: 5px;
   cursor: pointer;
-  border: .5px solid gray;
+  box-shadow: 2px 2px 2px black;
 `;
 
 const Byline = styled.div`
@@ -114,6 +116,7 @@ const SearchInput = styled.input`
   height: 50px;
   font-weight: bold;
   border-radius: 6px;
+  opacity: 50%;
 `;
 
 //QandA modal styled components
