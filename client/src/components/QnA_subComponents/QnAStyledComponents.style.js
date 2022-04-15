@@ -65,7 +65,7 @@ const Orderlist = styled.ol`
 const Questionlist = styled.div`
   overflow-y: auto;
   margin-bottom: 10px;
-  min-height: 45%;
+  min-height: 30%;
   background-color: rgba(255, 255, 255, .25);
   padding: 3%;
   margin: 2% 0;
