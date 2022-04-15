@@ -92,7 +92,7 @@ const BlueSteelModal = (props) => {
       <ModalStyle>
         <Button onClick={() => {
           onClose();
-        }} onMouseEnter={enterButton} onMouseLeave={leaveButton}>X</Button>
+        }} onMouseEnter={enterButton} onMouseLeave={leaveButton} ariaLabel="Close">X</Button>
         <ModalDiv>
           <Title>Welcome to Blue Steel Brand</Title>
           <BlueSteel src={modalImage} />

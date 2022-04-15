@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import IndividualAnswer from './IndividualAnswer.jsx';
+import { Answernav } from './QnAStyledComponents.style.js';
 
 class Answerlist extends React.Component {
   constructor(props) {
@@ -58,11 +59,11 @@ class Answerlist extends React.Component {
     return (
       <div key={`a${this.props.id}`}>
         {this.sortAnswers(this.state.answersData).map((obj) => {
-          return <IndividualAnswer photos={obj.photos} id={obj.answer_id} body={obj.body} name={obj.answerer_name} date={obj.date} help={obj.helpfulness} key={`1${obj.answer_id}`}/>
+          return <IndividualAnswer photos={obj.photos} id={obj.answer_id} body={obj.body} name={obj.answerer_name} date={obj.date} help={obj.helpfulness} key={`1${obj.answer_id}`}/>;
         })
         }{
           this.state.answersData.length > this.state.answerCount
-            ? <button onClick={this.handleAClick}>MORE ANSWERS</button>
+            ? <Answernav onClick={this.handleAClick}>MORE ANSWERS</Answernav>
             : <button hidden='hidden' onClick={this.handleAClick}>MORE ANSWERS</button>
         }
       </div>

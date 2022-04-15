@@ -66,7 +66,7 @@ const CartModal = (props) => {
       <ModalStyle>
         <Button onClick={() => {
           props.onClose();
-        }} onMouseEnter={enterButton} onMouseLeave={leaveButton}>X</Button>
+        }} onMouseEnter={enterButton} onMouseLeave={leaveButton} ariaLabel="Close Cart">X</Button>
         <CartItems productId={props.productId} />
       </ModalStyle>
     </>,

@@ -7,3 +7,5 @@ config.js
 node_modules/
 package-lock.json
 FEC.pem
+fec-lighthouse.json
+fec-lighthouse-good.json
