@@ -41,7 +41,7 @@ const Carousel = (props) => {
         <CaroWrapper >
           <PreviewContainer>
             {previewIndex > 0 &&
-            <Arrow style={{left: '0', height: '100%', borderRadius: '12px', width: '30px', zIndex: '999'}} onClick={(e) => previewLeft(e)}> &lt; </Arrow>
+            <Arrow style={{left: '0', top: '0', height: '100%', width: '10%', zIndex: '999'}} onClick={(e) => previewLeft(e)}> &lt; </Arrow>
             }
             {images.map(image =>
               <PreviewImage key={image.thumbnail_url} style={{transform: `translateX(-${previewIndex * (100)}%)`}}>
@@ -52,7 +52,7 @@ const Carousel = (props) => {
               </PreviewImage>
             )}
             {previewIndex < (images.length - 4) &&
-            <Arrow style={{right: '0', height: '100%', width: '30px', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
+            <Arrow style={{right: '0', top: '0', height: '100%', width: '10%', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
             }
           </PreviewContainer>
         </CaroWrapper>

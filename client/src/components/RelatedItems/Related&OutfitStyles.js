@@ -121,9 +121,8 @@ const ContentStyle = styled.div`
 const Arrow = styled.button`
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 75px;
+  width: 3%;
+  height: 15%;
   background-color: white;
   border: 1px solid #353935;
   border-radius: 30px;
@@ -131,7 +130,12 @@ const Arrow = styled.button`
   box-shadow: 10px 5px 5px black;
   transition: 0.2s;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.25);
+  }
 `;
+
+// const previewArrows =
 
 const PreviewContainer = styled.div`
   width: 70%;
@@ -165,6 +169,7 @@ const CardStyle = styled.div`
   width: 70%;
   overflow: hidden;
   cursor: pointer;
+  background-color: white;
   box-shadow: 10px 5px 5px black;
 `;
 
