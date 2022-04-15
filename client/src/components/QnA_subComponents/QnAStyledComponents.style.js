@@ -51,8 +51,7 @@ const Linkbutton = styled.button`
 	border: none;
 	cursor: pointer;
   &:hover {
-    color: teal;
-    z-index: 10;
+    color: #1151AB;
     transform: scale(1.05);
   }
 `;
@@ -97,7 +96,7 @@ const Answerdiv = styled.div`
   margin-bottom: 10px;
   background-color: rgba(255, 255, 255, .25);
   padding: 2%;
-  margin: 2% 0;
+  margin: 1% 0;
   border-radius: 20px;
 `;
 

@@ -12,7 +12,7 @@ const ModalPop = styled.div`
   transform: translate(-50%, -50%);
   background-color: #b0c4de;
   padding: 50px;
-  height: 85%;
+  height: 90%;
   width: 50%;
   z-index: 999;
   font-family: Comfortaa;
@@ -63,9 +63,10 @@ const Footer = styled.div`
 `;
 
 const Submit = styled.button`
+  font-family: Comfortaa;
+  font-weight: bold;
   font-size: 20px;
   background-color: #bfc5e8;
-  border: 1px solid #353935;
   border-radius: 40px;
   padding: 15px;
   margin-bottom: 10px;
@@ -291,12 +292,14 @@ class ReviewModal extends React.Component {
                 <StarButtons fontSize="20" reportRating={this.setRating}/>
                 <span>&nbsp;{parseRating}</span>
               </div>
+              <br/>
               <div onChange={this.setRecommend}>
                 <strong>Do You Recommend?*</strong>
                 &nbsp;&nbsp;
-                <input type="radio" name="recommend" value="true" />Yes
+                <input type="radio" name="recommend" value="true" />Yes&nbsp;
                 <input type="radio" name="recommend" value="false" />No
               </div>
+              <br/>
               <div>
                 <strong>Characteristics*</strong>
                 <br/><br/>
@@ -383,7 +386,7 @@ class ReviewModal extends React.Component {
                   onChange={e => this.handleInputChange(e, 'email')}
                 />
               </div>
-              <br/>
+              <br/><br/><br/>
               <Footer>
                 <Submit onClick={this.handleSubmit}>SUBMIT</Submit>
               </Footer>
