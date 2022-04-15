@@ -120,7 +120,7 @@ const CartItems = (props) => {
                   <h4>{`Count: ${item.count}`}</h4>
                   <hr />
                 </li>
-                <Remove ariaLabel={`Remove Product ${item.name}, style ${item.style.name}`} className={`skuId${item.skuId}`} onClick={removeItem}>Remove From Cart</Remove>
+                <Remove aria-label={`Remove Product ${item.name}, style ${item.style.name}`} className={`skuId${item.skuId}`} onClick={removeItem}>Remove From Cart</Remove>
               </div>
             );
           })
