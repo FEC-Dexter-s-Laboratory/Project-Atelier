@@ -41,9 +41,9 @@ const Card = (props) => {
     }
     let price;
     if (product.photos[0].thumbnail_url === null) {
-      image = <img style={{display: 'block', width: '100%', position: 'relative'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
+      image = <img style={{display: 'block', width: '100%', position: 'relative', borderRadius: '12px'}} src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="No image found" />;
     } else {
-      image = <img src={imgSource} alt={product.name} style={{display: 'block', width: '100%'}}/>;
+      image = <img src={imgSource} alt={product.name} style={{display: 'block', width: '100%', borderRadius: '12px'}}/>;
     }
     if (product.sale_price === null) {
       price = <div>{'$' + product.original_price}</div>;
@@ -87,7 +87,9 @@ const Card = (props) => {
           <div style={{xOverflow: 'hidden'}}>{product.category}</div>
           <b style={{xOverflow: 'hidden'}}>{product.name}</b>
           {price}
-          <StarDisplay font={30} rating={averageRating}/>
+          <div style={{padding: '0 0 2% 0'}}>
+            <StarDisplay font={30} rating={averageRating}/>
+          </div>
         </div>
       </CardStyle>
     );

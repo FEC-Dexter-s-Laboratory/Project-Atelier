@@ -47,18 +47,18 @@ const Carousel = (props) => {
         <CaroWrapper >
           <PreviewContainer>
             {previewIndex > 0 &&
-            <Arrow aria-label='Left scroll button' style={{left: '0', top: '0', height: '100%', width: '10%', zIndex: '999'}} onClick={(e) => previewLeft(e)}> &lt; </Arrow>
+            <Arrow aria-label='Left scroll button' style={{left: '0', top: '-5%', height: '100%', width: '10%', zIndex: '999'}} onClick={(e) => previewLeft(e)}> &lt; </Arrow>
             }
             {images.map(image =>
               <PreviewImage key={image.thumbnail_url} style={{transform: `translateX(-${previewIndex * (100)}%)`}}>
                 <img src={image.thumbnail_url} onClick={(event) => {
                   event.stopPropagation();
                   props.setCurrentImage(image.thumbnail_url);
-                }} width="70px" style={{overflow: 'hidden'}}/>
+                }} width="70px" style={{overflow: 'hidden', borderRadius: '12px'}}/>
               </PreviewImage>
             )}
             {previewIndex < (images.length - 4) &&
-            <Arrow aria-label='Right scroll button' style={{right: '0', top: '0', height: '100%', width: '10%', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
+            <Arrow aria-label='Right scroll button' style={{right: '0', top: '-5%', height: '100%', width: '10%', zIndex: '999'}} onClick={(e) => previewRight(e)}> &gt; </Arrow>
             }
           </PreviewContainer>
         </CaroWrapper>
