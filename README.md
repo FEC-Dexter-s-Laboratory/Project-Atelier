@@ -5,6 +5,8 @@ website put together, a structure to manage states from a high level that is abl
 and aesthetically pleasing to the eye, and an optimized approach not only for performance, but also for accessibility, because we care about our customers
 and we want anyone to be able to successfully navigate our website with ease.
 
+!['Site Recording'](Site-Recording.gif)
+
 ## Table of Contents
 - Getting Started
 - Widgets
