@@ -25,7 +25,7 @@ and we want anyone to be able to successfully navigate our website with ease.
 ### [Questions & Answers](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/tree/main/client/src/components/QnA_subComponents)
 - Cody Kazuma [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/kevinzhugao/)](https://www.linkedin.com/in/cody-kazuma/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/kevinzhugao)](https://github.com/KodAlpha)
 
-### [Ratings & Reviews](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/tree/main/client/src/components/Reviews)
+### [Ratings & Reviews](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/tree/main/client/src/components/Reviews/README.md)
 - Kamran Masood [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/kevinzhugao)](https://github.com/kamasood)
 
 ## Optimization
