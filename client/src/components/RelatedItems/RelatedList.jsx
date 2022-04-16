@@ -16,11 +16,10 @@ class RelatedItems extends React.Component {
 
   handleRendering() {
     let relatedProducts = [];
-    // GET related ids (currently using testId, change later!)
+    // GET related ids
     axios.get(`/products/${this.props.currentId}/related`)
       .then(({ data }) => {
         // for each id, GET product details
-        // filter for duplicate related item
         let relatedIds = {};
         for (let i = 0; i < data.length; i++) {
           if (data[i].toString() !== this.props.currentId) {

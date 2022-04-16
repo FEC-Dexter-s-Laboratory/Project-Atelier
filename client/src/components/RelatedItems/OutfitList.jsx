@@ -82,6 +82,7 @@ class OutfitList extends React.Component {
         );
     }
   }
+
   // make onClick for default card (adds current product to outfits list)
   handleDefaultClick(event) {
     event.preventDefault();

@@ -166,12 +166,14 @@ const PreviewImage = styled.div`
   border: 1px solid grey;
   justify-content: start;
   z-index: 800;
+  border-radius: 12px;
 `;
 
 // for cards
 const CardStyle = styled.div`
   padding: 8;
   border: 1px solid black;
+  border-radius: 12px;
   height: 99%;
   width: 70%;
   overflow: hidden;
@@ -186,7 +188,7 @@ const Image = styled.div`
   align-items: center;
   top: 50%;
   height: 50%;
-  min-height: 400px;
+  min-height: 40vh;
   width: 100%;
   z-index: 20;
 `;

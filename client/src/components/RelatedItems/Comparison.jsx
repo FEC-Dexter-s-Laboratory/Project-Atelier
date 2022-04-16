@@ -30,11 +30,9 @@ class Comparison extends React.Component {
           });
         }
         let featList = data.features;
-        // for each feature of this product
         for (let i = 0; i < featList.length; i++) {
           let currentFeat = featList[i].feature;
           if (featList[i].value !== null) {
-            // if feature doesn't already exist in current characteristics, add it
             if (!currentChars[currentFeat]) {
               let tuple = ['', ''];
               tuple[position] = featList[i].value;
@@ -42,7 +40,6 @@ class Comparison extends React.Component {
                 tuple[position] = '&#10004;';
               }
               currentChars[currentFeat] = tuple;
-            // else add the value in the correct position
             } else {
               currentChars[currentFeat][position] = featList[i].value;
             }
@@ -57,7 +54,6 @@ class Comparison extends React.Component {
       });
   }
 
-  // make API calls for products at /product/product_id
   componentDidMount() {
     this.getFeatures(this.props.mainId, 0);
     this.getFeatures(this.props.comparedId, 1);
