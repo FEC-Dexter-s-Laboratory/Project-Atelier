@@ -1,4 +1,6 @@
-### Kamran Masood [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/kevinzhugao)](https://github.com/kamasood)
+# Ratings & Reviews
+
+## Kamran Masood [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/kevinzhugao)](https://github.com/kamasood)
 
 !['Ratings & Reviews Recording'](ratings-reviews.gif)
 
