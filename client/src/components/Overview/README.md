@@ -1,6 +1,8 @@
 # Overview
 The Overview component includes the navbar at the top, as well as the main overview for a specific product.
 
+!['Overview Recording'](overview.gif)
+
 ## Table of Contents
 - Navbar
 - Main Overview
