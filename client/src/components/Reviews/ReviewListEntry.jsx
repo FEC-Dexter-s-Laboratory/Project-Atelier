@@ -13,7 +13,6 @@ const EntryContainer = styled.div`
   min-height: 40%;
   background-color: rgba(255, 255, 255, .25);
   border-radius: 20px;
-  overflow-wrap: auto;
 `;
 
 const Header = styled.div`
@@ -40,6 +39,9 @@ const Body = styled.div`
   grid-row-end: -2;
   font-size: 15px;
   margin: 1% 2% 5% 1%;
+  width: 700px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 `;
 
 const Response = styled.div`
