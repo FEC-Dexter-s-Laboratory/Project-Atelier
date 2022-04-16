@@ -1,6 +1,8 @@
 # Blue Steel Brand
 Where you can make yourself a superstar for the right price!
 
+!['Site Recording'](Site-Recording.gif)
+
 ## Table of Contents
 - Getting Started
 - Widgets
