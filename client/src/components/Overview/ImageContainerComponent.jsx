@@ -20,6 +20,7 @@ const ExpandIcon = styled.img`
   right: 18%;
   cursor: pointer;
   box-shadow: 10px 5px 5px black;
+  border-radius: 12px;
 `;
 
 const MainImage = styled.img`
@@ -29,6 +30,7 @@ const MainImage = styled.img`
   height: 100vh;
   cursor: zoom-in;
   object-fit: contain;
+  border-radius: 12px;
 `;
 
 const ThumbDiv = styled.div`
@@ -215,7 +217,7 @@ const ImageContainerComponent = (props) => {
               return (
                 <div key={index} style={{gridColumn: stylesColCounter, gridRow: stylesRowCounter, display: thumbDisplay, justifyContent: 'end', alignItems: 'center'}} id={`${style.id}thumbDiv`}>
                   <img
-                    style={{border: index === 0 ? '4px solid white' : null, height: '100px', width: '100px', position: 'absolute', zIndex: '12', float: 'right', cursor: 'pointer', boxShadow: '10px 5px 5px black'}}
+                    style={{border: index === 0 ? '4px solid white' : null, height: '100px', width: '100px', position: 'absolute', zIndex: '12', float: 'right', cursor: 'pointer', boxShadow: '10px 5px 5px black', borderRadius: '12px'}}
                     src={!style.srcThumb ? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' : style.srcThumb}
                     alt={`Thumbnail${index}`}
                     className={style.id}
