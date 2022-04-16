@@ -5,7 +5,7 @@ website put together, a structure to manage states from a high level that is abl
 and aesthetically pleasing to the eye, and an optimized approach not only for performance, but also for accessibility, because we care about our customers
 and we want anyone to be able to successfully navigate our website with ease.
 
-!['Site Recording'](Site-Recording.gif)
+!['Site Recording'](SiteRecording.gif)
 
 ## Table of Contents
 - Getting Started
@@ -13,14 +13,13 @@ and we want anyone to be able to successfully navigate our website with ease.
 - Optimization
 - Tech Stack
 
-## Getting Started
-- To be continued...
+## [Getting Started](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/blob/main/GettingStarted.md)
 
 ## Widgets
 ### [Overview](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/tree/main/client/src/components/Overview/README.md)
 - Mitchell Wintrow [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/kevinzhugao/)](https://www.linkedin.com/in/mitchell-wintrow-87b180216/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/Daniel-Ghaly)](https://github.com/mrrobotisreal)
 
-### [Related Products](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/tree/main/client/src/components/RelatedItems)
+### [Related Products](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/blob/main/RelatedProducts.md)
 - Ivy Wong [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/kevinzhugao/)](https://www.linkedin.com/in/ivy-k-wong/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/kevinzhugao)](https://github.com/ivykw)
 
 ### [Questions & Answers](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/tree/main/client/src/components/QnA_subComponents)
