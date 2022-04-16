@@ -19,7 +19,7 @@ and we want anyone to be able to successfully navigate our website with ease.
 ### [Overview](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/tree/main/client/src/components/Overview/README.md)
 - Mitchell Wintrow [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/kevinzhugao/)](https://www.linkedin.com/in/mitchell-wintrow-87b180216/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/Daniel-Ghaly)](https://github.com/mrrobotisreal)
 
-### [Related Products](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/blob/main/RelatedProducts.md)
+### [Related Products](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/tree/main/client/src/components/RelatedItems/README.md)
 - Ivy Wong [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/kevinzhugao/)](https://www.linkedin.com/in/ivy-k-wong/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/kevinzhugao)](https://github.com/ivykw)
 
 ### [Questions & Answers](https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier/tree/main/client/src/components/QnA_subComponents/QuestionsAndAnswer.md)

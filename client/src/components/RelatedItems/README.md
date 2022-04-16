@@ -1,7 +1,6 @@
 # Related Products
----
 
-# Ivy Wong [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/kevinzhugao/)](https://www.linkedin.com/in/ivy-k-wong/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/kevinzhugao)](https://github.com/ivykw)
+## Ivy Wong [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/ivy-k-wong/)](https://www.linkedin.com/in/ivy-k-wong/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/ivykw)](https://github.com/ivykw)
 
 !['Related Products Recording'](RelatedProducts.gif)
 
