@@ -12,22 +12,22 @@ git clone https://github.com/FEC-Dexter-s-Laboratory/Project-Atelier
 npm install
 ```
 
-3. Run webpack to create a build bundle
+3. Set up authorization in .env file
+
+```bash
+AUTH_TOKEN="your_API_token_here"
+```
+
+4. Run webpack to create a build bundle
 
 ```bash
 npm run client-prod
 ```
 
-4. Start up server
+5. Start up server
 
 ```bash
 npm run server-prod
-```
-
-5. Set up authorization in .env file
-
-```bash
-AUTH_TOKEN="your_API_token_here"
 ```
 
 6. Open app in browser
